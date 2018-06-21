@@ -4,9 +4,7 @@ package com.blservice;
 import com.enums.*;
 import com.model.picture.Picture;
 import com.vo.personaltagvo.CombineResVO;
-import com.vo.projectvo.ProjectBasic;
-import com.vo.projectvo.ProjectVO;
-import com.vo.projectvo.UploadProVO;
+import com.vo.projectvo.*;
 import com.vo.uservo.ProBriefInfo;
 import net.sf.json.JSONArray;
 
@@ -57,9 +55,6 @@ public interface ProjectBLService{
     //工人得到的实际积分
     double getPoints(String pid, String uid);
 
-    //提醒用户选择人数过少
-    ArrayList<String> toRemind(String username);
-
     //存储整合结果
     ResultMessage saveCombineRes(CombineResVO combineResVO);
 
@@ -79,7 +74,13 @@ public interface ProjectBLService{
 
     ResultMessage changeToFinish(String pid);
 
-    ArrayList<ProjectBasic> recommendPro(String uid);
+    ArrayList<Recommend1> recommendPro(String uid);
+
+    ArrayList<Recommend2> recommendSimiPro(String pid, String uid);
+
+    ArrayList<FinishCondition> showFinishConditionList(String pid);
+
+    ArrayList<Recommend1> newestPro();
 
 //    ArrayList<>
 

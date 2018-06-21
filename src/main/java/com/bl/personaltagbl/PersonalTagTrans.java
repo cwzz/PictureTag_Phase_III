@@ -49,7 +49,7 @@ public class PersonalTagTrans {
         }
         return new ArrayList<>(Arrays.asList(pictureVOS));
     }
-    private ArrayList<PictureVO> transPictureToVo(Set<Picture> pictures){
+    public ArrayList<PictureVO> transPictureToVo(Set<Picture> pictures){
         PictureVO[] pictureVOS=new PictureVO[pictures.size()];
         for (Picture picture:pictures){
             PencilLineVO[] pencilLineVOS=this.transPencilToVo(picture.getPencilTag());

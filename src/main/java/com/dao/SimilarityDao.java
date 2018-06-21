@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
+import java.util.ArrayList;
 
 @Repository
 @Table(name="similarity")
@@ -19,4 +20,7 @@ public interface SimilarityDao extends JpaRepository<Similarity,String> {
 
     @Query("select s from Similarity s where s.pid1=:pid1 and s.pid2=:pid2 or s.pid1=:pid2 and s.pid2=:pid1")
     Similarity showSimi(@Param("pid1") String pid1, @Param("pid2") String pid2);
+
+    @Query("select s from Similarity s where s.pid1=:pid or s.pid2=:pid")
+    ArrayList<Similarity> getAllSimi(@Param("pid") String pid);
 }

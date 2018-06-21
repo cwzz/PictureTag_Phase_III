@@ -2,9 +2,7 @@ package com.controller;
 
 import com.bl.integratebl.test;
 import com.blservice.PersonalTagBLService;
-import com.dao.PersonalTagDao;
 import com.enums.ResultMessage;
-import com.model.PersonalTag;
 import com.vo.personaltagvo.ShowReq;
 import com.vo.personaltagvo.UpdatePersonalTagReq;
 import com.vo.tag.PersonalTagVO;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/personalTag")
 public class PersonalTagController {
@@ -38,8 +38,7 @@ public class PersonalTagController {
     @RequestMapping(value = "/test1")
     public @ResponseBody
     ArrayList<PersonalTagVO> test1(){
-       ArrayList<PersonalTagVO> a=personalTagBLService.getAllPersonalTagByPid("20180614112314-jane");
-        return a;
+        return personalTagBLService.getAllPersonalTagByPid("20180614112314-jane");
     }
 
     @RequestMapping(value = "/update")
@@ -64,5 +63,11 @@ public class PersonalTagController {
     public @ResponseBody
     String[] getNextGroup(@RequestParam String username,@RequestParam String projectID){
         return personalTagBLService.getNextGroupPicture(projectID,username);
+    }
+
+    @RequestMapping(value = "/requestViewAllWork")
+    public @ResponseBody
+    List<String> getHisWork(@RequestParam String username, @RequestParam String projectID){
+        return personalTagBLService.requesterCheckAllWork(username, projectID);
     }
 }

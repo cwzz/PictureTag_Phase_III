@@ -6,6 +6,7 @@ import com.vo.tag.PictureVO;
 import com.vo.uservo.ProBriefInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface PersonalTagBLService{
@@ -29,4 +30,6 @@ public interface PersonalTagBLService{
 
     //提供给用户查询到的用户承包过的项目
     ArrayList<ProBriefInfo> getContract(String username);
+
+    List<String> requesterCheckAllWork(String username, String projectID);
 }

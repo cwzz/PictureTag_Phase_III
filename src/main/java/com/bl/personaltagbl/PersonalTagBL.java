@@ -2,6 +2,7 @@ package com.bl.personaltagbl;
 
 
 import com.bl.Constant;
+import com.bl.integratebl.DrawPicture;
 import com.blservice.PersonalTagBLService;
 import com.blservice.ProjectBLService;
 import com.blservice.UserBLService;
@@ -31,54 +32,42 @@ public class PersonalTagBL implements PersonalTagBLService {
     private ProjectBLService projectBLService;
     @Autowired
     private UserBLService userBLService;
+    @Autowired
+    private DrawPicture drawPicture;
 
     @Override
     public ResultMessage updatePersonalTag(String pid,String uid, ArrayList<PictureVO> pictures) {
-        for(PictureVO v:pictures){
-            System.err.println(v.toString());
+        for(PictureVO pictureVO:pictures){
+            System.err.println(pictureVO);
         }
-
         PersonalTag personalTag=personalTagDao.searchByPidAndUid(pid,uid);
         if(personalTag==null){
             return ResultMessage.NOTEXIST;
         }
         int workGroup=personalTag.getWorkGroup().split(" ").length;
-        System.err.println(workGroup);
         int begin=(workGroup-1)*Constant.PictureNumPerGroup;
         ArrayList<Picture> updatePictures=personalTagTrans.transPictureToPo2(pictures,begin);
         Set<Picture> pictureSet=personalTag.getPictures();
         Set<Picture> tempSet=new HashSet<>();
-        System.err.println("begin:-----------------------"+begin);
-        System.err.println(pictureSet.size());
-        //pictureSet.clear();
+        System.err.println("begin--------------:"+begin);
+        System.err.println("picturesetsize:------------"+pictureSet.size());
+        System.out.println("picturessize :----------------"+pictures.size());
         int i=0;
         for(Picture picture:pictureSet){
-            //System.err.println("PICTURESET:----------"+picture.toString());
             if(picture.getShunxu()>=begin){//本次修改的这一组
-                tempSet.add(updatePictures.get(i));
-                i++;
+                //if(i<pictures.size()){
+                    tempSet.add(updatePictures.get(i));
+                    i++;
+//                }else{
+//                    break;
+//                }
             }else{//之前的组别
-                //picture.setUrid(0);
                 tempSet.add(picture);
             }
         }
         pictureSet.clear();
         pictureSet.addAll(tempSet);
-//        for(Picture picture:pictureSet){
-//            System.err.println("---"+picture.toString());
-//        }
-//        pictureSet.clear();
-//        int i=0;
-//        for(Picture picture:pictureSet){
-//            if(picture.getShunxu()>=begin){//是要更新的图片
-//                pictureSet.remove(picture);
-//                pictureSet.add(updatePictures.get(i));
-//                i++;
-//            }
-//        }
-        //pictureSet.addAll(personalTagTrans.transPictureToPo(pictures));
-        //personalTag.setPictures(pictureSet);
-//        System.err.println(personalTag.toString());
+        System.out.println(personalTag.toString());
         personalTagDao.save(personalTag);
         return ResultMessage.SUCCESS;
     }
@@ -92,6 +81,7 @@ public class PersonalTagBL implements PersonalTagBLService {
             personalTag.setStartTime(new Date());
             personalTag.setState(ProjectState.TAGING);
             personalTag.setWorkGroup(String.valueOf(groupIndex));
+            personalTag.setResulturl(new ArrayList<>());
             Set<Picture> pictures=new HashSet<>();
             for(int i=0;i<urls.length;i++){
                 Picture p=new Picture();
@@ -140,6 +130,13 @@ public class PersonalTagBL implements PersonalTagBLService {
                 PersonalTag personalTag=t.get();
                 personalTag.setSubmitTime(new Date());
                 personalTag.setState(ProjectState.SUBMITTED);
+
+                ArrayList<PictureVO> pictureVOS=personalTagTrans.transPictureToVo(personalTag.getPictures());
+                ArrayList<String> resultUrls=drawPicture.drawPictures(pictureVOS,pid+"res");
+                for(String s:resultUrls){
+                    System.out.println(s);
+                }
+                personalTag.setResulturl(resultUrls);
                 personalTagDao.saveAndFlush(personalTag);
                 return ResultMessage.SUCCESS;
             }
@@ -217,5 +214,15 @@ public class PersonalTagBL implements PersonalTagBLService {
             result.add(proBriefInfo);
         }
         return result;
+    }
+
+    @Override
+    public List<String> requesterCheckAllWork(String username, String projectID) {
+        PersonalTag personalTag=personalTagDao.searchByPidAndUid(projectID,username);
+        if(!personalTag.getState().equals(ProjectState.TAGING)){
+            return personalTag.getResulturl();
+        }else{
+            return null;
+        }
     }
 }

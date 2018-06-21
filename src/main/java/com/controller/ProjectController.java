@@ -83,10 +83,18 @@ public class ProjectController {
     ResultMessage save(@RequestBody UploadProVO uploadProVO){
         return projectBLService.savePro(uploadProVO);
     }
-
+//
+//    /**
+//     * @Author: Jane
+//     * @Description: uplode project
+//     * @Date: 10:55 2018/4/11
+//     */
+//
     @RequestMapping(value="/upload",method = RequestMethod.POST)
     public @ResponseBody
     ResultMessage upload(@RequestBody UploadProVO uploadProVO){
+//        System.out.println(uploadProVO.getPro_ID());
+//        System.out.println(uploadProVO.toString());
         return projectBLService.uploadPro(uploadProVO);
     }
 
@@ -140,13 +148,13 @@ public class ProjectController {
         return projectBLService.choosePro(proReq.getUsername(),proReq.getPid());
     }
 
-    @RequestMapping(value = "/remind",method = RequestMethod.POST)
-    public  @ResponseBody
-    ArrayList<String> search(@RequestParam String username){
-        return projectBLService.toRemind(username);
-    }
+//    @RequestMapping(value = "/search",method = RequestMethod.POST)
+//    public  @ResponseBody
+//    ArrayList<Project> search(@RequestParam String keywords){
+//        return projectDao.searchPro(keywords);
+//    }
 
-
+//
     @RequestMapping(value = "/search")
     public @ResponseBody ArrayList<ProjectBasic> searchPro(@RequestBody SearchReq searchReq){
 //        SearchReq searchReq1=new SearchReq();
@@ -323,4 +331,25 @@ public class ProjectController {
         return statistics;
 
     }
+
+    @RequestMapping(value = "/recToUser",method = RequestMethod.POST)
+    public @ResponseBody ArrayList<Recommend1> recToUser(@RequestParam String uid){
+        return projectBLService.recommendPro(uid);
+    }
+
+    @RequestMapping(value = "/recSimiPro",method= RequestMethod.POST)
+    public @ResponseBody ArrayList<Recommend2> recSimiPro(@RequestParam String pid,@RequestParam String uid){
+        return projectBLService.recommendSimiPro(pid,uid);
+    }
+
+    @RequestMapping(value = "/showFinishCondition",method = RequestMethod.POST)
+    public @ResponseBody ArrayList<FinishCondition> showFinishCondition(@RequestParam String pid){
+        return projectBLService.showFinishConditionList(pid);
+    }
+
+    @RequestMapping(value = "/getNewest",method = RequestMethod.GET)
+    public @ResponseBody ArrayList<Recommend1> getNewest(){
+        return projectBLService.newestPro();
+    }
+
 }

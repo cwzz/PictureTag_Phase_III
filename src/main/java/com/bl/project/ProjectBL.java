@@ -5,6 +5,7 @@ import com.blservice.MessageBLService;
 import com.blservice.PersonalTagBLService;
 import com.blservice.ProjectBLService;
 import com.blservice.UserBLService;
+import com.dao.PersonalTagDao;
 import com.dao.ProjectDao;
 import com.dao.ProjectStatisticsDao;
 import com.dao.SimilarityDao;
@@ -16,9 +17,7 @@ import com.model.Similarity;
 import com.util.TransSetToArray;
 import com.vo.personaltagvo.CombineResVO;
 import com.vo.personaltagvo.UidAndPoints;
-import com.vo.projectvo.ProjectBasic;
-import com.vo.projectvo.ProjectVO;
-import com.vo.projectvo.UploadProVO;
+import com.vo.projectvo.*;
 import com.vo.tag.PersonalTagVO;
 import com.vo.uservo.ProBriefInfo;
 import net.sf.json.JSONArray;
@@ -120,7 +119,7 @@ public class ProjectBL implements ProjectBLService {
             if (!projectDao.existsById(uploadProVO.getPro_ID())) {
                 userBLService.updateExperience(uploadProVO.getPro_requester(),uploadProVO.getPoints());
                 userBLService.NewRelease(uploadProVO.getPro_requester(),uploadProVO.getPro_type());
-                userBLService.updateCredits(uploadProVO.getPro_requester(),uploadProVO.getPro_type(),uploadProVO.getPoints()*(-1));
+//                userBLService.updateCredits(uploadProVO.getPro_requester(),uploadProVO.getPro_type(),uploadProVO.getPoints()*(-1));
                 messageBLService.generateMessage(uploadProVO.getPro_requester(),"您已发布项目"+uploadProVO.getPro_ID(),uploadProVO.getPro_ID());
                 projectDao.saveAndFlush(projectPO);
             } else {
@@ -166,9 +165,9 @@ public class ProjectBL implements ProjectBLService {
             if(credits>userBLService.getCredits(username)){
                 return ResultMessage.CREDITNOTENOUGH;
             }
+            //更新用户的剩余积分
             //更新项目的积分
             Project project=projectDao.getOne(projectID);
-            //更新用户的剩余积分
             userBLService.updateCredits(username,project.getPro_type(),credits*(-1));
             project.setPoints(project.getPoints()+credits);
             projectDao.saveAndFlush(project);
@@ -339,21 +338,6 @@ public class ProjectBL implements ProjectBLService {
             }
         }
         return result;
-    }
-
-    @Override
-    public ArrayList<String> toRemind(String username) {
-        ArrayList<Project> projects=new ArrayList<>(projectDao.findByUser(username));
-        ArrayList<String> remind=new ArrayList<>();
-        for(Project project:projects){
-            if(project.getWorkerList().size()<Constant.MinimalContractPeople){
-                int totalDay = (int) ((project.getReleaseTime().getTime() - project.getDeadLine().getTime()) / (1000*3600*24));
-                if(project.getRemainTime()/totalDay <Constant.RemainTimeToRemind){
-                    remind.add(project.getPro_ID());
-                }
-            }
-        }
-        return remind;
     }
 
     @Override
@@ -705,12 +689,93 @@ public class ProjectBL implements ProjectBLService {
         }
     }
 
+    @Override
     //根据项目推荐相似项目
+    public ArrayList<Recommend2> recommendSimiPro(String pid,String uid){
+        ArrayList<Recommend2> a=new ArrayList<>();
+        ArrayList<ProBriefInfo> proBriefInfos=userBLService.getContract(uid).getContractOn();
+        ArrayList<String> pids=new ArrayList<>();
+        for(ProBriefInfo p:proBriefInfos){
+            pids.add(p.getPid());
+        }
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.REALEASED);
+        ArrayList<Similarity> getAllSimi=similarityDao.getAllSimi(pid);
+        ArrayList<Recommend2> res=new ArrayList<>();
+        Map<String,Double> map=new HashMap<>();
+        for(Similarity s:getAllSimi){
+            if(s.getPid1().equals(pid)){
+                map.put(s.getPid2(),s.getSimilarity());
+            }else{
+                map.put(s.getPid1(),s.getSimilarity());
+            }
+        }
+        List<Map.Entry<String,Double>> sort=new ArrayList<>(map.entrySet());
+        Collections.sort(sort, new Comparator<Map.Entry<String, Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                //降序排序
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        for(Map.Entry<String,Double> mapping:sort){
+            Project p=projectDao.getOne(mapping.getKey());
+            Recommend2 recommend2=new Recommend2(p);
+            res.add(recommend2);
+        }
+
+        for(Recommend2 r:res){
+            if(!pids.contains(r.getPid())){
+                a.add(r);
+            }
+        }
+        return a;
+
+    }
+
+    @Override
+    public ArrayList<FinishCondition> showFinishConditionList(String pid) {
+        ArrayList<FinishCondition> res=new ArrayList<>();
+        Set<String> workers=projectDao.getOne(pid).getWorkerList();
+        for(String w:workers){
+            PersonalTagVO personalTagVO=personalTagBLService.showPersonalTagBySomeOne(pid,w);
+            long spendTime=(personalTagVO.getSubmitTime().getTime()-personalTagVO.getStartTime().getTime())/1000/60;
+            FinishCondition finishCondition=new FinishCondition(0,w,personalTagVO.getSubmitTime(),spendTime);
+            res.add(finishCondition);
+        }
+
+        Collections.sort(res, new Comparator<FinishCondition>() {
+            @Override
+            public int compare(FinishCondition o1, FinishCondition o2) {
+                return (int) (o1.getSpendTime()-o2.getSpendTime());
+            }
+        });
+        for(int i=0;i<res.size();i++){
+            res.get(i).setCixu(i+1);
+        }
+        return res;
+    }
+
+    @Override
+    public ArrayList<Recommend1> newestPro() {
+        ArrayList<Recommend1> res=new ArrayList<>();
+        List<Project> allPros=projectDao.findAll();
+        Collections.sort(allPros, new Comparator<Project>() {
+            @Override
+            public int compare(Project o1, Project o2) {
+                return (int)(o2.getReleaseTime().getTime()-o1.getReleaseTime().getTime());
+            }
+        });
+        for(Project a:allPros){
+            res.add(new Recommend1(a));
+        }
+        return res;
+    }
+
 
     //为用户推荐项目
     @Override
-    public ArrayList<ProjectBasic> recommendPro(String uid) {
-        ArrayList<ProjectBasic> res=new ArrayList<>();
+    public ArrayList<Recommend1> recommendPro(String uid) {
+        ArrayList<Recommend1> res=new ArrayList<>();
         ArrayList<ProBriefInfo> proBriefInfos=userBLService.getContract(uid).getContractOn();
         ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.REALEASED);
         Map<String,Double> list=new HashMap<>();
@@ -740,8 +805,8 @@ public class ProjectBL implements ProjectBLService {
         });
         for(Map.Entry<String,Double> mapping:sort){
             Project p=projectDao.getOne(mapping.getKey());
-            ProjectBasic projectBasic=projectTransVOPO.transProjectToProjectBasic(p);
-            res.add(projectBasic);
+            Recommend1 recommend1=new Recommend1(p);
+            res.add(recommend1);
         }
         return res;
     }
@@ -755,15 +820,26 @@ public class ProjectBL implements ProjectBLService {
             Set<String> temp=projectDao.getOne(u).getWorkerList();
             List<String> workers2=new ArrayList<>(temp);
             double simi=calWij(workers1,workers2);
-            Similarity similarity=new Similarity(u,pid,simi);
-            similarityDao.saveAndFlush(similarity);
+            Similarity similarity=similarityDao.showSimi(pid,u);
+            if(similarity==null){
+                Similarity newSimilarity=new Similarity(u,pid,simi);
+                similarityDao.saveAndFlush(newSimilarity);
+            }else{
+                similarity.setSimilarity(simi);
+                similarityDao.saveAndFlush(similarity);
+            }
         }
     }
 
     //计算两个项目之间的同现相似度
     private double calWij(List<String> workerList1,List<String> workerList2){
         int num=getIntersection(workerList1,workerList2).size();
-        double res=num/Math.sqrt(workerList1.size()*workerList2.size());
+        double res=0.0;
+        if(workerList1.size()==0||workerList2.size()==0){
+            res=0;
+        }else{
+            res=num/Math.sqrt(workerList1.size()*workerList2.size());
+        }
         return res;
     }
 
@@ -792,187 +868,187 @@ public class ProjectBL implements ProjectBLService {
         return projectDao.sum();
     }
 
-    private Map<String,Integer> completeInt(Map<String,Integer> res){
-        boolean tag1=false;
-        boolean tag2=false;
-        boolean tag3=false;
-        boolean tag4=false;
-        boolean tag5=false;
-        boolean tag6=false;
-        boolean tag7=false;
-        boolean tag8=false;
-        boolean tag9=false;
-        boolean tag10=false;
-        boolean tag11=false;
-        boolean tag12=false;
-        for(Map.Entry<String,Integer> entry:res.entrySet()){
-            if(entry.getKey().contains("01")){
-                tag1=true;
-                break;
-            }else if(entry.getKey().contains("02")){
-                tag2=true;
-                break;
-            }else if(entry.getKey().contains("03")){
-                tag3=true;
-                break;
-            }else if(entry.getKey().contains("04")){
-                tag4=true;
-                break;
-            }else if(entry.getKey().contains("05")){
-                tag5=true;
-                break;
-            }else if(entry.getKey().contains("06")){
-                tag6=true;
-                break;
-            }else if(entry.getKey().contains("07")){
-                tag7=true;
-                break;
-            }else if(entry.getKey().contains("08")){
-                tag8=true;
-                break;
-            }else if(entry.getKey().contains("09")){
-                tag9=true;
-                break;
-            }else if(entry.getKey().contains("10")){
-                tag10=true;
-                break;
-            }else if(entry.getKey().contains("11")){
-                tag11=true;
-                break;
-            }else if(entry.getKey().contains("12")){
-                tag12=true;
-                break;
-            }
-        }
-        if(!tag1){
-            res.put("01",0);
-        }
-        if(!tag2){
-            res.put("02",0);
-        }
-        if(!tag3){
-            res.put("03",0);
-        }
-        if(!tag4){
-            res.put("04",0);
-        }
-        if(!tag5){
-            res.put("05",0);
-        }
-        if(!tag6){
-            res.put("06",0);
-        }
-        if(!tag7){
-            res.put("07",0);
-        }
-        if(!tag8){
-            res.put("08",0);
-        }
-        if(!tag9){
-            res.put("09",0);
-        }
-        if(!tag10){
-            res.put("10",0);
-        }
-        if(!tag11){
-            res.put("11",0);
-        }
-        if(!tag12){
-            res.put("12",0);
-        }
-        return res;
-    }
-
-    private Map<String,Double> completeDouble(Map<String,Double> res){
-        boolean tag1=false;
-        boolean tag2=false;
-        boolean tag3=false;
-        boolean tag4=false;
-        boolean tag5=false;
-        boolean tag6=false;
-        boolean tag7=false;
-        boolean tag8=false;
-        boolean tag9=false;
-        boolean tag10=false;
-        boolean tag11=false;
-        boolean tag12=false;
-        for(Map.Entry<String,Double> entry:res.entrySet()){
-            if(entry.getKey().contains("01")){
-                tag1=true;
-                break;
-            }else if(entry.getKey().contains("02")){
-                tag2=true;
-                break;
-            }else if(entry.getKey().contains("03")){
-                tag3=true;
-                break;
-            }else if(entry.getKey().contains("04")){
-                tag4=true;
-                break;
-            }else if(entry.getKey().contains("05")){
-                tag5=true;
-                break;
-            }else if(entry.getKey().contains("06")){
-                tag6=true;
-                break;
-            }else if(entry.getKey().contains("07")){
-                tag7=true;
-                break;
-            }else if(entry.getKey().contains("08")){
-                tag8=true;
-                break;
-            }else if(entry.getKey().contains("09")){
-                tag9=true;
-                break;
-            }else if(entry.getKey().contains("10")){
-                tag10=true;
-                break;
-            }else if(entry.getKey().contains("11")){
-                tag11=true;
-                break;
-            }else if(entry.getKey().contains("12")){
-                tag12=true;
-                break;
-            }
-        }
-        if(!tag1){
-            res.put("01",0.0);
-        }
-        if(!tag2){
-            res.put("02",0.0);
-        }
-        if(!tag3){
-            res.put("03",0.0);
-        }
-        if(!tag4){
-            res.put("04",0.0);
-        }
-        if(!tag5){
-            res.put("05",0.0);
-        }
-        if(!tag6){
-            res.put("06",0.0);
-        }
-        if(!tag7){
-            res.put("07",0.0);
-        }
-        if(!tag8){
-            res.put("08",0.0);
-        }
-        if(!tag9){
-            res.put("09",0.0);
-        }
-        if(!tag10){
-            res.put("10",0.0);
-        }
-        if(!tag11){
-            res.put("11",0.0);
-        }
-        if(!tag12){
-            res.put("12",0.0);
-        }
-        return res;
-    }
+//    private Map<String,Integer> completeInt(Map<String,Integer> res){
+//        boolean tag1=false;
+//        boolean tag2=false;
+//        boolean tag3=false;
+//        boolean tag4=false;
+//        boolean tag5=false;
+//        boolean tag6=false;
+//        boolean tag7=false;
+//        boolean tag8=false;
+//        boolean tag9=false;
+//        boolean tag10=false;
+//        boolean tag11=false;
+//        boolean tag12=false;
+//        for(Map.Entry<String,Integer> entry:res.entrySet()){
+//            if(entry.getKey().contains("01")){
+//                tag1=true;
+//                break;
+//            }else if(entry.getKey().contains("02")){
+//                tag2=true;
+//                break;
+//            }else if(entry.getKey().contains("03")){
+//                tag3=true;
+//                break;
+//            }else if(entry.getKey().contains("04")){
+//                tag4=true;
+//                break;
+//            }else if(entry.getKey().contains("05")){
+//                tag5=true;
+//                break;
+//            }else if(entry.getKey().contains("06")){
+//                tag6=true;
+//                break;
+//            }else if(entry.getKey().contains("07")){
+//                tag7=true;
+//                break;
+//            }else if(entry.getKey().contains("08")){
+//                tag8=true;
+//                break;
+//            }else if(entry.getKey().contains("09")){
+//                tag9=true;
+//                break;
+//            }else if(entry.getKey().contains("10")){
+//                tag10=true;
+//                break;
+//            }else if(entry.getKey().contains("11")){
+//                tag11=true;
+//                break;
+//            }else if(entry.getKey().contains("12")){
+//                tag12=true;
+//                break;
+//            }
+//        }
+//        if(!tag1){
+//            res.put("01",0);
+//        }
+//        if(!tag2){
+//            res.put("02",0);
+//        }
+//        if(!tag3){
+//            res.put("03",0);
+//        }
+//        if(!tag4){
+//            res.put("04",0);
+//        }
+//        if(!tag5){
+//            res.put("05",0);
+//        }
+//        if(!tag6){
+//            res.put("06",0);
+//        }
+//        if(!tag7){
+//            res.put("07",0);
+//        }
+//        if(!tag8){
+//            res.put("08",0);
+//        }
+//        if(!tag9){
+//            res.put("09",0);
+//        }
+//        if(!tag10){
+//            res.put("10",0);
+//        }
+//        if(!tag11){
+//            res.put("11",0);
+//        }
+//        if(!tag12){
+//            res.put("12",0);
+//        }
+//        return res;
+//    }
+//
+//    private Map<String,Double> completeDouble(Map<String,Double> res){
+//        boolean tag1=false;
+//        boolean tag2=false;
+//        boolean tag3=false;
+//        boolean tag4=false;
+//        boolean tag5=false;
+//        boolean tag6=false;
+//        boolean tag7=false;
+//        boolean tag8=false;
+//        boolean tag9=false;
+//        boolean tag10=false;
+//        boolean tag11=false;
+//        boolean tag12=false;
+//        for(Map.Entry<String,Double> entry:res.entrySet()){
+//            if(entry.getKey().contains("01")){
+//                tag1=true;
+//                break;
+//            }else if(entry.getKey().contains("02")){
+//                tag2=true;
+//                break;
+//            }else if(entry.getKey().contains("03")){
+//                tag3=true;
+//                break;
+//            }else if(entry.getKey().contains("04")){
+//                tag4=true;
+//                break;
+//            }else if(entry.getKey().contains("05")){
+//                tag5=true;
+//                break;
+//            }else if(entry.getKey().contains("06")){
+//                tag6=true;
+//                break;
+//            }else if(entry.getKey().contains("07")){
+//                tag7=true;
+//                break;
+//            }else if(entry.getKey().contains("08")){
+//                tag8=true;
+//                break;
+//            }else if(entry.getKey().contains("09")){
+//                tag9=true;
+//                break;
+//            }else if(entry.getKey().contains("10")){
+//                tag10=true;
+//                break;
+//            }else if(entry.getKey().contains("11")){
+//                tag11=true;
+//                break;
+//            }else if(entry.getKey().contains("12")){
+//                tag12=true;
+//                break;
+//            }
+//        }
+//        if(!tag1){
+//            res.put("01",0.0);
+//        }
+//        if(!tag2){
+//            res.put("02",0.0);
+//        }
+//        if(!tag3){
+//            res.put("03",0.0);
+//        }
+//        if(!tag4){
+//            res.put("04",0.0);
+//        }
+//        if(!tag5){
+//            res.put("05",0.0);
+//        }
+//        if(!tag6){
+//            res.put("06",0.0);
+//        }
+//        if(!tag7){
+//            res.put("07",0.0);
+//        }
+//        if(!tag8){
+//            res.put("08",0.0);
+//        }
+//        if(!tag9){
+//            res.put("09",0.0);
+//        }
+//        if(!tag10){
+//            res.put("10",0.0);
+//        }
+//        if(!tag11){
+//            res.put("11",0.0);
+//        }
+//        if(!tag12){
+//            res.put("12",0.0);
+//        }
+//        return res;
+//    }
 
     @Override
     public Map<String, Integer> releasedPerMonth(String year) {
@@ -983,7 +1059,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedAnimalNum()+p.getReleasedSceneNum()+p.getReleasedGoodsNum()+p.getReleasedPersonNum()+p.getReleasedOthersNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -996,7 +1072,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakeAnimalNum()+p.getWaitUndertakeGoodsNum()+p.getWaitUndertakeOthersNum()+p.getWaitUndertakePersonNum()+p.getWaitUndertakeSceneNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1009,7 +1085,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedAnimalNum()+p.getFinishedGoodsNum()+p.getFinishedOthersNum()+p.getFinishedPersonNum()+p.getFinishedSceneNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1022,7 +1098,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedAnimalNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1035,7 +1111,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedSceneNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1048,7 +1124,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedPersonNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1061,7 +1137,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedGoodsNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1074,7 +1150,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getReleasedOthersNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1087,7 +1163,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakeAnimalNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1100,7 +1176,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakeSceneNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1113,7 +1189,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakePersonNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1126,7 +1202,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakeGoodsNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1139,7 +1215,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getWaitUndertakeOthersNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1152,7 +1228,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedAnimalNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1165,7 +1241,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedSceneNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1178,7 +1254,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedPersonNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1191,7 +1267,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedGoodsNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
@@ -1204,7 +1280,7 @@ public class ProjectBL implements ProjectBLService {
                 res.put(p.getYearAndMonth().split("-")[1],p.getFinishedOthersNum());
             }
         }
-        res=completeInt(res);
+//        res=completeInt(res);
         return res;
     }
 
