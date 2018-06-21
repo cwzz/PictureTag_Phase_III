@@ -352,4 +352,9 @@ public class ProjectController {
         return projectBLService.newestPro();
     }
 
+    @RequestMapping(value = "/mark",method = RequestMethod.POST)
+    public @ResponseBody ResultMessage mark(@RequestParam String pid,@RequestParam int score){
+        return projectBLService.markCombineRes(pid,score);
+    }
+
 }

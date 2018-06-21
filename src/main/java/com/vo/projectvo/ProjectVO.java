@@ -27,13 +27,14 @@ public class ProjectVO {
     private String note;
     private String[] urls;
     private String[] finished_list;
+    private int satisfy;
 
 
 
 
     public ProjectVO(){}
     public ProjectVO(String pro_ID,String pro_name,double points,String brief_intro,String[] workerList,Date releaseTime,Date deadLine,int remainTime,
-                     ProjectType pro_type,ProjectState pro_state,String pro_requester,String detailRequire,String note,String[] urls,String[] finishedList){
+                     ProjectType pro_type,ProjectState pro_state,String pro_requester,String detailRequire,String note,String[] urls,String[] finishedList,int satisfy){
         this.pro_ID=pro_ID;
         this.pro_name=pro_name;
         this.points=points;
@@ -49,45 +50,46 @@ public class ProjectVO {
         this.note=note;
         this.urls=urls;
         this.finished_list=finishedList;
+        this.satisfy=satisfy;
     }
 
-    public String toUrlString(){
-        StringBuilder res= new StringBuilder();
-        if(urls.length==0){
-            res = new StringBuilder();
-        }else{
-            for(int i=0;i<urls.length-1;i++){
-                res.append(urls[i]).append(",");
-            }
-            res.append(urls[urls.length - 1]);
-        }
-        return res.toString();
-    }
-
-    public String toWorkerString(){
-        String res="";
-        if(workerList.length==0){
-            res="";
-        }else{
-            for(int i=0;i<workerList.length-1;i++){
-                res=workerList[i]+",";
-            }
-            res=res+workerList[workerList.length-1];
-        }
-        return res;
-    }
-
-    public String toFinishedListString(){
-        String res="";
-        if(finished_list.length==0){
-            res="";
-        }else{
-            for(int i=0;i<finished_list.length;i++){
-                res=finished_list[i]+",";
-            }
-            res=res+finished_list[finished_list.length-1];
-        }
-        return res;
-    }
+//    public String toUrlString(){
+//        StringBuilder res= new StringBuilder();
+//        if(urls.length==0){
+//            res = new StringBuilder();
+//        }else{
+//            for(int i=0;i<urls.length-1;i++){
+//                res.append(urls[i]).append(",");
+//            }
+//            res.append(urls[urls.length - 1]);
+//        }
+//        return res.toString();
+//    }
+//
+//    public String toWorkerString(){
+//        String res="";
+//        if(workerList.length==0){
+//            res="";
+//        }else{
+//            for(int i=0;i<workerList.length-1;i++){
+//                res=workerList[i]+",";
+//            }
+//            res=res+workerList[workerList.length-1];
+//        }
+//        return res;
+//    }
+//
+//    public String toFinishedListString(){
+//        String res="";
+//        if(finished_list.length==0){
+//            res="";
+//        }else{
+//            for(int i=0;i<finished_list.length;i++){
+//                res=finished_list[i]+",";
+//            }
+//            res=res+finished_list[finished_list.length-1];
+//        }
+//        return res;
+//    }
 
 }

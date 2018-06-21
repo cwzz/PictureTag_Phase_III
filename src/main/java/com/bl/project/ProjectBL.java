@@ -1300,6 +1300,13 @@ public class ProjectBL implements ProjectBLService {
         return res;
     }
 
+    @Override
+    public ResultMessage markCombineRes(String pid, int score) {
+        Project project=projectDao.getOne(pid);
+        project.setSatisfy(score);
+        projectDao.saveAndFlush(project);
+        return ResultMessage.SUCCESS;
+    }
 
 
 }

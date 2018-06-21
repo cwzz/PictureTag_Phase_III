@@ -121,4 +121,6 @@ public interface ProjectBLService{
     //一年来每类项目的平均发布数
     Map<String,Double> avgReleasedNum(String year);
 
+    ResultMessage markCombineRes(String pid,int score);
+
 }
