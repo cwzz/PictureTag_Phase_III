@@ -147,15 +147,13 @@
 
             <div class="top_m_m">
                 <div class="free_requirment">
-                    <a href="/cwzz/upload" target="_blank" class="free_a" onclick="newProject()"><i class="fa fa-cloud-upload"></i>免费发布需求</a>
+                    <a href="/cwzz/upload" target="_blank" class="free_a" onclick="newProject()"><i class="fas fa-cloud-upload-alt"></i>免费发布需求</a>
                 </div>
                 <div class="top_m_m_t">
                     <a style="float:left;" class="navzise" href="javascript:void(0)" onClick="Submit(0)" id="all">全部</a>
                     <a style="float:left;" class="heise" href="javascript:void(0)" id="xq" onClick="Submit(4)">项目</a>
                     <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(2)" id="pr">承包方</a>
                     <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(3)" id="dp">发包方</a>
-
-                    <!-- <a class="heise" href="javascript:void(0)" onClick="Submit(2)" id="fw">服务</a> -->
                 </div>
                 <div class="top_m_m_b">
                     <div id="form_search">
@@ -171,21 +169,13 @@
 <script>
     function Submit(type) {
         if (type == "0") {
-            // $("#form_search").attr("action", "http://www.rdplat.com/shopDetails");
             $("#flag").val(type);
-            //$("#form_search").submit();
-            // $("#fw").removeClass('heise');
-            // $("#fw").addClass('navzise');
-
             $("#xq").removeClass('navzise');
             $("#xq").addClass('heise');
-
             $("#pr").removeClass('navzise');
             $("#pr").addClass('heise');
-
             $("#dp").removeClass('navzise');
             $("#dp").addClass('heise');
-
             $("#all").removeClass('heise');
             $("#all").addClass('navzise');
             $(".formcontrol").removeAttr('placeholder');
@@ -193,21 +183,13 @@
 
         }
         if (type == "2") {
-            // $("#form_search").attr("action", "http://www.rdplat.com/shopDetail");
             $("#flag").val(type);
-            //$("#form_search").submit();
             $("#pr").removeClass('heise');
             $("#pr").addClass('navzise');
-
             $("#xq").removeClass('navzise');
             $("#xq").addClass('heise');
-
-            // $("#fw").removeClass('navzise');
-            // $("#fw").addClass('heise');
-
             $("#dp").removeClass('navzise');
             $("#dp").addClass('heise');
-
             $("#all").removeClass('navzise');
             $("#all").addClass('heise');
             $(".formcontrol").removeAttr('placeholder');
@@ -215,34 +197,22 @@
 
         }
         if (type == "3") {
-            // $("#form_search").attr("action", "http://www.rdplat.com/shop");
             $("#flag").val(type);
-            //$("#form_search").submit();
             $("#dp").removeClass('heise');
             $("#dp").addClass('navzise');
-
             $("#xq").removeClass('navzise');
             $("#xq").addClass('heise');
-
             $("#pr").removeClass('navzise');
             $("#pr").addClass('heise');
-
-            // $("#fw").removeClass('navzise');
-            // $("#fw").addClass('heise');
-
             $("#all").removeClass('navzise');
             $("#all").addClass('heise');
             $(".formcontrol").removeAttr('placeholder');
             $(".formcontrol").attr('placeholder','请输入发包方关键字');
         }
         if (type == "4") {
-            // $("#form_search").attr("action", "http://www.rdplat.com/leaderTask");
             $("#flag").val(type);
-            //$("#form_search").submit();
             $("#xq").removeClass('heise');
             $("#xq").addClass('navzise');
-            // $("#fw").removeClass('navzise');
-            // $("#fw").addClass('heise');
             $("#pr").removeClass('navzise');
             $("#pr").addClass('heise');
             $("#dp").removeClass('navzise');
@@ -645,354 +615,16 @@
                         <li role="presentation"><a href="#Section4" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i>发包方活跃榜</a></li>
                     </ul>
                     <!-- Tab panes -->
-                    <div class="tab-content" style="width: 100%;height: 330px;padding:0px 0px 0px 0px;">
+                    <div class="tab-content" style="width: 100%;height: auto;padding:0px 0px 0px 0px;">
                         <div role="tabpanel" class="tab-pane fade in active" id="Section3">
-                            <div class="container" style="margin-left: 0px;margin-right: 0px;width: 100%">
-                                <div class="row">
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-user-secret"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">User</h3>
-                                                <h4 class="subtitle">擅长领域：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    标注标注标注标注标注标注标注
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已接单"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已获得积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="more_news" style="margin-right: 30px"><a href="http://www.rdplat.com/news/">更多>></a></div>
+                            <div class="container" style="margin-left: 0px;margin-right: 0px;width: 100%" id="worker_area">
+                                <!--<div class="more_news" style="margin-right: 30px"><a href="http://www.rdplat.com/news/">更多>></a></div>-->
                             </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane fade" id="Section4" style="width: 100%">
-                            <div class="container" style="margin-left: 0px;margin-right: 0px;width: 100%">
-                                <div class="row">
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="padding-left: 0px;padding-right: 0px;width: 25%">
-                                        <div class="serviceBox">
-                                            <div class="service-icon">
-                                                <i class="fa fa-cart-arrow-down"></i>
-                                            </div>
-                                            <div class="service-Content" style="margin-bottom: 0px">
-                                                <h3 class="title">发包方</h3>
-                                                <h4 class="subtitle">通常需求：方框标注/动物类标注</h4>
-                                                <p class="description">
-                                                    描述描述描述描述
-                                                </p>
-                                            </div>
-                                            <div class="button-area">
-                                                <ul class="buttons" style="padding-left: 0px;padding-right: 0px">
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-signal" data-toggle="tooltip" title="本月已发包"></i></a>: 6</li>
-                                                    <li class="toggle_info" style="width: 70px"><a href="#" class="btn"><i class="fa fa-bitcoin" data-toggle="tooltip" title="本月已送出积分"></i></a>: 600</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="more_news" style="margin-right: 30px"><a href="http://www.rdplat.com/news/">更多>></a></div>
+                            <div class="container" style="margin-left: 0px;margin-right: 0px;width: 100%" id="requester_area">
+                                <!--<div class="more_news" style="margin-right: 30px"><a href="http://www.rdplat.com/news/">更多>></a></div>-->
                             </div>
                         </div>
                     </div>
@@ -1028,6 +660,12 @@
 
 <script>
     var messages;
+    var current_row=-1;
+    var current_col=0;
+    var current_row2=-1;
+    var current_col2=0;
+    var active_workers;
+    var active_requesters;
     $(document).ready(function(){
         localStorage.removeItem("search_type");
         localStorage.removeItem("search_keyword");
@@ -1059,6 +697,92 @@
             },
             error:function(result){
                 alert("传输失败");
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/user/activeWorker',
+            data :{},
+            success:function(data){
+                active_workers=data;
+                for(var i=0;i<data.length;i++){
+                    if(i%4==0){
+                        current_row++;
+                        var new_row="<div class=\"row\" id='row"+current_row+"'></div>";
+                        $("#worker_area").append(new_row);
+                        current_col=0;
+                    }
+                    var new_col="<div class=\"col-md-3\" id='item"+i+"' style=\"padding-left: 0px;padding-right: 0px;width: 25%\">\n" +
+                        "                                        <div class=\"serviceBox\">\n" +
+                        "                                            <div class=\"service-icon\">\n" +
+                        "                                                <i class=\"fa fa-user-secret\"></i>\n" +
+                        "                                            </div>\n" +
+                        "                                            <div class=\"service-Content\" style=\"margin-bottom: 0px\">\n" +
+                        "                                                <h3 class=\"title\">"+data[i].username+"</h3>\n" +
+                        "                                                <p class=\"description\">"+(data[i].description!=""?data[i].description:"暂无自我描述")+"</p>\n" +
+                        "                                            </div>\n" +
+                        "                                            <div class=\"button-area\">\n" +
+                        "                                                <ul class=\"buttons\" style=\"padding-left: 0px;padding-right: 0px\">\n" +
+                        "                                                    <li class=\"toggle_info\" style=\"width: 70px\"><a href=\"#\" class=\"btn\"><i class=\"fa fa-signal\" data-toggle=\"tooltip\" title=\"平均贡献率\"></i></a>:"+data[i].quality+"</li>\n" +
+                        "                                                    <li class=\"toggle_info\" style=\"width: 70px\"><a href=\"#\" class=\"btn\"><i class=\"fab fa-bitcoin\" data-toggle=\"tooltip\" title=\"活跃度\"></i></a>:"+data[i].activeDegree+"</li>\n" +
+                        "                                                </ul>\n" +
+                        "                                            </div>\n" +
+                        "                                        </div>\n" +
+                        "                                    </div>";
+                    $("#row"+current_row).append(new_col);
+                    $("#row"+current_row).find("#item"+i).click(function(){
+                        var position=parseInt(this.id.substring(4));
+                        localStorage.setItem("biduser_name",active_workers[position]);
+                        window.location.href="/cwzz/information";
+                    });
+                    current_col++;
+                }
+            },
+            error:function(){
+
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/user/activeRequester',
+            data :{},
+            success:function(data){
+                active_requesters=data;
+                for(var i=0;i<data.length;i++){
+                    if(i%4==0){
+                        current_row2++;
+                        var new_row="<div class=\"row\" id='row_"+current_row2+"'></div>";
+                        $("#requester_area").append(new_row);
+                        current_col2=0;
+                    }
+                    var new_col="<div class=\"col-md-3\" id='item2"+i+"' style=\"padding-left: 0px;padding-right: 0px;width: 25%\">\n" +
+                        "                                        <div class=\"serviceBox\">\n" +
+                        "                                            <div class=\"service-icon\">\n" +
+                        "                                                <i class=\"fa fa-cart-arrow-down\"></i>\n" +
+                        "                                            </div>\n" +
+                        "                                            <div class=\"service-Content\" style=\"margin-bottom: 0px\">\n" +
+                        "                                                <h3 class=\"title\">"+data[i].username+"</h3>\n" +
+                        "                                                <p class=\"description\">"+(data[i].description!=""?data[i].description:"暂无自我描述")+"</p>\n" +
+                        "                                            </div>\n" +
+                        "                                            <div class=\"button-area\">\n" +
+                        "                                                <ul class=\"buttons\" style=\"padding-left: 0px;padding-right: 0px\">\n" +
+                        "                                                    <li class=\"toggle_info\" style=\"width: 70px\"><a href=\"#\" class=\"btn\"><i class=\"fa fa-signal\" data-toggle=\"tooltip\" title=\"平均贡献率\"></i></a>: "+data[i].quality+"</li>\n" +
+                        "                                                    <li class=\"toggle_info\" style=\"width: 70px\"><a href=\"#\" class=\"btn\"><i class=\"fab fa-bitcoin\" data-toggle=\"tooltip\" title=\"活跃度\"></i></a>: "+data[i].activeDegree+"</li>\n" +
+                        "                                                </ul>\n" +
+                        "                                            </div>\n" +
+                        "                                        </div>\n" +
+                        "                                    </div>";
+                    $("#row_"+current_row2).append(new_col);
+                    $("#row_"+current_row2).find("#item"+i).click(function(){
+                        var position=parseInt(this.id.substring(5));
+                        localStorage.setItem("biduser_name",active_requesters[position]);
+                        window.location.href="/cwzz/information";
+                    });
+                    current_col2++;
+                }
+            },
+            error:function(){
+
             }
         });
     })

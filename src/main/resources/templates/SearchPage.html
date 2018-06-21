@@ -98,7 +98,6 @@
                     <li><a href="/cwzz/introduce">首页</a>
                         <ul class="submenu">
                             <li><a href="/introduce">网站介绍</a></li>
-                            <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
                         </ul>
                     </li>
                     <li><a href="/cwzz/home">项目</a>
@@ -175,19 +174,17 @@
         <div>
             <div class="headfooter" >
                 <div class="headfootercontent">
-                    <h1 class="hfcb"><a href="http://www.rdplat.com/">众包标注平台</a></h1>
+                    <h1 class="hfcb"><a href="">众包标注平台</a></h1>
 
                     <div class="top_m_m">
                         <div class="free_requirment">
-                            <a href="/cwzz/upload" target="_blank" class="free_a"><i class="fa fa-cloud-upload"></i>免费发布需求</a>
+                            <a href="/cwzz/upload" target="_blank" class="free_a"><i class="fas fa-cloud-upload-alt"></i>免费发布需求</a>
                         </div>
                         <div class="top_m_m_t">
                             <a style="float:left;" class="navzise" href="javascript:void(0)" onClick="Submit(0)" id="all">全部</a>
                             <a style="float:left;" class="heise" href="javascript:void(0)" id="xq" onClick="Submit(4)">项目</a>
                             <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(2)" id="pr">承包方</a>
                             <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(3)" id="dp">发包方</a>
-
-                            <!-- <a class="heise" href="javascript:void(0)" onClick="Submit(2)" id="fw">服务</a> -->
                         </div>
                         <div class="top_m_m_b">
                             <div id="form_search">
@@ -204,61 +201,38 @@
         function Submit(type) {
             if (type == "0") {
                 $("#flag").val(type);
-                //$("#form_search").submit();
-                // $("#fw").removeClass('heise');
-                // $("#fw").addClass('navzise');
-
                 $("#xq").removeClass('navzise');
                 $("#xq").addClass('heise');
-
                 $("#pr").removeClass('navzise');
                 $("#pr").addClass('heise');
-
                 $("#dp").removeClass('navzise');
                 $("#dp").addClass('heise');
-
                 $("#all").removeClass('heise');
                 $("#all").addClass('navzise');
                 $(".formcontrol").removeAttr('placeholder');
                 $(".formcontrol").attr('placeholder','请输入关键字');
-
             }
             if (type == "2") {
                 $("#flag").val(type);
-                //$("#form_search").submit();
                 $("#pr").removeClass('heise');
                 $("#pr").addClass('navzise');
-
                 $("#xq").removeClass('navzise');
                 $("#xq").addClass('heise');
-
-                // $("#fw").removeClass('navzise');
-                // $("#fw").addClass('heise');
-
                 $("#dp").removeClass('navzise');
                 $("#dp").addClass('heise');
-
                 $("#all").removeClass('navzise');
                 $("#all").addClass('heise');
                 $(".formcontrol").removeAttr('placeholder');
                 $(".formcontrol").attr('placeholder','请输入承包方关键字');
-
             }
             if (type == "3") {
                 $("#flag").val(type);
-                //$("#form_search").submit();
                 $("#dp").removeClass('heise');
                 $("#dp").addClass('navzise');
-
                 $("#xq").removeClass('navzise');
                 $("#xq").addClass('heise');
-
                 $("#pr").removeClass('navzise');
                 $("#pr").addClass('heise');
-
-                // $("#fw").removeClass('navzise');
-                // $("#fw").addClass('heise');
-
                 $("#all").removeClass('navzise');
                 $("#all").addClass('heise');
                 $(".formcontrol").removeAttr('placeholder');
@@ -266,11 +240,8 @@
             }
             if (type == "4") {
                 $("#flag").val(type);
-                //$("#form_search").submit();
                 $("#xq").removeClass('heise');
                 $("#xq").addClass('navzise');
-                // $("#fw").removeClass('navzise');
-                // $("#fw").addClass('heise');
                 $("#pr").removeClass('navzise');
                 $("#pr").addClass('heise');
                 $("#dp").removeClass('navzise');

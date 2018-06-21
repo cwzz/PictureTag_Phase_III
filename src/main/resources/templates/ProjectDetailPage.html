@@ -23,6 +23,8 @@
     <link rel="stylesheet" type='text/css' href="/css/log.css">
     <link rel="stylesheet" type='text/css' href="/css/ProjectDetailPageStyle.css">
     <link rel="stylesheet" type="text/css" href="/css/out-lib/demand_detail.css">
+    <link rel="stylesheet" href="/css/rippler.css">
+    <link rel="stylesheet" href="/css/bars-1to10.css">
     <link rel="stylesheet" type="text/css" href="/css/out-style.css">
     <link rel="stylesheet" type="text/css" href="/css/style-responsive.css">
     <link rel="stylesheet" type="text/css" href="/css/line-icons.css">
@@ -37,6 +39,9 @@
     <script src="/js/jquery.easing.1.3.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/classie.js"></script>
+    <script src="js/jquery.rippler.js"></script>
+    <script src="/js/jquery.barrating.js"></script>
+    <script src="/js/examples.js"></script>
     <script type="text/javascript" src="/js/jquery-confirm.js"></script>
 
     <style>
@@ -256,15 +261,35 @@
                     <div class="clear" style="height:30px"></div>
                     <div class="text_shadow_area text_shadow_area3" style="display: none" id="view_download">
                         <div class="spec_requirement">整合结果:</div>
-                        <div class="row" style="text-align: center;display: none" id="view" onclick="integrity()">
+                        <div class="row" style="padding-left: 15px;display: none" id="view" onclick="integrity()">
                             <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px;cursor: pointer'><span>>> 预览整合结果</span></h3>
                         </div>
-                        <div class="row" style="text-align: center;display: none;" id="download" onclick="downloadPictures()">
+                        <div class="row" style="padding-left: 15px;display: none;" id="download" onclick="downloadPictures()">
                             <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px;cursor: pointer'><span>>> 下载整合结果</span></h3>
                         </div>
                         <div class="row" style="text-align: center;display: none" id="requester_wait">
                             <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span>...请耐心等待整合结果...</span></h3>
                         </div>
+                        <div class="row">
+                            <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次整合结果打分（满分10分）：</div>
+                            <div class="box-body col-md-6" style="width: 75%;padding-top: 10px">
+                                <select id="example-1to10" name="rating">
+                                    <option value="1" selected="selected">1分</option>
+                                    <option value="2">2分</option>
+                                    <option value="3">3分</option>
+                                    <option value="4">4分</option>
+                                    <option value="5">5分</option>
+                                    <option value="6">6分</option>
+                                    <option value="7">7分</option>
+                                    <option value="8">8分</option>
+                                    <option value="9">9分</option>
+                                    <option value="10">10分</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-default rippler rippler-inverse commit_assesment_btn" href="#" style="left: 70% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px">
+                            <span class="glyphicon glyphicon-ok"></span>&nbsp;提交打分结果
+                        </button>
                     </div>
                     <div class="clear" style="height:30px"></div>
                     <div class="text_shadow_area text_shadow_area3" style="display: none" id="points_result">
