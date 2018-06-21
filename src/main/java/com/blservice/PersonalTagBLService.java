@@ -32,4 +32,6 @@ public interface PersonalTagBLService{
     ArrayList<ProBriefInfo> getContract(String username);
 
     List<String> requesterCheckAllWork(String username, String projectID);
+
+    int getWorkGroup(String pid,String uid);
 }

@@ -55,13 +55,16 @@ public class Project {
     @ElementCollection(targetClass = String.class,fetch = FetchType.LAZY)
     private List<String> combineRes_urls;//存储的是整合结果的url
     private int satisfy;
+    private int quitNum;
+    private double zhuijiaPoints;
 
 
     public Project(){}
 
     public Project(String pro_ID, String pro_name, double points, String brief_intro, Set<String> workerList,
                    Date releaseTime, Date deadLine, int remainTime, ProjectType pro_type, ProjectState pro_state,
-                   String pro_requester, String detailRequire, String note, List<String> urls,Set<String> finishedList,long clickNum,int index,List<String> combineRes_urls,int satisfy){
+                   String pro_requester, String detailRequire, String note, List<String> urls,Set<String> finishedList,
+                   long clickNum,int index,List<String> combineRes_urls,int satisfy,int quitNum,double zhuijiaPoints){
         this.pro_ID=pro_ID;
         this.pro_name=pro_name;
         this.points=points;
@@ -81,6 +84,8 @@ public class Project {
         this.allocationIndex=index;
         this.combineRes_urls=combineRes_urls;
         this.satisfy=satisfy;
+        this.quitNum=quitNum;
+        this.zhuijiaPoints=zhuijiaPoints;
     }
 
 }

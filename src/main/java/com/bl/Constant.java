@@ -29,4 +29,27 @@ public class Constant {
     public static int MinimalContractPeople=10;
 
     public static double RemainTimeToRemind=0.6;
+
+    public static String[] picRange={
+            "<500",
+            "500-1000",
+            "1000-2000",
+            "2000-3000",
+            ">3000"
+    };
+
+    public static String[] finishRange={
+        "<15天",
+        "15-30天",
+        "30-90天",
+        ">90天"
+    };
+
+    public static String[] contractNum={
+            "<15人",
+            "15-50人",
+            "50-100人",
+            "100-200人",
+            ">200人"
+    };
 }

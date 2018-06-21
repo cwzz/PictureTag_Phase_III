@@ -55,7 +55,7 @@ public class ProjectController {
     //给发起者推荐合适的积分范围
     @RequestMapping(value = "/predictPrice")
     public @ResponseBody
-    Map<String,Double> recommendCredits(@RequestParam PicNum picNum, @RequestParam int day){
+    double recommendCredits(@RequestParam PicNum picNum, @RequestParam int day){
         return projectBLService.predictPrice(picNum,day);
     }
 
@@ -355,6 +355,42 @@ public class ProjectController {
     @RequestMapping(value = "/mark",method = RequestMethod.POST)
     public @ResponseBody ResultMessage mark(@RequestParam String pid,@RequestParam int score){
         return projectBLService.markCombineRes(pid,score);
+    }
+
+
+
+
+
+    //新增统计数据
+    //不同图片数量 不同完成时间的用户平均满意度
+    @RequestMapping(value = "/picNumAndFinishTimeToSatisfy",method = RequestMethod.GET)
+    public @ResponseBody ArrayList<SanDianTuVO> picNumAndFinishTimeToSatisfy(){
+        return projectBLService.picNumAndFinishTimeToSatisfy();
+    }
+    //不同图片数量 不同承包人数的用户平均满意度
+    @RequestMapping(value = "/picNumAndContractNumToSatisfy",method = RequestMethod.GET)
+    public @ResponseBody ArrayList<SanDianTuVO> picNumAndContractNumToSatisfy(){
+        return projectBLService.picNumAndContractNumToSatisfy();
+    }
+    //不同图片数量 不同完成时间 项目放弃率
+    @RequestMapping(value = "/picNumAndFinishTimeToGiveUp",method = RequestMethod.GET)
+    public @ResponseBody ArrayList<SanDianTuVO> picNumAndFinishTimeToGiveUp(){
+        return projectBLService.picNumAndFinishTimeToGiveUp();
+    }
+    //不同图片数量 不同完成时间的项目完成率
+    @RequestMapping(value = "/picNumAndFinishTimeToComplete",method = RequestMethod.GET)
+    public @ResponseBody ArrayList<SanDianTuVO> picNumAndFinishTimeToComplete(){
+        return projectBLService.picNumAndFinishTimeToComplete();
+    }
+    //不同图片数量 推荐积分与用户给出的积分的平均差值
+    @RequestMapping(value = "/picNumToPoints",method = RequestMethod.GET)
+    public @ResponseBody Map<String,Double> picNumToPoints(){
+        return projectBLService.picNumToPoints();
+    }
+    //不同图片数量 用户追加积分的平均值
+    @RequestMapping(value = "/picNumToAvgPoints",method = RequestMethod.GET)
+    public @ResponseBody Map<String,Double> picNumToAvgPoints(){
+        return projectBLService.picNumToAvgPoints();
     }
 
 }
