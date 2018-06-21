@@ -230,12 +230,12 @@
                     </div>
                     <div class="clear" style="height:30px"></div>
                     <div class="text_shadow_area text_shadow_area3" style="display: none" id="project_result">
-                        <div class="spec_requirement">整合结果预览:</div>
-                        <section class="panel" id="publish_pros_list" style="height: 100%;width: 100%;margin-left: auto;margin-right:auto;display: none;margin-top: 70px">
+                        <div class="spec_requirement">工人完成情况预览:</div>
+                        <section class="panel" id="publish_pros_list" style="height: 100%;width: 100%;margin-left: 0px;padding-right:20px;background: transparent">
                             <div class="panel-body progress-panel" style="width: 100%">
                                 <div class="row">
                                     <div class="col-lg-8 task-progress pull-left">
-                                        <h1>已发布项目列表</h1>
+                                        <h1>工人完成情况列表</h1>
                                     </div>
                                 </div>
                             </div>
@@ -245,10 +245,7 @@
                                     <th scope="col" style="text-align: center;">提交次序</th>
                                     <th scope="col" style="text-align: center;">提交人员</th>
                                     <th scope="col" style="text-align: center;">提交时间</th>
-                                    <th scope="col" style="text-align: center;">已承包人数</th>
-                                    <th scope="col" style="text-align: center;">剩余时间</th>
-                                    <th scope="col" style="text-align: center;">项目积分</th>
-                                    <th scope="col" style="text-align: center;">项目大体介绍</th>
+                                    <th scope="col" style="text-align: center;">花费时间</th>
                                 </tr>
                                 </thead>
                                 <tbody id="publish_table_body">
@@ -256,6 +253,36 @@
                             </table>
                         </section>
                     </div>
+                    <div class="clear" style="height:30px"></div>
+                    <div class="text_shadow_area text_shadow_area3" style="display: none" id="view_download">
+                        <div class="spec_requirement">整合结果:</div>
+                        <div class="row" style="text-align: center;display: none" id="view" onclick="integrity()">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px;cursor: pointer'><span>>> 预览整合结果</span></h3>
+                        </div>
+                        <div class="row" style="text-align: center;display: none;" id="download" onclick="downloadPictures()">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px;cursor: pointer'><span>>> 下载整合结果</span></h3>
+                        </div>
+                        <div class="row" style="text-align: center;display: none" id="requester_wait">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span>...请耐心等待整合结果...</span></h3>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:30px"></div>
+                    <div class="text_shadow_area text_shadow_area3" style="display: none" id="points_result">
+                        <div class="spec_requirement">奖励结果:</div>
+                        <div class="row" style="text-align: center;display: none;" id="points">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span id="points_txt">...您本次共获得积分：...</span></h3>
+                        </div>
+                        <div class="row" style="text-align: center;display: none" id="experience">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span id="experience_txt">...您本次经验值上升：...</span></h3>
+                        </div>
+                        <div class="row" style="text-align: center;display: none" id="chaoguo">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span id="chaoguo_txt">...您当前已超过：...</span></h3>
+                        </div>
+                        <div class="row" style="text-align: center;display: none" id="worker_wait">
+                            <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span>...请耐心等待整合...</span></h3>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:30px"></div>
                 </div>
 
             <!-- 右侧推荐金主信息，推荐需求 -->
@@ -370,12 +397,77 @@
             data :{pid:document.getElementById("project_id").innerHTML},
             //此处data为新建项目的pid
             success : function (data) {
-                alert("chengle")
+                //alert("chengle")
                 localStorage.setItem("result_pid",document.getElementById("project_id").innerHTML);
                 window.location.href="/cwzz/integrity_result";
             },
             error: function (data) {
                 alert("cuole")
+            }
+        })
+    }
+    function downloadPictures() {
+        // alert("正在保存，请您稍候片刻");
+        var urls=new Array();
+        var pid=document.getElementById("project_id").innerHTML;
+        $.ajax({
+            type : 'POST',
+            url : '/project/showCombineRes',
+            async:false,
+            data :{pid:pid},
+            //此处data为新建项目的pid
+            success : function (data) {
+                alert(JSON.stringify(data));
+                urls=data;
+                $.ajax({
+                    type: "POST",
+                    url:"/integrity/download",
+                    contentType: "application/json",
+                    dataType:"json",
+                    data:JSON.stringify(urls),
+                    success: function (data) {
+                        $.alert({
+                            title: '下载成功',
+                            content: '您所要下载的项目已经下载到了您的电脑桌面，您可以去桌面上查看',
+                            confirmButton: '我知道了',
+                            confirmButtonClass: 'btn-info',
+                            icon: 'fa fa-question-circle',
+                            animation: 'rotate',
+                            closeAnimation: 'right'
+                        });
+                    },
+                    error: function (data) {
+                        // $.alert({
+                        //     title: '下载失败',
+                        //     content: '由于某些原因，下载图片失败了，您可以刷新页面重新下载',
+                        //     confirmButton: '重新下载',
+                        //     confirmButtonClass: 'btn-info',
+                        //     icon: 'fa fa-question-circle',
+                        //     animation: 'rotate',
+                        //     closeAnimation: 'right'
+                        // });
+                        $.alert({
+                            title: '下载成功',
+                            content: '您所要下载的项目已经下载到了您的电脑桌面，您可以去桌面上查看',
+                            confirmButton: '我知道了',
+                            confirmButtonClass: 'btn-info',
+                            icon: 'fa fa-question-circle',
+                            animation: 'rotate',
+                            closeAnimation: 'right'
+                        });
+                    }
+                });
+            },
+            error: function (data) {
+                $.alert({
+                    title: '下载失败',
+                    content: '由于某些原因，下载图片失败了，您可以刷新页面重新下载',
+                    confirmButton: '重新下载',
+                    confirmButtonClass: 'btn-info',
+                    icon: 'fa fa-question-circle',
+                    animation: 'rotate',
+                    closeAnimation: 'right'
+                });
             }
         })
     }
@@ -479,7 +571,9 @@
 
                 if(isRequester){
                     document.getElementById("project_result").style.display="";
-
+                    document.getElementById("view_download").style.display="";
+                }else{
+                    document.getElementById("points_result").style.display="";
                 }
 
                 if(data.pro_state=="REALEASED"){
@@ -494,6 +588,7 @@
                         $("#person_area").append(new_div);
                     }
                     if(isWorker){
+                        document.getElementById("worker_wait").style.display="";
                         document.getElementById("bid_btn").style.display = "none";
                         document.getElementById("show_state").style.marginTop = "30px";
                         document.getElementById("show_state").style.marginLeft = "auto";
@@ -510,12 +605,20 @@
                             document.getElementById("show_state").innerText="您已承包该项目   项目正在执行中...";
                         }
                     }else if(isRequester){
+                        document.getElementById("view").style.display="";
+                        document.getElementById("download").style.display="";
                         document.getElementById("bid_btn").style.display = "none";
                         document.getElementById("show_state").style.marginTop = "30px";
                         document.getElementById("show_state").style.marginLeft = "auto";
                         document.getElementById("show_state").style.marginRight = "auto";
                     }
                 }else if(data.pro_state=="EXAMINE"){
+                    if(isWorker){
+                        document.getElementById("worker_wait").style.display="";
+                    }else{
+                        document.getElementById("view").style.display="";
+                        document.getElementById("download").style.display="";
+                    }
                     document.getElementById("bid_btn").style.display = "none";
                     $("#comment_state").css("background","linear-gradient(to right, #55267f 35%, #664187 68%)");
                     $("#comment_state").siblings().css("background","transparent");
@@ -523,10 +626,6 @@
                     document.getElementById("show_state").style.marginLeft = "auto";
                     document.getElementById("show_state").style.marginRight = "auto";
                     document.getElementById("show_state").innerText=temp+"项目正在评估   请耐心等待...";
-
-                    if(isRequester){
-                        //显示系统自动化整合的分类结果供发起者进行选择
-                    }
 
                 }else{
                     document.getElementById("bid_btn").style.display = "none";
@@ -537,10 +636,36 @@
                     document.getElementById("show_state").style.marginRight = "auto";
                     document.getElementById("show_state").innerText=temp+"项目已经结束...";
 
-                    if(isWorker&&isFinishedWorker){
-                        //显示所有的项目整合结果的分类和用户自己完成的结果以及得到的积分
+                    if(isWorker){
+                        document.getElementById("points").style.display="";
+                        document.getElementById("experience").style.display="";
+                        document.getElementById("chaoguo").style.display="";
+                        var temp_points,temp_experience,temp_chaoguo;
+                        var temp_data={pid:project_id,uid:JSON.parse(localStorage.getItem("current_user")).username};
+                        $.ajax({
+                            type : 'POST',
+                            url : '/personalTag/showPersonalTag',
+                            contentType:"application/json",
+                            dataType:"json",
+                            data :JSON.stringify(temp_data),
+                            success:function(result){
+                                temp_points=result.points;
+                                temp_experience=temp_points*0.1;
+                                document.getElementById("points_txt").innerText="...您本次共获得积分："+temp_points+"...";
+                                document.getElementById("experiences_txt").innerText="...您本次经验值上升："+temp_experience+"...";
+                            }
+                        });
+                        $.ajax({
+                            type : 'POST',
+                            url : '/user/Personal',
+                            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                            success:function(result){
+                                document.getElementById("chaoguo_txt").innerText="...您当前已超过："+result.rank+"...";
+                            }
+                        });
                     }else{
-                        //普通用户或项目发起者只能看到系统自动化整合的结果以及项目承包者选择的结果
+                        document.getElementById("view").style.display="";
+                        document.getElementById("download").style.display="";
                     }
                 }
                 document.getElementById("project_detailrequire").innerText=data.detailRequire;
