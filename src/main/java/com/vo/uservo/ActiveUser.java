@@ -12,11 +12,11 @@ public class ActiveUser {
     //活跃榜属性 自我描述，活跃度，排名，好评率
     private String username;
     private String description;
-    private double quality;
-    private double activeDegree;//用户的活跃度,根据在线时长和项目数决定
+    private String quality;
+    private String activeDegree;//用户的活跃度,根据在线时长和项目数决定
 
     public ActiveUser(){}
-    public ActiveUser(String username,String description,double quality,double degree){
+    public ActiveUser(String username,String description,String quality,String degree){
         this.username=username;
         this.description=description;
         this.quality=quality;

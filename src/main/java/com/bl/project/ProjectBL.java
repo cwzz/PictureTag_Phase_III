@@ -94,14 +94,8 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
-    public Map<String, Double> predictPrice(PicNum picNum,int day) {
-        Map<String,Double> ranges=new HashMap<>();
-        ranges.put("MAX",calculateCredits(picNum.getMax()));
-        ranges.put("MIN",calculateCredits(picNum.getMin()));
-        return ranges;
-    }
-    private double calculateCredits(int pictureNum){
-        return pictureNum*0.595;
+    public double predictPrice(int PictureNum) {
+        return PictureNum*Constant.RectanglePerPicture*Constant.PricePerRectangle;
     }
 
     @Override

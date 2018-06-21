@@ -70,7 +70,7 @@ public interface ProjectBLService{
     //提供给用户查询到的用户承包过的项目
     ProBriefInfo getBriefInfo(String pid);
 
-    Map<String,Double> predictPrice(PicNum picNum, int day);
+    double predictPrice(int pictureNum);
 
     ResultMessage changeToFinish(String pid);
 
