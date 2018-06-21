@@ -32,7 +32,7 @@ public class UserBL implements UserBLService {
 
     @Autowired
     public UserBL(UserDao userDao, LogBLService logBLService, ProjectBLService projectBLService,
-                  PersonalTagBLService personalTagBLService,ProjectStatisticsDao projectStatisticsDao) {
+                  PersonalTagBLService personalTagBLService, ProjectStatisticsDao projectStatisticsDao) {
         this.userDao = userDao;
         this.logBLService = logBLService;
         this.projectBLService = projectBLService;
@@ -59,7 +59,7 @@ public class UserBL implements UserBLService {
         }
         Calendar now = Calendar.getInstance();
         int month=now.get(Calendar.MONTH)+1;
-        String time="";
+        String time;
         if(month<10){
             time=now.get(Calendar.YEAR)+"-0"+month;
         }else{
@@ -125,6 +125,9 @@ public class UserBL implements UserBLService {
         User u=userDao.searchUserById(user.getUsername());
         u.setEmail(user.getEmail());
         u.setDescription(user.getDescription());
+        u.setAge(user.getAge());
+        u.setTelephone(user.getTelephone());
+        u.setSex(user.getSex());
         StringBuilder tags= new StringBuilder();
         for(String s:user.getTags()){
             tags.append(s);
@@ -135,7 +138,7 @@ public class UserBL implements UserBLService {
     }
 
     @Override
-    public ResultMessage resetPassword(String username,String oldPass,String newPass){
+    public ResultMessage resetPassword(String username, String oldPass, String newPass){
         User user=userDao.searchUserById(username);
         if(!oldPass.equals(user.getPassword())){
             return ResultMessage.PASSERROR;
@@ -154,6 +157,9 @@ public class UserBL implements UserBLService {
         result.setIdentity(user.getIdentity().toString());
         result.setEmail(user.getEmail());
         result.setCredits(user.getCredits());
+        result.setTelephone(user.getTelephone());
+        result.setAge(user.getAge());
+        result.setSex(user.getSex());
         //计算排名
         ArrayList<String> users=userDao.ListUserByRank(UserIdentity.COMMONUSER);
         int rank=users.indexOf(user.getUsername())+1;
@@ -232,6 +238,7 @@ public class UserBL implements UserBLService {
     @Override
     public UserStatistics getUserStatistics(String username) {
         User user=userDao.getOne(username);
+        System.out.println(user.toString());
         UserStatistics result=new UserStatistics();
         result.setUsername(username);
         result.setNum_Contract(user.getNum_Contract());
@@ -267,7 +274,6 @@ public class UserBL implements UserBLService {
         cons.put(ProjectState.EXAMINE.toString(),examine);
         cons.put(ProjectState.GIVEUP.toString(),abort);
         cons.put(ProjectState.FINISHED.toString(),finish);
-        cons.put(ProjectState.All.toString(),myContract.size());
         result.setContractPerState(cons);
 
         Map<String ,Integer> res=new HashMap<>();
@@ -300,24 +306,33 @@ public class UserBL implements UserBLService {
         res.put(ProjectState.EXAMINE.toString(),examineR);
         res.put(ProjectState.GIVEUP.toString(),abort);
         res.put(ProjectState.FINISHED.toString(),finishR);
-        res.put(ProjectState.All.toString(),myRelease.size());
         result.setReleasePerState(res);
 
         result.setQuality(user.getQuality());
-        String[] gongxian=Constant.GongXian;
+        String[] gongxian= Constant.GongXian;
         Map<Integer,Integer> gongXianPhase=user.getGongXian();
         Map<String,Integer> return_gongxian=new HashMap<>();
         for(int i=0;i<5;i++){
             return_gongxian.put(gongxian[i],gongXianPhase.get(i));
         }
         result.setGongXian(return_gongxian);
-        Map<ProjectType,Integer> contractPerType=user.getContractTypeNum();
-        contractPerType.put(ProjectType.All,user.getNum_Contract());
         result.setContractPerType(user.getContractTypeNum());
-
-        Map<ProjectType,Integer> releasePerType=user.getReleaseTypeNum();
-        releasePerType.put(ProjectType.All,user.getNum_Release());
         result.setReleasePerType(user.getReleaseTypeNum());
+
+        ProjectType[] types= Constant.Types;
+        Map<ProjectType,Double> avgTime=user.getAvgTimePerType();
+        Map<ProjectType,Double> avgCredits=user.getAvgCreditsPerType();
+        Map<ProjectType,Double> chanchubi=new HashMap<>();
+        for (ProjectType type : types) {
+            if(avgTime.get(type)!=0){
+                chanchubi.put(type, avgCredits.get(type) / avgTime.get(type));
+            }else{
+                chanchubi.put(type,0.0);
+            }
+        }
+        result.setAvgTimePerType(avgTime);
+        result.setAvgCreditsPerType(avgCredits);
+        result.setChanchubi(chanchubi);
         return result;
     }
 
@@ -362,10 +377,16 @@ public class UserBL implements UserBLService {
     }
 
     @Override
-    public ResultMessage updateCredits(String username, double dValue) {
-
+    public ResultMessage updateCredits(String username, ProjectType type, double dValue) {
             User user=userDao.getOne(username);
             user.setCredits(user.getCredits()+dValue);
+            if(dValue>0){//如果承包者获得积分，更新他该类别的平均积分
+                Map<ProjectType,Double> avgCredits=user.getAvgCreditsPerType();
+                double oldAvgCredit=avgCredits.get(type);
+                int contractNumThisType=user.getContractTypeNum().get(type);
+                avgCredits.put(type,(oldAvgCredit*(contractNumThisType-1)+dValue)/contractNumThisType);
+                user.setAvgCreditsPerType(avgCredits);
+            }
             userDao.saveAndFlush(user);
             return ResultMessage.SUCCESS;
     }
@@ -415,6 +436,19 @@ public class UserBL implements UserBLService {
     }
 
     @Override
+    public void updateAvgTimePerTime(String username, ProjectType type, Date startTime) {
+        User user=userDao.searchUserById(username);
+        Map<ProjectType,Double> avgTime=user.getAvgTimePerType();
+        double timeThisType=avgTime.get(type);
+        int contractThisType=user.getContractTypeNum().get(type);
+        Date now=new Date();
+        long time=(now.getTime()-startTime.getTime())/(1000*60);
+        avgTime.put(type,(timeThisType*(contractThisType-1)+time)/contractThisType);
+        user.setAvgTimePerType(avgTime);
+        userDao.saveAndFlush(user);
+    }
+
+    @Override
     public ResultMessage NewRelease(String username, ProjectType type) {
         User user=userDao.getOne(username);
         user.setNum_Release(user.getNum_Release()+1);
@@ -429,7 +463,7 @@ public class UserBL implements UserBLService {
     }
 
     @Override
-    public ResultMessage NewContract(String username,ProjectType type) {
+    public ResultMessage NewContract(String username, ProjectType type) {
         User user=userDao.getOne(username);
         user.setNum_Contract(user.getNum_Contract()+1);
         user.setActiveContract(user.getActiveContract()+1);
@@ -478,7 +512,7 @@ public class UserBL implements UserBLService {
     }
 
     @Override
-    public UserStatisticsToAdmin getUserStatisticsToAdmin() {
+    public UserStatisticsToAdmin getUserStatisticsToAdmin(int year) {
         UserStatisticsToAdmin userStatisticsToAdmin=new UserStatisticsToAdmin();
         userStatisticsToAdmin.setTotalNum(userDao.countTotalUser());
         userStatisticsToAdmin.setOnlineNum(userDao.countOnlineUser());
@@ -497,10 +531,12 @@ public class UserBL implements UserBLService {
         userStatisticsToAdmin.setRegisterThisMonth(registerThisMonth);
 
         //每个月的注册人数
-        ArrayList<ProjectStatistics> registerPerMonth=projectStatisticsDao.getRegisterPerMonth();
+        ArrayList<ProjectStatistics> registerPerMonth=projectStatisticsDao.getRegisterPerMonth(year);
         Map<String,Integer> result=new HashMap<>();
+
         for(ProjectStatistics p:registerPerMonth){
-            result.put(p.getYearAndMonth(),p.getRegisterPerMonth());
+            String m=p.getYearAndMonth().split("-")[1];
+            result.put(m,p.getRegisterPerMonth());
         }
         userStatisticsToAdmin.setRegisterPerMonth(result);
         return userStatisticsToAdmin;

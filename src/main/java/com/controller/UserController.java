@@ -110,8 +110,8 @@ public class UserController {
 
     @RequestMapping(value = "/UserToAdmin")
     public @ResponseBody
-    UserStatisticsToAdmin getUserStatisticsToAdmin(){
-        return userBLService.getUserStatisticsToAdmin();
+    UserStatisticsToAdmin getUserStatisticsToAdmin(@RequestParam int year){
+        return userBLService.getUserStatisticsToAdmin(year);
     }
 
 }

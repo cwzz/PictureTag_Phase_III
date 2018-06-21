@@ -2,6 +2,7 @@ package com.model;
 
 import com.bl.Constant;
 import com.enums.ProjectType;
+import com.enums.Sex;
 import com.enums.UserIdentity;
 import com.vo.uservo.NewUser;
 import lombok.Data;
@@ -22,6 +23,9 @@ public class User {
 
     private String password;    //用户登陆的密码
 
+    private int age;//用户的年龄
+    private String telephone;//用户的年龄
+    private Sex sex;//用户的性别
     private UserIdentity identity;    //用户的身份
 
     private String email;  //用户的邮箱
@@ -43,14 +47,18 @@ public class User {
     private double credits;//用户的积分值
     private double experience;//用户的经验值，由打星及项目经历决定，当有用户承包或发布项目时，经验值都会相应增加
 
-    @ElementCollection//(targetClass = Double.class,fetch = FetchType.LAZY)
+    @ElementCollection
     private Map<ProjectType,Double> quality;//工人各个分类的项目的标注质量
-    @ElementCollection//(targetClass = String.class,fetch = FetchType.LAZY)
+    @ElementCollection
     private Map<Integer,Integer> gongXian;//工人各个贡献率阶段的数量，0-20%，20%-40%……
     @ElementCollection
     private Map<ProjectType,Integer> contractTypeNum;//用户承包的各个种类的数量
-    @ElementCollection//(targetClass = Integer.class,fetch = FetchType.LAZY)
+    @ElementCollection
     private Map<ProjectType,Integer> releaseTypeNum;//用户承包的各个种类的数量
+    @ElementCollection
+    private Map<ProjectType,Double> avgTimePerType;//用户平均在每一类标注任务上平均花费的时间
+    @ElementCollection
+    private Map<ProjectType,Double> avgCreditsPerType;//用户平均在每一类标注任务上得到的平均每个项目的积分
 
     private double activeRelease;//用户的发包活跃度,根据在线时长和发布项目数决定
     private double activeContract;//用户的承包活跃度，根据在线时长和发布项目数决定
@@ -66,6 +74,9 @@ public class User {
         this.email=newUser.getEmail();
         this.identity= UserIdentity.COMMONUSER;
         this.description="";
+        this.sex=null;
+        this.age=0;
+        this.telephone="";
         this.isOn=false;
         this.tag="All";
         this.credits=iniCredits;
@@ -75,6 +86,8 @@ public class User {
         this.gongXian=new HashMap<>();
         this.contractTypeNum=new HashMap<>();
         this.releaseTypeNum=new HashMap<>();
+        this.avgTimePerType=new HashMap<>();
+        this.avgCreditsPerType=new HashMap<>();
 
         ProjectType[] types= Constant.Types;
 
@@ -83,6 +96,8 @@ public class User {
             contractTypeNum.put(types[i],0);
             releaseTypeNum.put(types[i],0);
             gongXian.put(i,0);
+            avgTimePerType.put(types[i],0.0);
+            avgCreditsPerType.put(types[i],0.0);
         }
 
         this.generalQuality=0;

@@ -24,4 +24,7 @@ public class UserStatistics {
     private Map<String,Integer> releasePerState;//用户发布的处在各个状态的项目数
     private Map<ProjectType,Integer> releasePerType;//用户发布的处在各个类别的项目数
 
+    private Map<ProjectType,Double> avgTimePerType;//用户平均在每一类标注任务上平均花费的时间
+    private Map<ProjectType,Double> avgCreditsPerType;//用户平均在每一类标注任务上得到的平均每个项目的积分
+    private Map<ProjectType,Double> chanchubi;//用户平均在每一类任务上花费时间和得到积分的投入产出比
 }

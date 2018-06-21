@@ -4,10 +4,12 @@ package com.bl.personaltagbl;
 import com.bl.Constant;
 import com.blservice.PersonalTagBLService;
 import com.blservice.ProjectBLService;
+import com.blservice.UserBLService;
 import com.dao.PersonalTagDao;
 import com.enums.ProjectState;
 import com.enums.ResultMessage;
 import com.model.PersonalTag;
+import com.model.Project;
 import com.model.picture.Picture;
 import com.vo.tag.PersonalTagVO;
 import com.vo.tag.PictureVO;
@@ -27,6 +29,8 @@ public class PersonalTagBL implements PersonalTagBLService {
     private PersonalTagTrans personalTagTrans;
     @Autowired
     private ProjectBLService projectBLService;
+    @Autowired
+    private UserBLService userBLService;
 
     @Override
     public ResultMessage updatePersonalTag(String pid,String uid, ArrayList<PictureVO> pictures) {
@@ -158,6 +162,7 @@ public class PersonalTagBL implements PersonalTagBLService {
                 personalTag.setPoints(points);
                 //这里有问题，ptid不能设定
                 personalTagDao.saveAndFlush(personalTag);
+                userBLService.updateCredits(uid,projectBLService.viewPro(pid).getPro_type(),points);
                 return ResultMessage.SUCCESS;
             }
         }catch (Exception e){

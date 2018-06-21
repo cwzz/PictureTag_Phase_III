@@ -29,7 +29,7 @@ public interface ProjectBLService{
     //上传项目
     ResultMessage uploadPro(UploadProVO uploadProVO);
     //追加积分
-    ResultMessage addCredits(String username,String projectID,double credits);
+    ResultMessage addCredits(String username, String projectID, double credits);
 
     //删除项目到回收站
     ResultMessage removePro(String username, String pid);
@@ -46,16 +46,19 @@ public interface ProjectBLService{
     //工人首次承包项目时
     ResultMessage choosePro(String workerID, String pid);
     //为工人分配下一组图片编号 图片
-    int getNextGroupIndex(String projectID,String workGroup);
-    String[] getNextGroupUrl(String projectID,int group);
+    int getNextGroupIndex(String projectID, String workGroup);
+    String[] getNextGroupUrl(String projectID, int group);
 
     //工人完成标注并提交
     ResultMessage submitPro(String workerID, String pid);
 
-    ResultMessage quitPro(String workerID,String pid);
+    ResultMessage quitPro(String workerID, String pid);
 
     //工人得到的实际积分
-    double getPoints(String pid,String uid);
+    double getPoints(String pid, String uid);
+
+    //提醒用户选择人数过少
+    ArrayList<String> toRemind(String username);
 
     //存储整合结果
     ResultMessage saveCombineRes(CombineResVO combineResVO);
@@ -76,7 +79,12 @@ public interface ProjectBLService{
 
     ResultMessage changeToFinish(String pid);
 
-    ArrayList<String> toRemind(String username);
+    ArrayList<ProjectBasic> recommendPro(String uid);
+
+//    ArrayList<>
+
+
+
 
     //以下为项目统计信息
     //截至到现在，已完成项目总数，已发布项目总数

@@ -35,8 +35,8 @@ public interface ProjectStatisticsDao extends JpaRepository<ProjectStatistics,St
 
 //    @Query(value = "select p.yearAndMonth,p.registerPerMonth from ProjectStatistics p")
 //    ArrayList<Map<String,Integer>> getRegisterPerMonth();
-    @Query(value = "select p from ProjectStatistics p")
-    ArrayList<ProjectStatistics> getRegisterPerMonth();
+    @Query(value = "select p from ProjectStatistics p where p.yearAndMonth like %?1%")
+    ArrayList<ProjectStatistics> getRegisterPerMonth(int year);
 
     @Modifying
     @Query(value = "update ProjectStatistics p set p.registerPerMonth=p.registerPerMonth+1 where p.yearAndMonth=?1")

@@ -7,10 +7,12 @@ import com.blservice.ProjectBLService;
 import com.blservice.UserBLService;
 import com.dao.ProjectDao;
 import com.dao.ProjectStatisticsDao;
+import com.dao.SimilarityDao;
 import com.enums.*;
 import com.model.PersonalTag;
 import com.model.Project;
 import com.model.ProjectStatistics;
+import com.model.Similarity;
 import com.util.TransSetToArray;
 import com.vo.personaltagvo.CombineResVO;
 import com.vo.personaltagvo.UidAndPoints;
@@ -47,6 +49,8 @@ public class ProjectBL implements ProjectBLService {
     private ProjectStatisticsDao projectStatisticsDao;
     @Autowired
     private TransSetToArray transSetToArray;
+    @Autowired
+    private SimilarityDao similarityDao;
 
     private List<Project> waitToCheck=new ArrayList<>();
 
@@ -116,7 +120,7 @@ public class ProjectBL implements ProjectBLService {
             if (!projectDao.existsById(uploadProVO.getPro_ID())) {
                 userBLService.updateExperience(uploadProVO.getPro_requester(),uploadProVO.getPoints());
                 userBLService.NewRelease(uploadProVO.getPro_requester(),uploadProVO.getPro_type());
-                userBLService.updateCredits(uploadProVO.getPro_requester(),uploadProVO.getPoints()*(-1));
+                userBLService.updateCredits(uploadProVO.getPro_requester(),uploadProVO.getPro_type(),uploadProVO.getPoints()*(-1));
                 messageBLService.generateMessage(uploadProVO.getPro_requester(),"您已发布项目"+uploadProVO.getPro_ID(),uploadProVO.getPro_ID());
                 projectDao.saveAndFlush(projectPO);
             } else {
@@ -162,10 +166,10 @@ public class ProjectBL implements ProjectBLService {
             if(credits>userBLService.getCredits(username)){
                 return ResultMessage.CREDITNOTENOUGH;
             }
-            //更新用户的剩余积分
-            userBLService.updateCredits(username,credits*(-1));
             //更新项目的积分
             Project project=projectDao.getOne(projectID);
+            //更新用户的剩余积分
+            userBLService.updateCredits(username,project.getPro_type(),credits*(-1));
             project.setPoints(project.getPoints()+credits);
             projectDao.saveAndFlush(project);
             //发消息给发起者和承包者
@@ -252,6 +256,7 @@ public class ProjectBL implements ProjectBLService {
             }
             personalTagBLService.addPersonalTag(pid,workerID,this.allocateUrl(groupIndex,projectPO.getUrls()),groupIndex);
             projectDao.saveAndFlush(projectPO);
+            modiSimi(pid);
             userBLService.NewContract(workerID,projectPO.getPro_type());
             messageBLService.generateMessage(workerID,"您已选择项目"+pid,pid);
             messageBLService.generateMessage(projectPO.getPro_requester(),workerID+" 已经承包项目"+pid,pid);
@@ -337,6 +342,21 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
+    public ArrayList<String> toRemind(String username) {
+        ArrayList<Project> projects=new ArrayList<>(projectDao.findByUser(username));
+        ArrayList<String> remind=new ArrayList<>();
+        for(Project project:projects){
+            if(project.getWorkerList().size()<Constant.MinimalContractPeople){
+                int totalDay = (int) ((project.getReleaseTime().getTime() - project.getDeadLine().getTime()) / (1000*3600*24));
+                if(project.getRemainTime()/totalDay <Constant.RemainTimeToRemind){
+                    remind.add(project.getPro_ID());
+                }
+            }
+        }
+        return remind;
+    }
+
+    @Override
     public ResultMessage submitPro(String workerID, String pid) {
        try{
            Project project=projectDao.getOne(pid);
@@ -362,6 +382,7 @@ public class ProjectBL implements ProjectBLService {
         workerList.remove(workerID);
         project.setWorkerList(workerList);
         projectDao.saveAndFlush(project);
+        modiSimi(pid);
         personalTagBLService.delPersonalTag(pid,workerID);
         messageBLService.generateMessage(workerID,"您放弃了项目"+pid,pid);
         messageBLService.generateMessage(project.getPro_requester(),workerID+" 放弃了项目"+pid,pid);
@@ -441,21 +462,6 @@ public class ProjectBL implements ProjectBLService {
         return ResultMessage.SUCCESS;
     }
 
-    @Override
-    public ArrayList<String> toRemind(String username) {
-        ArrayList<Project> projects=new ArrayList<>(projectDao.findByUser(username));
-        ArrayList<String> remind=new ArrayList<>();
-        for(Project project:projects){
-            if(project.getWorkerList().size()<Constant.MinimalContractPeople){
-                int totalDay = (int) ((project.getReleaseTime().getTime() - project.getDeadLine().getTime()) / (1000*3600*24));
-                if(project.getRemainTime()/totalDay <Constant.RemainTimeToRemind){
-                    remind.add(project.getPro_ID());
-                }
-            }
-        }
-        return remind;
-    }
-
     // 过滤特殊字符
     private static String stringFilter(String str) throws PatternSyntaxException {
         // 只允许字母和数字  String regEx ="[^a-zA-Z0-9]";
@@ -489,7 +495,17 @@ public class ProjectBL implements ProjectBLService {
         if(state.equals(SearchProState.All)){
             list3.addAll(allString);
         }else{
-            list3=projectDao.searchProByState(state);
+            switch (state){
+                case Underway:
+                    list3=projectDao.searchProIDByState(ProjectState.REALEASED);
+                    break;
+                case Examine:
+                    list3=projectDao.searchProIDByState(ProjectState.EXAMINE);
+                    break;
+                case Finished:
+                    list3=projectDao.searchProIDByState(ProjectState.FINISHED);
+                    break;
+            }
         }
 
         //根据积分范围查找
@@ -609,12 +625,9 @@ public class ProjectBL implements ProjectBLService {
 
     }
 
-    @Scheduled(cron = "0 0 0 1 * ?" )//每月一号00：00：00 新建统计数据的列,并清算上季度数据
-    public void initStatistics(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
-        String currentTime=df.format(new Date());// new Date()为获取当前系统时间
-        String year=currentTime.split("-")[0];
-        String month=currentTime.split("-")[1];
+    private String calLastMonth(String currentMonth){
+        String year=currentMonth.split("-")[0];
+        String month=currentMonth.split("-")[1];
         String lastMonth;
         if(month.equals("01")) {//新的一年
             int lastYear=Integer.parseInt(year)-1;
@@ -636,6 +649,14 @@ public class ProjectBL implements ProjectBLService {
                     break;
             }
         }
+        return lastMonth;
+    }
+
+    @Scheduled(cron = "0 0 0 1 * ?" )//每月一号00：00：00 新建统计数据的列,并清算上季度数据
+    public void initStatistics(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
+        String currentTime=df.format(new Date());// new Date()为获取当前系统时间
+        String lastMonth=calLastMonth(currentTime);
         Optional<ProjectStatistics> projectStatistics=projectStatisticsDao.findById(lastMonth);
         ProjectStatistics newProjectStatistics=new ProjectStatistics(currentTime);
         if(!projectStatistics.isPresent()){
@@ -657,8 +678,6 @@ public class ProjectBL implements ProjectBLService {
     public void changeProject() {
         System.err.println("新的一天真开心啊~~");
         System.err.println(new Date());
-
-
         for(int i=0;i<waitToCheck.size();i++){
             Project p=waitToCheck.get(i);
             if(new Date().after(p.getDeadLine())){
@@ -684,6 +703,68 @@ public class ProjectBL implements ProjectBLService {
                 }
             }
         }
+    }
+
+    //根据项目推荐相似项目
+
+    //为用户推荐项目
+    @Override
+    public ArrayList<ProjectBasic> recommendPro(String uid) {
+        ArrayList<ProjectBasic> res=new ArrayList<>();
+        ArrayList<ProBriefInfo> proBriefInfos=userBLService.getContract(uid).getContractOn();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.REALEASED);
+        Map<String,Double> list=new HashMap<>();
+        ArrayList<String> pids=new ArrayList<>();
+        for(ProBriefInfo p:proBriefInfos){
+            pids.add(p.getPid());
+        }
+        //计算推荐值
+        for(Project pr:projects){
+            double score=0.0;
+            for(ProBriefInfo p:proBriefInfos){
+                if(!pr.getPro_ID().equals(p.getPid())){
+                    score=score+similarityDao.showSimi(pr.getPro_ID(),p.getPid()).getSimilarity();
+                }
+            }
+            if(!pids.contains(pr.getPro_ID())){
+                list.put(pr.getPro_ID(),score);
+            }
+        }
+        List<Map.Entry<String,Double>> sort=new ArrayList<>(list.entrySet());
+        Collections.sort(sort, new Comparator<Map.Entry<String, Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                //降序排序
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        for(Map.Entry<String,Double> mapping:sort){
+            Project p=projectDao.getOne(mapping.getKey());
+            ProjectBasic projectBasic=projectTransVOPO.transProjectToProjectBasic(p);
+            res.add(projectBasic);
+        }
+        return res;
+    }
+
+    //修改后端存储的两两项目之间的相似度
+    private void modiSimi(String pid){
+        ArrayList<String> underwayTeam=projectDao.searchProIDByState(ProjectState.REALEASED);
+        Set<String> workersSet=projectDao.getOne(pid).getWorkerList();
+        List<String> workers1=new ArrayList<>(workersSet);
+        for(String u:underwayTeam){
+            Set<String> temp=projectDao.getOne(u).getWorkerList();
+            List<String> workers2=new ArrayList<>(temp);
+            double simi=calWij(workers1,workers2);
+            Similarity similarity=new Similarity(u,pid,simi);
+            similarityDao.saveAndFlush(similarity);
+        }
+    }
+
+    //计算两个项目之间的同现相似度
+    private double calWij(List<String> workerList1,List<String> workerList2){
+        int num=getIntersection(workerList1,workerList2).size();
+        double res=num/Math.sqrt(workerList1.size()*workerList2.size());
+        return res;
     }
 
     private static List<String> getIntersection(List<String> list1, List<String> list2) {

@@ -7,6 +7,7 @@ import com.vo.uservo.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -31,7 +32,7 @@ public interface UserBLService {
     ResultMessage reset(PersonalCenter user);
 
     //修改密码
-    ResultMessage resetPassword(String username,String oldPass,String newPass);
+    ResultMessage resetPassword(String username, String oldPass, String newPass);
 
     PersonalCenter getPersonal(String username);
 
@@ -49,16 +50,18 @@ public interface UserBLService {
     //查询用户的积分值
     double getCredits(String username);
     //更新用户的积分值
-    ResultMessage updateCredits(String username,double dValue);
+    ResultMessage updateCredits(String username, ProjectType type, double dValue);
     //更新用户的经验值
-    ResultMessage updateExperience(String username,double dValue);
+    ResultMessage updateExperience(String username, double dValue);
     //更新用户的质量指标
-    ResultMessage updateQuality(String username, ProjectType type,double gongXian);
+    ResultMessage updateQuality(String username, ProjectType type, double gongXian);
+    //更新用户每类项目平均花费时间的接口
+    void updateAvgTimePerTime(String username, ProjectType type, Date startTime);
 
     //用户发布新的项目
-    ResultMessage NewRelease(String username,ProjectType type);
+    ResultMessage NewRelease(String username, ProjectType type);
     //用户开始标注新的项目
-    ResultMessage NewContract(String username,ProjectType type);
+    ResultMessage NewContract(String username, ProjectType type);
 
     //得到活跃发包方的列表
     ArrayList<ActiveUser> getActiveRequester();
@@ -68,6 +71,6 @@ public interface UserBLService {
     //根据排名(经验值)得到用户列表
     ArrayList<String> getUserList();
 
-    UserStatisticsToAdmin getUserStatisticsToAdmin();
+    UserStatisticsToAdmin getUserStatisticsToAdmin(int year);
 
 }

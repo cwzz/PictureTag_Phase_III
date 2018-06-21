@@ -21,43 +21,47 @@ import java.util.List;
 public interface ProjectDao extends JpaRepository<Project,String> {
 
     @Query(value = "select p from Project p where p.pro_requester=:username")
-    List<Project> findByUser(@Param("username")String username);
+    List<Project> findByUser(@Param("username") String username);
 
     @Query(value = "select p from Project p where p.pro_name like %?1% or p.brief_intro like %?1%")
     ArrayList<Project> searchPro(String pro_name);
 
     @Query(value = "select p.pro_ID from Project p where p.pro_type=:pro_type")
-    ArrayList<String> searchProByType(@Param("pro_type")ProjectType pro_type);
+    ArrayList<String> searchProByType(@Param("pro_type") ProjectType pro_type);
 
     @Query(value = "select p.pro_ID from Project p where p.pro_state=:pro_state")
-    ArrayList<String> searchProByState(@Param("pro_state")SearchProState pro_state);
+    ArrayList<String> searchProIDByState(@Param("pro_state") ProjectState projectState);
+
+    @Query(value = "select p from Project p where p.pro_state=:pro_state")
+    ArrayList<Project> searchProjectByState(@Param("pro_state") ProjectState projectState);
+
 
     @Query(value = "select p.pro_ID from Project p where p.points between ?1 and ?2")
-    ArrayList<String> searchProByPointRange(int min,int max);
+    ArrayList<String> searchProByPointRange(int min, int max);
 
     @Query(value = "select p.pro_ID from Project p where p.remainTime between ?1 and ?2")
-    ArrayList<String> searchProByNumberOfDays(int min,int max);
+    ArrayList<String> searchProByNumberOfDays(int min, int max);
 
     @Modifying
     @Transactional
     @Query(value = "update Project as p set p.clickNum=p.clickNum+1 where p.pro_ID=:pro_ID")
-    void addClickNum(@Param("pro_ID")String pro_ID);
+    void addClickNum(@Param("pro_ID") String pro_ID);
 
     //简介的字数
     @Query(value = "select LENGTH(p.brief_intro)/3 from Project p where p.pro_ID=:pro_ID")
-    int briefIntroNum(@Param("pro_ID")String pro_ID);
+    int briefIntroNum(@Param("pro_ID") String pro_ID);
 
     //项目名字的字数
     @Query(value = "select LENGTH(p.pro_name)/3 from Project p where p.pro_ID=:pro_ID")
-    int nameNum(@Param("pro_ID")String pro_ID);
+    int nameNum(@Param("pro_ID") String pro_ID);
 
     //项目中简介的平均字数
     @Query(value = "select avg((length(p.brief_intro))/3) from Project p where p.pro_ID in :pro_ID")
-    double avgBriefIntroNum(@Param("pro_ID")ArrayList<String> pro_ID);
+    double avgBriefIntroNum(@Param("pro_ID") ArrayList<String> pro_ID);
 
     //项目中名字的平均字数
     @Query(value = "select avg((length(p.pro_name))/3) from Project p where p.pro_ID in :pro_ID")
-    double avgnameNum(@Param("pro_ID")ArrayList<String> pro_ID);
+    double avgnameNum(@Param("pro_ID") ArrayList<String> pro_ID);
 
     //项目名字中出现过关键词的个数
     @Query(value = "select count(p) from Project p where p.pro_name like %?1%")
@@ -73,6 +77,6 @@ public interface ProjectDao extends JpaRepository<Project,String> {
 
     //项目处于已完成状态的个数
     @Query(value = "select count(p) from Project p where p.pro_state=:state")
-    int finishNum(@Param("state")ProjectState projectState);
+    int finishNum(@Param("state") ProjectState projectState);
 
 }

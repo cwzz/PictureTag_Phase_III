@@ -1,5 +1,6 @@
 package com.vo.uservo;
 
+import com.enums.Sex;
 import lombok.Data;
 
 /**
@@ -14,6 +15,9 @@ public class PersonalCenter {
     private String identity;    //用户的身份
     private String email;  //用户的邮箱
     private String description;//用户自我描述
+    private String telephone;
+    private Sex sex;
+    private int age;
     private String[] tags;//用户的标签，对什么类型的项目感兴趣
     private double credits;//用户的积分值
     private double experience;//用户的经验值
