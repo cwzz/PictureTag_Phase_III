@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/personal_center/star-rating-svg.css">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/personal_center/progresscircle.css">
+    <script src="/js/personal_page/personal_information.js"></script>
+
+</head>
+<body style="background-color: #35a541">
+<div style="width: 100%;height: 200px;margin-bottom: 20px">
+    <div style="background-color: #0b6600; width: 200px;height: 200px;float: left;margin-right: 10px">
+        <img src="/js/personal_page/user.jpg" style="width: 200px;height: 200px">
+    </div>
+    <div style="float: left;width: 500px;height: 200px">
+        <input id="username" type="text" value="username" style="font-weight: bold;font-size: 30px;background: none;border: none" readonly>
+        <table style="font-size: 15px;font-weight: bold;margin-top: 15px">
+            <tr>
+                <td>经验值：</td>
+                <td id="empirical_value">1000</td>
+            </tr>
+            <tr>
+                <td>历史积分：</td>
+                <td id="credits_value">5000</td>
+            </tr>
+            <tr>
+                <td>综合排名：</td>
+                <td id="ranking_value">超过96%的用户</td>
+            </tr>
+            <tr>
+                <td colspan="2"><div class="my-rating-5" ></div></td>
+            </tr>
+        </table>
+
+    </div>
+    <button id="edit" style="background: none;border-color: #FFFFFF;border-radius: 5px;float: right;margin-right: 10px" onclick="edit()"> 编 辑 </button>
+    <!--<input id="edit" type="button" value=" 编 辑 " style="background: none;border-color: #FFFFFF;border-radius: 5px;float: right;margin-right: 10px" onclick="edit()">-->
+</div>
+
+<div style="width: 100%;height: 200px;margin-bottom: 20px;">
+    <div style="float: left; width: 30%;height: 200px;">
+        <div style="width: 100%;height: 30px;">
+            <div style="text-align: center;width: 200px">
+                <p style="font-size: 20px;font-weight: bold;margin: 0px">个人信息描述</p>
+            </div>
+        </div>
+        <div>
+            <textarea style="width: 100%;height: 170px;font-size: 15px;font-weight: bold;"id="self_info" readonly></textarea>
+        </div>
+    </div>
+    <div style="width: 1%;height: 200px;float: left"></div>
+    <div style="width: 30%;height: 200px;float: left;background-color: #FFFFFF">
+        <div style="width: 100%;height: 30px;background-color: #35a541">
+            <div style="text-align: center;width: 200px">
+                <p style="font-size: 20px;font-weight: bold;margin: 0px;">个人联系信息</p>
+            </div>
+        </div>
+        <div>
+            <table style="font-size: 15px;font-weight: bold;margin-left: 20px;margin-top: 20px">
+                <tr>
+                    <td>邮箱地址：</td>
+                    <td><input id="email" type="text" value="11111@163.com" style="background: none;border: none" readonly></td>
+                </tr>
+                <tr>
+                    <td>历史承包项目个数：</td>
+                    <td id="project_getting">5000</td>
+                </tr>
+                <tr>
+                    <td>历史发布项目个数：</td>
+                    <td id="project_publishing">5000</td>
+                </tr>
+                <tr>
+                    <td>综合获得的好评率：</td>
+                    <td id="star_value">96%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="width: 39%;height: 200px;float: left;background-color: #FFFFFF">
+        <div style="width: 100%;height: 30px;background-color: #35a541"></div>
+        <div id="demo">
+            <div style="text-align: center;width: 40%;;float: left">
+                <div class="circlechart" data-percentage="10">50%</div>
+            </div>
+            <div style="text-align: center;width: 40%;float: left;">
+                <div class="circlechart" data-percentage="30">30%</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div style="width: 100%;height: auto">
+    <div style="width: 100%">
+        <div style="width: 200px;height: 30px;text-align: center">
+            <p style="font-size: 20px;font-weight: bold">我的评论专区</p>
+        </div>
+    </div>
+    <div id="comments" style="height: 260px;width: 100%;padding: 10px">
+        <div id="warn" style="width: 100%;height: 120px;background-color: #f2f2f2;margin-bottom: 10px">
+            <h4>暂时还没有人评论过您</h4>
+        </div>
+        <div id="comment1" style="width: 100%;height: 120px;background-color: #f2f2f2;margin-bottom: 10px">
+            <div class="user1" style="width: 100px;height:120px;background-color: #4cd964;float: left">
+                <div id="image1" style="width: 100px;height: 100px;background-color: #4cd964">
+                    <img src="/js/personal_page/user.jpg" style="width: 100px;height: 100px">
+                </div>
+                <div id="comment_name1" style="width: 100px;height: 20px;background-color: #FAAAAA;text-align: center">AAA</div>
+            </div>
+            <div class="comment" style="display: inline;float: left;margin-left: 10px">
+                <textarea id="comment_area1" class="comment_area" style="height: 120px;overflow-y: auto" readonly></textarea>
+            </div>
+        </div>
+        <div id="comment2" style="width: 100%;height: 120px;background-color: #396fc5;margin-bottom: 10px;">
+            <div class="user2" style="width: 100px;height:120px;background-color: #4cd964;float: left">
+                <div id="image2" style="width: 100px;height: 100px;background-color: #4cd964">
+                    <img src="/js/personal_page/user.jpg" style="width: 100px;height: 100px">
+                </div>
+                <div id="comment_name2" style="width: 100px;height: 20px;background-color: #FAAAAA"></div>
+            </div>
+            <div class="comment" style="display: inline;float: left;margin-left: 10px">
+                <textarea id="comment_area2" class="comment_area" style="height: 120px;overflow-y: auto;" readonly></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center;">
+    <ul class="pagination" id="pagination2"></ul>
+</div>
+
+
+
+<script src="/js/personal_page/new/p.js"></script>
+<script src="/js/personal_page/new/jquery.star-rating-svg.js"></script>
+
+<script>
+    // $(function() {
+    //     $(".my-rating-5").starRating({
+    //         initialRating: 5,
+    //         readOnly: true
+    //     });
+    // });
+</script>
+
+<script>window.jQuery || document.write('<script src="/js/personal_page/new/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript" src="/js/personal_page/new/jqPaginator.js"></script>
+<script type="text/javascript">
+
+    // $.jqPaginator('#pagination2', {
+    //     totalPages: 100,
+    //     visiblePages: 10,
+    //     currentPage: 1,
+    //     first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+    //     prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+    //     next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+    //     last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+    //     page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+    //     onPageChange: function (num) {
+    //
+    //         //$('#p2').text(text+num);
+    //         document.getElementById("p2").innerHTML=text;
+    //
+    //     }
+    // });
+</script>
+
+<script>
+    var width=document.getElementById("comment1").offsetWidth-110;
+    $(".comment_area").css({"width":width+"px","overflow-y":"auto","border":"none"})
+</script>
+
+<script>window.jQuery || document.write('<script src="/js/personal_page/graph/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="/js/personal_page/graph/progresscircle.js"></script>
+<script>
+    $('.circlechart').circlechart(); // Initialization
+</script>
+</body>
+</html>

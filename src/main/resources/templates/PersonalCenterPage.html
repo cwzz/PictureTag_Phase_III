@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>众包标注平台个人中心</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css" media="all">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/queries.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/css.css" type="text/css" media="all">
+    <link rel="stylesheet" type='text/css' href="/css/log.css">
+    <link rel="stylesheet" type="text/css" href="/css/ManagerPageStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-lib/demand_detail.css">
+    <link rel="stylesheet" type="text/css" href="/css/style-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/line-icons.css">
+    <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bars-1to10.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css">
+    <link rel="stylesheet" href="/css/search-style.css" type="text/css">
+    <link rel="stylesheet" href="/css/upload/component-chosen.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/upload/upload.css">
+    <link rel="stylesheet" type="text/css" href="/css/PersonalCenterPageStyle.css">
+
+    <!--这里是个人信息所需要的css文件-->
+    <link rel="stylesheet" type="text/css" href="/css/personal_center/personal_information.css">
+    <link rel="stylesheet" type="text/css" href="/css/personal_center/star-rating-svg.css">
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/classie.js"></script>
+    <script src="/js/jquery.barrating.js"></script>
+    <script src="/js/examples.js"></script>
+    <script src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+    <script src="/js/charming.min.js"></script>
+    <script src="/js/file_effect.js"></script>
+    <script src="/js/jquery.filtertable.min.js"></script>
+
+    <!--统计信息所需的引用-->
+    <script src="/js/statistic/echarts.js"></script>
+    <script src="/js/personal_page/newUserStatistics.js"></script>
+
+    <!--分页-->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .scrollbot-outer-parent{
+            width: 100%;
+        }
+        .scrollbot-inner-parent{
+            width: 100%;
+        }
+        .folder__preview--text{
+            display: none;
+        }
+        .filter-table .quick { margin-left: 0.5em; font-size: 0.8em; text-decoration: none; }
+        .fitler-table .quick:hover { text-decoration: underline; }
+        td.alt { background-color: #ffc; background-color: rgba(255, 255, 0, 0.2); }
+        .td{text-align: center}
+    </style>
+
+</head>
+<body style="background: #ffffff">
+
+<menu class="mymenu" id="common_menu" style="z-index: 999999">
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="check_detail()">
+            <i class="fa fa-folder-open"></i>
+            <span class="menu-text">查看项目详情</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="downloadPNG()">
+            <i class="fa fa-download"></i>
+            <span class="menu-text">下载可预览格式(.png)</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="downloadJSON()">
+            <i class="fa fa-download"></i>
+            <span class="menu-text">下载可编辑格式(.json)</span>
+        </button>
+    </li>
+</menu>
+
+<menu class="mymenu" id="republish_menu" style="z-index: 999999">
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="reupload()">
+            <i class="far fa-paper-plane"></i>
+            <span class="menu-text">重新发布</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="gotoRecyle()">
+            <i class="fas fa-trash-alt"></i>
+            <span class="menu-text">放入回收站</span>
+        </button>
+    </li>
+</menu>
+
+<menu class="mymenu" id="delete_menu" style="z-index: 999999">
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="returnDraft()">
+            <i class="fas fa-arrow-circle-left"></i>
+            <span class="menu-text">还原至草稿箱</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="deleteProject()">
+            <i class="fas fa-trash-alt"></i>
+            <span class="menu-text">彻底删除</span>
+        </button>
+    </li>
+</menu>
+
+<menu class="mymenu" id="my_menu" style="z-index: 999999">
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="nameUpSort()">
+            <i class="fas fa-sort-alpha-up"></i>
+            <span class="menu-text">项目名升序</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="sizeUpSort()">
+            <i class="fas fa-sort-amount-up"></i>
+            <span class="menu-text">项目大小升序</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="dateUpSort()">
+            <i class="fas fa-sort-numeric-up"></i>
+            <span class="menu-text">项目日期升序</span>
+        </button>
+    </li>
+    <li class="menu-separator"></li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="nameDownSort()">
+            <i class="fas fa-sort-alpha-down"></i>
+            <span class="menu-text">项目名降序</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="sizeDownSort()">
+            <i class="fas fa-sort-amount-down"></i>
+            <span class="menu-text">项目大小降序</span>
+        </button>
+    </li>
+    <li class="menu-item">
+        <button type="button" class="menu-btn" onmousedown="DateDownSort()">
+            <i class="fas fa-sort-numeric-down"></i>
+            <span class="menu-text">项目日期降序</span>
+        </button>
+    </li>
+</menu>
+
+<svg class="hidden">
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <title>arrow</title>
+        <polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+    </symbol>
+    <symbol id="icon-drop" viewBox="0 0 24 24">
+        <title>drop</title>
+        <path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"/><path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"/>
+    </symbol>
+    <symbol id="icon-folderback" viewBox="0 0 20 16">
+        <title>folder-back</title>
+        <path d="M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"/>
+    </symbol>
+    <symbol id="icon-foldercover" viewBox="0 0 20 16">
+        <title>folder-cover</title>
+        <path d="M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"/>
+    </symbol>
+    <symbol id="icon-folderdummy" viewBox="0 0 20 16">
+        <title>folder-dummy</title>
+        <path d="M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"/><path d="M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+        <title>users</title>
+        <path style="opacity:0.3;" d="M22.2,17.7l-4-2c-0.5-0.3-0.8-0.8-0.8-1.3v-1.6c0.1-0.1,0.2-0.3,0.4-0.5c0.5-0.8,0.9-1.6,1.2-2.5
+				c0.5-0.2,0.9-0.6,0.9-1.2V7c0-0.4-0.2-0.7-0.4-0.9V3.7c0,0,0.5-3.7-4.6-3.7c-5,0-4.6,3.7-4.6,3.7v2.4C10.1,6.3,9.9,6.7,9.9,7v1.7
+				c0,0.4,0.2,0.8,0.6,1c0.4,1.8,1.5,3.1,1.5,3.1v1.5c0,0.6-0.3,1.1-0.8,1.3l-3.7,2c-1.1,0.6-1.7,1.7-1.7,2.9v1.3H24v-1.3
+				C24,19.4,23.3,18.3,22.2,17.7z"/>
+        <path style="opacity:0.5;" d="M7.5,17.7l2.5-1.3c0,0,0,0,0,0l1.2-0.7c0.5-0.3,0.8-0.8,0.8-1.3v-1.5c0,0-0.4-0.5-0.9-1.4l0,0c0,0,0,0,0,0
+				c-0.1-0.1-0.1-0.2-0.2-0.3c0,0,0,0,0-0.1c-0.1-0.1-0.1-0.3-0.2-0.4c0,0,0,0,0,0c0-0.1-0.1-0.2-0.1-0.4c0,0,0-0.1,0-0.1
+				c0-0.1-0.1-0.3-0.1-0.4c-0.3-0.2-0.6-0.6-0.6-1V7c0-0.4,0.2-0.7,0.4-0.9V3.8C9.8,3.3,8.9,2.9,7.4,2.9c-4,0-4.1,3.3-4.1,3.3v2.1
+				C3.1,8.5,2.9,8.8,2.9,9.1v1.4c0,0.4,0.2,0.7,0.5,0.9c0.4,1.6,1.6,2.7,1.6,2.7v1.3c0,0.5-0.3,0.9-0.7,1.1l-2.8,1.7
+				C0.6,18.8,0,19.7,0,20.8v1.2h5.8v-1.3C5.8,19.4,6.5,18.3,7.5,17.7z"/>
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 20 26.8">
+        <title>file</title>
+        <path d="M2.3,0C1,0,0,1,0,2.3v22.2c0,1.2,1,2.3,2.3,2.3h15.4c1.2,0,2.3-1,2.3-2.3V6l-6-6H2.3z"/>
+        <path style="opacity:0.1;fill:#000;" d="M13.9,3.7V0l6,6h-3.7C14.9,6,13.9,5,13.9,3.7z"/>
+    </symbol>
+    <symbol id="icon-padlock" viewBox="0 0 24 33.6">
+        <title>padlock</title>
+        <path d="M23,13.5h-1.7V9.4C21.4,4.2,17.2,0,12,0C6.8,0,2.6,4.2,2.6,9.4v4.1H1c-0.5,0-1,0.4-1,1v18.2c0,0.5,0.4,1,1,1H23c0.5,0,1-0.4,1-1V14.4C24,13.9,23.6,13.5,23,13.5z M13.5,24.5v3.9c0,0.3-0.3,0.6-0.6,0.6h-1.8c-0.3,0-0.6-0.3-0.6-0.6v-3.9c-0.7-0.5-1.1-1.3-1.1-2.1c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6C14.6,23.3,14.2,24.1,13.5,24.5z M16.9,13.5H7.1V9.4c0-2.7,2.2-4.9,4.9-4.9c2.7,0,4.9,2.2,4.9,4.9V13.5z"/>
+    </symbol>
+    <symbol id="icon-cloud" viewBox="0 0 24 22.2">
+        <title>cloud</title>
+        <path d="M19.5,5.8c-0.3-1.5-1-2.9-2.2-4c-1.3-1.2-3-1.8-4.7-1.8C11.3,0,10,0.4,8.9,1.1C8,1.7,7.2,2.5,6.6,3.5c-0.2,0-0.5-0.1-0.7-0.1c-2.1,0-3.8,1.7-3.8,3.8c0,0.3,0,0.5,0.1,0.8C0.8,9,0,10.6,0,12.3C0,13.6,0.5,15,1.4,16c1,1.1,2.2,1.7,3.6,1.8c0,0,0,0,0,0h4.2c0.4,0,0.7-0.3,0.7-0.7s-0.3-0.7-0.7-0.7H5c-2-0.1-3.7-2-3.7-4.2c0-1.4,0.8-2.7,2-3.4c0.3-0.2,0.4-0.5,0.3-0.8C3.5,7.8,3.4,7.5,3.4,7.2c0-1.4,1.1-2.5,2.5-2.5c0.3,0,0.6,0,0.8,0.1c0.3,0.1,0.7,0,0.8-0.3c0.9-2,2.9-3.2,5.1-3.2c2.9,0,5.3,2.2,5.6,5.1c0,0.3,0.3,0.5,0.6,0.6c2.2,0.4,3.9,2.4,3.9,4.7c0,2.5-1.9,4.6-4.3,4.8h-3.6c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h3.7c0,0,0,0,0,0c1.5-0.1,2.9-0.8,4-2c1-1.1,1.6-2.6,1.6-4.1C24,8.9,22.1,6.5,19.5,5.8z M16,12.9c0.3-0.3,0.3-0.7,0-0.9l-3.5-3.5c-0.1-0.1-0.3-0.2-0.5-0.2c-0.2,0-0.3,0.1-0.5,0.2L8,12c-0.3,0.3-0.3,0.7,0,0.9c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.3-0.1,0.5-0.2l2.4-2.4v11c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7v-11l2.4,2.4C15.3,13.2,15.7,13.2,16,12.9z"/>
+    </symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24">
+        <title>globe</title>
+        <path d="M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12c6.6,0,12-5.4,12-12C24,5.4,18.6,0,12,0z M9.7,4.3l0.6,0.2V3.7l0.2-0.2L10.7,4l0.4,0.5L11,4.8l-0.7,0.2V4.5L9.7,4.9L9.5,4.7L9.7,4.3z M1,11.7c0.1-2.3,0.8-4.5,2.1-6.2c0,0,0.1,0,0.1,0c0,0.2-0.2,0.2,0,0.6c0.3,0.5,0,0.8,0,0.8S2.6,7.4,2.5,7.5C2.3,7.6,2,8.1,2.2,7.9C2.4,7.8,2.7,7.7,2.5,8C2.3,8.3,1.9,8.9,1.8,9.1c-0.1,0.2-0.5,0.7-0.5,1s-0.2,0.7-0.1,1C1.2,11.1,1.1,11.6,1,11.7z M5.3,18.6l-0.2,0.6l0.2,0.5c0,0-0.2,0.2-0.4,0.2c-0.2,0-0.2,0.1-0.4,0.1c-1.6-1.5-2.7-3.4-3.2-5.6c0.1,0,0.1,0.1,0.2,0.1c0.2,0.1,0.2,0.2,0.5,0.3c0.2,0.1,0.3,0.2,0.5,0.3s0.2,0,0.5,0.4C3.4,16,3.3,16,3.4,16.2c0.1,0.2,0.2,0.4,0.3,0.5C3.8,16.9,4,16.9,4.2,17c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.5,0.4,0.7,0.4c0.2,0,0.2,0.5,0.2,0.5L5.3,18.6z M7,2.7C6.4,3.3,6.6,3.1,6.4,3.3C6.3,3.4,6.3,3.5,6.1,3.7C5.8,3.9,5.6,4.1,5.6,4.1L5.2,4.3L4.8,4.1c0,0-0.3,0.1-0.3,0c0,0,0-0.1,0-0.1c1-0.9,2.2-1.7,3.5-2.2C8,1.9,7.8,2.1,7.8,2.1S7.5,2.1,7,2.7z M19.6,17.5c0,0.2-0.1,0.5-0.2,0.6c0,0.2-0.2,0.5-0.4,0.6c-0.1,0.1-0.3,0.3-0.5,0.4c-0.1,0-0.2-0.3-0.2-0.5c0-0.2,0.2-0.6,0.2-0.6s0-0.2,0.1-0.4c0-0.2,0.5-0.4,0.5-0.4l0.3-0.6c0,0,0,0.2,0,0.3C19.7,17,19.6,17.4,19.6,17.5z M19.7,13.6c-0.1,0.1-0.3,0.5-0.5,0.6c-0.1,0.2-0.3,0.4-0.5,0.6c-0.2,0.2-0.2,0.4-0.4,0.6C18.2,15.6,18,16,18,16s0.1,0.8,0.1,1c0,0.2-0.3,0.6-0.3,0.6L17.5,18L17,18.6l0,0.6c0,0-0.4,0.3-0.6,0.5c-0.2,0.2-0.2,0.3-0.3,0.5c-0.2,0.2-0.6,0.5-0.8,0.5c-0.2,0-0.9,0.2-0.9,0.2v-0.4L14.3,20c0,0-0.2-0.5-0.4-0.7c-0.1-0.2-0.1-0.4-0.3-0.6c-0.2-0.2-0.3-0.4-0.3-0.5c0-0.1,0-0.5,0-0.5s0.2-0.5,0.2-0.6c0.1-0.2,0-0.4-0.1-0.6c-0.1-0.2-0.1-0.6-0.1-0.7c0-0.1-0.3-0.3-0.5-0.5c-0.1-0.1-0.1-0.3-0.1-0.5c0-0.2-0.1-0.5-0.1-0.8c0-0.3-0.4-0.1-0.6,0c-0.2,0.1-0.4-0.1-0.4-0.3c0-0.2-0.5,0-0.7,0.1c-0.3,0.2-0.6,0.2-1,0.3c-0.3,0.1-0.5-0.1-0.5-0.1S9.2,13.8,9,13.7c-0.2-0.1-0.4-0.4-0.6-0.6c-0.2-0.2-0.6-0.8-0.6-1.1c0-0.2,0-0.4,0-0.7c0-0.3,0-0.5,0-0.7c0-0.2,0.2-0.5,0.3-0.7c0.1-0.2,0.6-0.5,0.7-0.5C8.9,9.4,9.2,9.2,9.2,9c0-0.2,0.2-0.2,0.2-0.4C9.5,8.4,9.8,8,10.2,8.2c0,0,0.3,0,0.5-0.1c0.1,0,0.5-0.2,0.6-0.2c0.2-0.1,0.6-0.1,0.6-0.1s0.3,0.1,0.4,0.1c0.1,0,0.5-0.1,0.5-0.1S13,8.4,13,8.5c0,0.1,0.1,0.2,0.3,0.3c0.2,0.1,1.2,0.3,1.6,0c0.1-0.1,0.4,0.1,0.4,0.1s1,0.2,1.2,0.3c0.2,0.1,0.5,0.2,0.5,0.3c0.1,0.1,0.4,0.5,0.4,0.6c0,0.1,0.2,0.6,0.3,0.7c0,0.2,0.2,0.6,0.3,0.8c0.1,0.2,0.8,1.1,1.1,1.5l0.7-0.1C19.9,13.1,19.8,13.5,19.7,13.6z M22.7,12.1c0-0.2-0.3-0.7-0.3-0.7S22.2,11,22,10.9c-0.2-0.1-0.3-0.3-0.6-0.5c-0.3-0.2-0.4-0.2-0.7-0.2c-0.2,0-0.5-0.3-0.8-0.5c-0.3-0.2-0.3-0.1-0.3-0.1s0.3,0.5,0.3,0.6s0.4,0.3,0.7,0.2c0,0,0.2,0.5,0.4,0.6s0,0.2-0.3,0.4c-0.2,0.2-0.2,0.1-0.3,0.2c-0.1,0.1-0.5,0.3-0.7,0.4c-0.1,0.1-0.6,0.3-0.9,0.1c-0.1-0.1-0.1-0.4-0.2-0.5c-0.1-0.2-0.9-1.4-1.4-2c-0.1-0.1-0.2-0.4-0.4-0.5c-0.1-0.1,0.3-0.1,0.3-0.1s0-0.3,0-0.5c0-0.2,0-0.5,0-0.5s-0.4,0.2-0.5,0.3c-0.1,0.1-0.2-0.2-0.4-0.4c-0.2-0.2-0.3-0.5-0.4-0.7c0-0.2,0.2-0.3,0.2-0.3l0.4-0.2c0,0,0.5-0.1,0.7,0c0.3,0,0.7,0.1,0.7,0.1s0.1-0.3,0-0.4c-0.2-0.1-0.5-0.3-0.7-0.3c-0.2,0,0.1-0.2,0.3-0.4l-0.5-0.1c0,0-0.4,0.2-0.5,0.2c-0.1,0-0.3,0.1-0.5,0.3C16,6.6,16.2,6.9,16,6.9c-0.2,0.1-0.3,0.1-0.4,0.2c-0.1,0-0.5,0-0.5,0c-0.4,0-0.2,0.4,0,0.5l-0.3-0.4l-0.2-0.6c0,0-0.4-0.2-0.5-0.3c-0.2-0.1-0.7-0.4-0.7-0.4l0,0.4l0.5,0.5l0,0l0.3,0.3l-0.5,0V6.9c-0.8-0.1-0.4-0.3-0.5-0.3c-0.1-0.1-0.4-0.3-0.4-0.3s-0.5,0.1-0.6,0.1c-0.1,0-0.2,0.2-0.4,0.2c-0.2,0.1-0.4,0.2-0.4,0.3s-0.4,0.5-0.5,0.7c-0.2,0.2-0.5,0.1-0.6,0.1c-0.1,0-0.7-0.2-0.7-0.2V6.9c0,0,0.1-0.4,0-0.5l0.4-0.1l0.6-0.1l0.2-0.1l0.3-0.3c0,0-0.3-0.2-0.1-0.5c0.1-0.1,0.5-0.2,0.6-0.3c0.2-0.1,0.4-0.2,0.4-0.2s0.3-0.2,0.6-0.5c0,0,0.2-0.1,0.5-0.2c0,0,0.7,0.6,0.8,0.6s0.6-0.3,0.6-0.3s0.1-0.4,0.1-0.5c0-0.1-0.2-0.5-0.2-0.5S14,3.5,13.8,3.7C13.7,3.8,13.6,4,13.6,4S13,4,13,3.9c0-0.1-0.1-0.3-0.2-0.5c0-0.1-0.4-0.1-0.6,0c-0.2,0.1,0-0.4,0-0.4s0.2-0.3,0.4-0.3c0.2,0,0.5-0.2,0.7-0.3C13.5,2.3,14,2,14.2,2c0.2,0,0.5,0,0.6,0c0.1,0,0.6,0,0.6,0L16.3,2c0,0,0.7,0.3,0.5,0.5c0,0,0.3,0.2,0.4,0.3c0.1,0.1,0.4-0.1,0.6-0.2C20.9,4.6,23,8.1,23,12c0,0.2,0,0.4,0,0.6C22.9,12.4,22.7,12.2,22.7,12.1z M9.9,4.5L9.9,4.5L9.9,4.5L9.9,4.5z"/>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <title>arrow</title>
+        <polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+    </symbol>
+    <symbol id="icon-drop" viewBox="0 0 24 24">
+        <title>drop</title>
+        <path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"/><path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+        <title>search</title>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </symbol>
+    <symbol id="icon-cross" viewBox="0 0 24 24">
+        <title>cross</title>
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </symbol>
+</svg>
+
+<div class="navbar navbar-fixed-top skrollable skrollable-between" role="navigation"
+     style="line-height:60px; height:80px; background-color:rgba(255, 255, 255, 0.8);">
+    <div class="container" id="head">
+        <div class="navbar-header" style="margin-top: 22px">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="fa fa-bars color-white"></span>
+            </button>
+            <p style="font-size:2em;margin: 0.67em 0;color: #353535">众包标注平台<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>"
+                                                                              style="display:none;margin-top:5px;"></a>
+            </p>
+        </div>
+
+        <ul class="menu nav navbar-nav skrollable skrollable-between nnav"
+            style="margin-top:22px;display:inline;left: 48%;position: absolute;" >
+            <li><a href="/cwzz/introduce">首页</a>
+                <ul class="submenu">
+                    <li><a href="/introduce">网站介绍</a></li>
+                    <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
+                </ul>
+            </li>
+            <li><a href="/cwzz/home">项目</a>
+                <ul class="submenu">
+                    <li><a href="/cwzz/home">项目大厅</a></li>
+                    <li><a href="/cwzz/upload">发布项目</a></li>
+                </ul>
+            </li>
+            <li><a href="/cwzz/personal_center">个人</a>
+                <ul class="submenu">
+                    <li><a href="/cwzz/personal_center">个人信息</a></li>
+                    <li><a href="/cwzz/personal_center">任务详情</a></li>
+                </ul>
+            </li>
+            <li><a href="<%=basePath%>/help">帮助</a>
+                <ul class="submenu">
+                    <li><a href="<%=basePath%>/help">详情咨询</a></li>
+                    <li><a href="<%=basePath%>/aboutus">关于我们</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="top-nav notification-row" style="margin-left: 0px;margin-top: 0px;display: inline-block;position: absolute;left:85%">
+            <!-- notificatoin dropdown start-->
+            <ul class="nav pull-right top-menu">
+                <!-- alert notification start-->
+                <li id="alert_notificatoin_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="bell">
+
+                        <i class="icon-bell-l"></i>
+                        <span class="badge bg-important" id="unread_number" style="display: none"></span>
+                    </a>
+                    <ul class="dropdown-menu extended notification" id="unread_message_list" style="display: none;">
+                        <div class="notify-arrow notify-arrow-blue"></div>
+                        <li>
+                            <p class="blue" id="howmany"></p>
+                        </li>
+                    </ul>
+                </li>
+                <!-- alert notification end-->
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        <span class="username" id="username"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li class="eborder-top">
+                            <a href="#"><i class="fas fa-home"></i> 个人中心</a>
+                        </li>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                        </li>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-exchange-alt"></i> 切换账号</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!-- notificatoin dropdown end-->
+        </div>
+
+    </div>
+</div>
+
+<br>
+
+<div id="wrapper">
+    <div id="left-side" style="height: 100%">
+        <ul style="top: 0% ;position: absolute;left: 0%;">
+            <li class="introduce active">
+                <i class="fas fa-book-open myicon" style="margin-left: 0px;background: transparent"></i>
+                个人中心
+            </li>
+            <li class="information">
+                <i class="far fa-id-card myicon" style="margin-left: 0px;background: transparent"></i>
+                个人信息
+            </li>
+            <li class="personal_data">
+                <i class="fas fa-chart-line myicon" style="margin-left: 0px;background: transparent"></i>
+                统计数据
+            </li>
+            <li class="publish_pro" onclick="set_type('publish')">
+                <i class="fas fa-project-diagram myicon" style="margin-left: 0px;background: transparent"></i>
+                我发布的
+            </li>
+            <li class="adopt_pro" onclick="set_type('adopt')">
+                <i class="fas fa-project-diagram myicon" style="margin-left: 0px;background: transparent"></i>
+                我承包的
+            </li>
+            <li class="personal_message">
+                <i class="fas fa-comment myicon" style="margin-left: 0px;background: transparent"></i>
+                历史消息
+            </li>
+        </ul>
+    </div>
+
+    <div id="border">
+        <div id="line" class="one"></div>
+    </div>
+
+    <div id="right-side" style="height: 100%">
+        <div id="first" class="active" style="height: 100%">
+            <!--<h3><span>个人中心</span></h3>-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="arrow" style="text-align: center">在众包标注平台个人中心，你可以</h1>
+                        <div class="features-wrapper">
+                            <div class="col-md-3">
+                                <div class="icon" style="text-align: center">
+                                    <i class="far fa-id-badge shadow" style="font-size: 45px"></i>
+                                </div>
+                                <h2 style="text-align: center" >管理个人信息</h2>
+                                <p>查看或修改个人信息，更新联系方式，个人介绍，在竞标中抢占先机</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="icon" style="text-align: center">
+                                    <i class="fas fa-chart-line shadow"  style="font-size: 45px"></i>
+                                </div>
+                                <h2 style="text-align: center">查看任务数据</h2>
+                                <p>详细任务数据分析，为你量身定制，开启你的专属自我提升之旅</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="icon" style="text-align: center">
+                                    <i class="fas fa-cloud-upload-alt shadow" style=";font-size: 45px"></i>
+                                </div>
+                                <h2 style="text-align: center">管理发布项目</h2>
+                                <p>实时跟踪你所发布的项目，了解项目竞标情况，及时对项目完成情况作出评价反馈。</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="icon" style="text-align: center">
+                                    <i class="fas fa-cloud-download-alt shadow" style="font-size: 45px"></i>
+                                </div>
+                                <h2 style="text-align: center">管理承包项目</h2>
+                                <p>实时跟踪你承包的项目，了解与竞标者的竞争情况，执行已中标的项目任务</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="second" style="height: 100%">
+            <iframe src="/cwzz/info" style="width: 100%;height: 93%;border: none"></iframe>
+        </div>
+        <div id="third" style="height: 100%">
+            <div id="graphics">
+                <div style="float: left" id="left-graphic">
+                    <div id="gra1"></div>
+                    <div id="text1"></div>
+                </div>
+                <div style="float: left" id="right_graphic">
+                    <div id="gra2"></div>
+                    <div id="text2"></div>
+                </div>
+            </div>
+            <ul class="pagination" id="pagination2"></ul>
+        </div>
+        <div id="fourth" style="height: 100%">
+            <div class="col-xs-12 col-md-4 mb-5" style="margin-left: 45px;margin-top: 6px;width: 300px;">
+                <select id="publish_type" class="form-control form-control-chosen-required" data-placeholder="单击此处切换项目状态...">
+                    <option></option>
+                    <option>全部项目</option>
+                    <option>正在执行</option>
+                    <option>等待评估</option>
+                    <option>草稿箱</option>
+                    <option>回收站</option>
+                    <option>已结束</option>
+                </select>
+            </div>
+            <span id="publish_show" style="position: absolute;color: black;background: transparent;margin-top: 10px;margin-left: 30px;font-size: 18px">我发布的->全部项目</span>
+            <div class="search d7" style="position: absolute;margin-right: 0px;left: 55%;">
+                <div style="position: relative;width: 300px;margin: 0 auto;">
+                    <input type="search" placeholder="搜索从这里开始..." style="color: #000;" id="publish_search">
+                    <button id="publish_btn"></button>
+                </div>
+            </div>
+            <i class="fas fa-sort-amount-up my_btn" id="sort_btn2" style="left: 85%;cursor: pointer"></i>
+            <i class="fas fa-list my_btn" style="left: 88%;display: none;cursor: pointer" id="publish_list_show"></i>
+            <i class="fas fa-th my_btn" style="left: 88%;cursor: pointer" id="publish_grid_show"></i>
+            <section class="panel" id="publish_pros_list" style="height: 100%;width: 100%;margin-left: auto;margin-right:auto;display: none;margin-top: 70px">
+                <div class="panel-body progress-panel" style="width: 100%">
+                    <div class="row">
+                        <div class="col-lg-8 task-progress pull-left">
+                            <h1>已发布项目列表</h1>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover personal-task" id="publish_table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center;">项目名称</th>
+                        <th scope="col" style="text-align: center;">项目类型</th>
+                        <th scope="col" style="text-align: center;">已承包人数</th>
+                        <th scope="col" style="text-align: center;">剩余时间</th>
+                        <th scope="col" style="text-align: center;">项目积分</th>
+                        <th scope="col" style="text-align: center;">项目大体介绍</th>
+                    </tr>
+                    </thead>
+                    <tbody id="publish_table_body">
+                    <tr><td>1</td><td>George Washington</td><td>two</td><td>1789-1797</td></tr>
+                    <tr><td>2</td><td>John Adams</td><td>one</td><td>1797-1801</td></tr>
+                    <tr><td>3</td><td>Thomas Jefferson</td><td>two</td><td>1801-1809</td></tr>
+                    <tr><td>4</td><td>James Madison</td><td>two</td><td>1809-1817</td></tr>
+                    <tr><td>5</td><td>James Monroe</td><td>two</td><td>1817-1825</td></tr>
+                    <tr><td>6</td><td>John Quincy Adams</td><td>one</td><td>1825-1829</td></tr>
+                    <tr><td>7</td><td>Andrew Jackson</td><td>two</td><td>1829-1837</td></tr>
+                    <tr><td>8</td><td>Martin Van Buren</td><td>one</td><td>1837-1841</td></tr>
+                    <tr><td>9</td><td>William Henry Harrison</td><td>one-partial</td><td>1841</td></tr>
+                    <tr><td>10</td><td>John Tyler</td><td>one-partial</td><td>1841-1845</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            <div class="grid" style="margin-left: auto;margin-right: auto;margin-top: 70px" id="publish_pros_grid">
+                <div class="grid__item" id="publish_project0">
+                    <div class="folder folder--durga publish" id="p0" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project1">
+                    <div class="folder folder--durga publish" id="p1" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project2">
+                    <div class="folder folder--durga publish" id="p2" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project3">
+                    <div class="folder folder--durga publish" id="p3" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project4">
+                    <div class="folder folder--durga publish" id="p4" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project5">
+                    <div class="folder folder--durga publish" id="p5" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project6">
+                    <div class="folder folder--durga publish" id="p6" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project7">
+                    <div class="folder folder--durga publish" id="p7" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project8">
+                    <div class="folder folder--durga publish" id="p8" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project9">
+                    <div class="folder folder--durga publish" id="p9" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project10">
+                    <div class="folder folder--durga publish" id="p10" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project11">
+                    <div class="folder folder--durga publish" id="p11" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project12">
+                    <div class="folder folder--durga publish" id="p12" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project13">
+                    <div class="folder folder--durga publish" id="p13" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project14">
+                    <div class="folder folder--durga publish" id="p14" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project15">
+                    <div class="folder folder--durga publish" id="p15" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project16">
+                    <div class="folder folder--durga publish" id="p16" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project17">
+                    <div class="folder folder--durga publish" id="p17" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project18">
+                    <div class="folder folder--durga publish" id="p18" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project19">
+                    <div class="folder folder--durga publish" id="p19" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="publish_project20">
+                    <div class="folder folder--durga publish" id="p20" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+            </div>
+        </div>
+        <div id="fifth" style="height: 100%">
+            <div class="col-xs-12 col-md-4 mb-5" style="margin-left: 45px;margin-top: 6px;width: 300px;">
+                <select id="adopt_type" class="form-control form-control-chosen-required" data-placeholder="单击此处切换项目状态...">
+                    <option></option>
+                    <option>全部项目</option>
+                    <option>正在执行</option>
+                    <option>等待评估</option>
+                    <option>已结束</option>
+                </select>
+            </div>
+            <span id="adopt_show" style="position: absolute;color: black;background: transparent;margin-top: 10px;margin-left: 30px;font-size: 18px">我承包的->全部项目</span>
+            <div class="search d7" style="position: absolute;margin-right: 0px;left: 55%;">
+                <div style="position: relative;width: 300px;margin: 0 auto;">
+                    <input type="search" placeholder="搜索从这里开始..." style="color: #000;" id="adopt_search">
+                    <button id="adopt_btn"></button>
+                </div>
+            </div>
+            <i class="fas fa-sort-amount-up my_btn" id="sort_btn" style="left: 85%;cursor: pointer"></i>
+            <i class="fas fa-list my_btn" style="left: 88%;display: none;cursor: pointer" id="adopt_list_show"></i>
+            <i class="fas fa-th my_btn" style="left: 88%;cursor: pointer" id="adopt_grid_show"></i>
+            <section class="panel" id="adopt_pros_list" style="height: 100%;width: 100%;margin-left: auto;margin-right: auto;margin-top:70px;display: none">
+                <div class="panel-body progress-panel" style="width: 100%">
+                    <div class="row">
+                        <div class="col-lg-8 task-progress pull-left">
+                            <h1>已承包项目列表</h1>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover personal-task" id="adopt_table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center;">项目名称</th>
+                        <th scope="col" style="text-align: center;">项目类型</th>
+                        <th scope="col" style="text-align: center;">已承包人数</th>
+                        <th scope="col" style="text-align: center;">剩余时间</th>
+                        <th scope="col" style="text-align: center;">项目积分</th>
+                        <th scope="col" style="display: none" id="final_get">获得积分</th>
+                        <th scope="col" style="text-align: center;">项目大体介绍</th>
+                    </tr>
+                    </thead>
+                    <tbody id="adopt_table_body">
+                    <tr><td>1</td><td>George Washington</td><td>two</td><td>1789-1797</td></tr>
+                    <tr><td>2</td><td>John Adams</td><td>one</td><td>1797-1801</td></tr>
+                    <tr><td>3</td><td>Thomas Jefferson</td><td>two</td><td>1801-1809</td></tr>
+                    <tr><td>4</td><td>James Madison</td><td>two</td><td>1809-1817</td></tr>
+                    <tr><td>5</td><td>James Monroe</td><td>two</td><td>1817-1825</td></tr>
+                    <tr><td>6</td><td>John Quincy Adams</td><td>one</td><td>1825-1829</td></tr>
+                    <tr><td>7</td><td>Andrew Jackson</td><td>two</td><td>1829-1837</td></tr>
+                    <tr><td>8</td><td>Martin Van Buren</td><td>one</td><td>1837-1841</td></tr>
+                    <tr><td>9</td><td>William Henry Harrison</td><td>one-partial</td><td>1841</td></tr>
+                    <tr><td>10</td><td>John Tyler</td><td>one-partial</td><td>1841-1845</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            <div class="grid" id="adopt_pros_grid" style="margin-left: auto;margin-right: auto;margin-top: 70px">
+                <div class="grid__item" id="adopt_project0">
+                    <div class="folder folder--durga adopt" id="a0" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project1">
+                    <div class="folder folder--durga adopt" id="a1" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project2">
+                    <div class="folder folder--durga adopt" id="a2" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project3">
+                    <div class="folder folder--durga adopt" id="a3" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project4">
+                    <div class="folder folder--durga adopt" id="a4" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project5">
+                    <div class="folder folder--durga adopt" id="a5" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project6">
+                    <div class="folder folder--durga adopt" id="a6" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project7">
+                    <div class="folder folder--durga adopt" id="a7" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project8">
+                    <div class="folder folder--durga adopt" id="a8" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project9">
+                    <div class="folder folder--durga adopt" id="a9" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project10">
+                    <div class="folder folder--durga adopt" id="a10" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project11">
+                    <div class="folder folder--durga adopt" id="a11" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project12">
+                    <div class="folder folder--durga adopt" id="a12" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project13">
+                    <div class="folder folder--durga adopt" id="a13" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project14">
+                    <div class="folder folder--durga adopt" id="a14" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project15">
+                    <div class="folder folder--durga adopt" id="a15" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project16">
+                    <div class="folder folder--durga adopt" id="a16" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project17">
+                    <div class="folder folder--durga adopt" id="a17" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project18">
+                    <div class="folder folder--durga adopt" id="a18" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project19">
+                    <div class="folder folder--durga adopt" id="a19" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+                <div class="grid__item" id="adopt_project20">
+                    <div class="folder folder--durga adopt" id="a20" style="display: none">
+                        <div class="folder__icon folder__icon--perspective">
+                            <div class="folder__icon-img folder__icon-img--back">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-folderback"></use></svg>
+                            </div>
+                            <div class="folder__icon-deco"></div>
+                            <div class="folder__preview folder__preview--text">
+                                <p class="folder__detail" style="display: none"></p>
+                            </div>
+                            <div class="folder__icon-img folder__icon-img--cover">
+                                <svg class="folder__icon-svg"><use xlink:href="#icon-foldercover"></use></svg>
+                                <svg class="folder__icon-svg folder__icon-svg--deco"><use xlink:href="#icon-globe"></use></svg>
+                            </div>
+                        </div>
+                        <h3 class="folder__caption"></h3>
+                    </div>
+                    <div class="dummy"><svg><use xlink:href="#icon-folderdummy"></use></svg></div>
+                </div>
+            </div>
+        </div>
+        <div id="sixth" style="height: 100%">
+            <!--<div id="message_list">-->
+                <!--<h1 class="messageh1">历史消息总览</h1>-->
+                <!--<div class="row">-->
+                    <!--<p class="col-md-3 messagep">消息时间</p>-->
+                    <!--<p class="col-md-6 messagep">消息内容</p>-->
+                    <!--<p class="col-md-3 messagep">消息状态</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="search d7" style="position: absolute;margin-right: 0px;left: 65%;">
+                <div style="position: relative;width: 300px;margin: 0 auto;">
+                    <input type="search" placeholder="搜索从这里开始..." style="color: #000;" id="message_search">
+                    <button id="message_btn"></button>
+                </div>
+            </div>
+            <section class="panel" id="message_list" style="height: 100%;width: 100%;margin-left: auto;margin-right:auto;margin-top: 70px">
+                <div class="panel-body progress-panel" style="width: 100%">
+                    <div class="row">
+                        <div class="col-lg-8 task-progress pull-left">
+                            <h1>历史消息总览</h1>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover personal-task" id="message_table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center;">消息时间</th>
+                        <th scope="col" style="text-align: center;">消息内容</th>
+                        <th scope="col" style="text-align: center;">消息状态</th>
+                    </tr>
+                    </thead>
+                    <tbody id="message_table_body">
+                    <tr><td>1</td><td>George Washington</td><td>two</td><td>1789-1797</td></tr>
+                    <tr><td>2</td><td>John Adams</td><td>one</td><td>1797-1801</td></tr>
+                    <tr><td>3</td><td>Thomas Jefferson</td><td>two</td><td>1801-1809</td></tr>
+                    <tr><td>4</td><td>James Madison</td><td>two</td><td>1809-1817</td></tr>
+                    <tr><td>5</td><td>James Monroe</td><td>two</td><td>1817-1825</td></tr>
+                    <tr><td>6</td><td>John Quincy Adams</td><td>one</td><td>1825-1829</td></tr>
+                    <tr><td>7</td><td>Andrew Jackson</td><td>two</td><td>1829-1837</td></tr>
+                    <tr><td>8</td><td>Martin Van Buren</td><td>one</td><td>1837-1841</td></tr>
+                    <tr><td>9</td><td>William Henry Harrison</td><td>one-partial</td><td>1841</td></tr>
+                    <tr><td>10</td><td>John Tyler</td><td>one-partial</td><td>1841-1845</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $('.introduce').click(function () {
+        $('.introduce').addClass('active');
+        $('.information').removeClass('active');
+        $('.personal_data').removeClass('active');
+        $('.publish_pro').removeClass('active');
+        $('.adopt_pro').removeClass('active');
+        $('.personal_message').removeClass('active');
+        $('.introduce > .icon').addClass('active');
+        $('.information > .icon').removeClass('active');
+        $('.personal_data > .icon').removeClass('active');
+        $('.publish_pro > .icon').removeClass('active');
+        $('.adopt_pro > .icon').removeClass('active');
+        $('.personal_message > .icon').removeClass('active');
+        $('#line').addClass('one');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('four');
+        $("#line").removeClass("five");
+        $("#line").removeClass("six");
+        $('#first').addClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+        $("#fifth").removeClass("active");
+        $("#sixth").removeClass("active");
+        $("#first").css("display","block");
+        $("#first").siblings().css("display","none");
+    });
+    $('.information').click(function () {
+        $('.information').addClass('active');
+        $('.introduce').removeClass('active');
+        $('.personal_data').removeClass('active');
+        $('.publish_pro').removeClass('active');
+        $('.adopt_pro').removeClass('active');
+        $('.personal_message').removeClass('active');
+        $('.information > .icon').addClass('active');
+        $('.introduce > .icon').removeClass('active');
+        $('.personal_data > .icon').removeClass('active');
+        $('.publish_pro > .icon').removeClass('active');
+        $('.adopt_pro > .icon').removeClass('active');
+        $('.personal_message > .icon').removeClass('active');
+        $('#line').addClass('two');
+        $('#line').removeClass('one');
+        $('#line').removeClass('three');
+        $('#line').removeClass('four');
+        $("#line").removeClass("five");
+        $("#line").removeClass("six");
+        $('#first').removeClass('active');
+        $('#second').addClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+        $("#fifth").removeClass("active");
+        $("#sixth").removeClass("active");
+        $("#second").css("display","block");
+        $("#second").siblings().css("display","none");
+    });
+    $('.personal_data').click(function () {
+        $('.personal_data').addClass('active');
+        $('.introduce').removeClass('active');
+        $('.information').removeClass('active');
+        $('.publish_pro').removeClass('active');
+        $('.adopt_pro').removeClass('active');
+        $('.personal_message').removeClass('active');
+        $('.personal_data > .icon').addClass('active');
+        $('.introduce > .icon').removeClass('active');
+        $('.information > .icon').removeClass('active');
+        $('.publish_pro > .icon').removeClass('active');
+        $('.adopt_pro > .icon').removeClass('active');
+        $('.personal_message > .icon').removeClass('active');
+        $('#line').addClass('three');
+        $('#line').removeClass('two');
+        $('#line').removeClass('one');
+        $('#line').removeClass('four');
+        $("#line").removeClass("five");
+        $("#line").removeClass("six");
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').addClass('active');
+        $('#fourth').removeClass('active');
+        $("#fifth").removeClass("active");
+        $("#sixth").removeClass("active");
+        $("#third").css("display","block");
+        $("#third").siblings().css("display","none");
+    });
+    $('.publish_pro').click(function () {
+        $('.publish_pro').addClass('active');
+        $('.introduce').removeClass('active');
+        $('.personal_data').removeClass('active');
+        $('.information').removeClass('active');
+        $('.adopt_pro').removeClass('active');
+        $('.personal_message').removeClass('active');
+        $('.publish_pro > .icon').addClass('active');
+        $('.introduce > .icon').removeClass('active');
+        $('.personal_data > .icon').removeClass('active');
+        $('.information > .icon').removeClass('active');
+        $('.adopt_pro > .icon').removeClass('active');
+        $('.personal_message > .icon').removeClass('active');
+        $('#line').addClass('four');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('one');
+        $("#line").removeClass("five");
+        $("#line").removeClass("six");
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').addClass('active');
+        $("#fifth").removeClass("active");
+        $("#sixth").removeClass("active");
+        $("#fourth").css("display","block");
+        $("#fourth").siblings().css("display","none");
+    });
+    $('.adopt_pro').click(function () {
+        $('.adopt_pro').addClass('active');
+        $('.introduce').removeClass('active');
+        $('.personal_data').removeClass('active');
+        $('.information').removeClass('active');
+        $('.publish_pro').removeClass('active');
+        $('.personal_message').removeClass('active');
+        $('.adopt_pro > .icon').addClass('active');
+        $('.introduce > .icon').removeClass('active');
+        $('.personal_data > .icon').removeClass('active');
+        $('.information > .icon').removeClass('active');
+        $('.publish_pro > .icon').removeClass('active');
+        $('.personal_message > .icon').removeClass('active');
+        $('#line').addClass('five');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('one');
+        $("#line").removeClass("four");
+        $("#line").removeClass("six");
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+        $("#fifth").addClass("active");
+        $("#sixth").removeClass("active");
+        $("#fifth").css("display","block");
+        $("#fifth").siblings().css("display","none");
+    });
+    $('.personal_message').click(function () {
+        $('.personal_message').addClass('active');
+        $('.introduce').removeClass('active');
+        $('.personal_data').removeClass('active');
+        $('.information').removeClass('active');
+        $('.adopt_pro').removeClass('active');
+        $('.publish_pro').removeClass('active');
+        $('.personal_message > .icon').addClass('active');
+        $('.introduce > .icon').removeClass('active');
+        $('.personal_data > .icon').removeClass('active');
+        $('.information > .icon').removeClass('active');
+        $('.adopt_pro > .icon').removeClass('active');
+        $('.publish_pro > .icon').removeClass('active');
+        $('#line').addClass('six');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('one');
+        $("#line").removeClass("five");
+        $("#line").removeClass("four");
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+        $("#fifth").removeClass("active");
+        $("#sixth").addClass("active");
+        $("#sixth").css("display","block");
+        $("#sixth").siblings().css("display","none");
+    });
+</script>
+
+<!--分类选择器的引用-->
+<script>window.jQuery || document.write('<script src="/js/upload/classify/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="/js/upload/classify/chosen.jquery.js"></script>
+<script>
+    $('.form-control-chosen').chosen({
+        allow_single_deselect: true,
+        width: '100%'
+    });
+    $('.form-control-chosen-required').chosen({
+        allow_single_deselect: false,
+        width: '100%'
+    });
+    $('.form-control-chosen-search-threshold-100').chosen({
+        allow_single_deselect: true,
+        disable_search_threshold: 100,
+        width: '100%'
+    });
+    $('.form-control-chosen-optgroup').chosen({
+        width: '100%'
+    });
+
+    $(function() {
+        $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+    });
+    $(document).on('click', '[title="clickable_optgroup"] .group-result', function() {
+        var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+        if(unselected.length) {
+            unselected.trigger('mouseup');
+        } else {
+            $(this).nextUntil('.group-result').each(function() {
+                $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+            });
+        }
+    });
+</script>
+
+<!--<script src="/js/scrollbot.js" type="text/javascript"></script>-->
+<!--<script  src="/js/scrollreveal.min.js" type="text/javascript"></script>-->
+<script>
+    // var custom1 = new scrollbot(".custom-scroll-1");
+    // custom2 = new scrollbot(".custom-scroll-2",10).setStyle({
+    //     "background":"#202020",
+    //     "z-index":"2"
+    // },{
+    //     "background":"rgba(0,0,0,0)"
+    // });
+    // var psuedo = document.createElement("div");
+    // psuedo.style.cssText = "height:100%;width:2px;left:4px;background:#808080;position:absolute;z-index:1";
+    // custom2.scrollBarHolder.appendChild(psuedo);
+    // var custom3 = new scrollbot(".custom-scroll-3");
+    // custom3.setStyle({height:2});
+    // var onscrollfollower = document.createElement("div");
+    // onscrollfollower.style.width = "100%";
+    // onscrollfollower.style.height = "100%";
+    // onscrollfollower.style.backgroundColor = "#222222";
+    // onscrollfollower.style.position = "absolute";
+    // onscrollfollower.style.bottom = "100%";
+    // onscrollfollower.style.right = 0;
+    // custom3.scrollBarHolder.appendChild(onscrollfollower);
+    // custom3.onScroll(function(){onscrollfollower.style.bottom = 100 - parseFloat(this.scrollBar.style.top) + "%";})
+    // // custom4 = new scrollbot(".custom-scroll-4",10).setStyle({
+    // //     "background":"#202020",
+    // //     "z-index":"2",
+    // //     "border-radius":"50%",
+    // //     "height":"10px"
+    // // },{
+    // //     "background":"rgba(0,0,0,0)"
+    // // });
+    // // var psuedo = document.createElement("div");
+    // // psuedo.style.cssText = "height:100%;width:2px;left:4px;background:#808080;position:absolute;z-index:1";
+    // // custom4.scrollBarHolder.appendChild(psuedo);
+    // // var custom5 = new scrollbot(".custom-scroll-5");
+    // // window.sr = ScrollReveal({
+    // //     container:custom5.scrollElement
+    // // });
+    // // sr.reveal("p,img",{duration:1000})
+    // var custom6 = new scrollbot(".custom-scroll-6");
+    // document.querySelector("#destroy").onclick = function(){
+    //     custom6.destroy();
+    // }
+    // document.onreadystatechange = function(){
+    //     custom1.refresh();
+    //     custom2.refresh();
+    //     custom3.refresh();
+    //     //custom4.refresh();
+    //     //custom5.refresh();
+    //     custom6.refresh();
+    // }
+</script>
+
+<script type="text/javascript">
+    var isOpen=false;
+
+    var Durga_elements=[];
+    var elements=document.getElementsByTagName("*");
+    for(var i=0;i<elements.length;i++){
+        var temp_element=elements[i];
+        if(temp_element.className=="folder folder--durga adopt"||temp_element.className=="folder folder--durga publish"){
+            Durga_elements.push(temp_element);
+        }
+    }
+    for(var k=0;k<Durga_elements.length;k++){
+        new DurgaFx(Durga_elements[k]);
+    }
+
+    var my_menu=document.getElementById("my_menu");
+    function showMenu(x, y){
+        document.getElementById(menu_type).style.left = x + 'px';
+        document.getElementById(menu_type).style.top = y + 'px';
+        document.getElementById(menu_type).classList.add('show-menu');
+    }
+    function hideMenu(){
+        document.getElementById(menu_type).classList.remove('show-menu');
+    }
+    function onContextMenu(e){
+        if(current_show_model=='grid')
+            current_choose=parseInt(e.currentTarget.id.substring(1));
+        else
+            if(current_type=="publish")
+                current_choose=parseInt(e.currentTarget.id.substring(11));
+            else
+                current_choose=parseInt(e.currentTarget.id.substring(9));
+        e.preventDefault();
+        showMenu(e.pageX, e.pageY);
+    }
+    function onMouseDown(menu_type,e){
+        hideMenu(menu_type);
+    }
+
+    // for(var k=0;k<Durga_elements.length;k++){
+    //     Durga_elements[k].addEventListener('contextmenu', onContextMenu, false);
+    //     document.addEventListener('mousedown', onMouseDown, false);
+    // }
+
+    function showMyMenu(x, y){
+        my_menu.style.left = x + 'px';
+        my_menu.style.top = y + 'px';
+        my_menu.classList.add('show-menu');
+    }
+    function hideMyMenu(){
+        my_menu.classList.remove('show-menu');
+    }
+    function clickMyMenu(e){
+        if(!isOpen) {
+            showMyMenu(e.pageX, e.pageY);
+            isOpen=true
+        }else{
+            hideMyMenu();
+            isOpen=false;
+        }
+    }
+
+    document.getElementById("sort_btn").addEventListener('mousedown', clickMyMenu, false);
+    document.getElementById("sort_btn2").addEventListener('mousedown', clickMyMenu, false);
+
+    var adoptList=new Array();
+    var publishList=new Array();
+    var ReleaseOn=new Array();
+    var ReleaseExamine=new Array();
+    var ReleaseDraft=new Array();
+    var ReleaseRecycle=new Array();
+    var ReleaseFinished=new Array();
+    var ContractOn=new Array();
+    var ContractExamine=new Array();
+    var ContractFinished=new Array();
+    var current_release_data=new Array();
+    var current_contract_data=new Array();
+    var menu_type;
+    var current_type;
+    var current_choose;
+    var current_state;
+    var unread_list;
+    var read_list;
+    var messages;
+    var current_show_model="grid";
+    var search_result=new Array();
+    $(document).ready(function(){
+        document.getElementById("username").innerText=JSON.parse(localStorage.getItem("current_user")).username;
+        $.ajax({
+            type : 'POST',
+            url : '/user/MyRelease',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            async:false,
+            success : function (result) {
+                publishList=result.releaseAll;
+                ReleaseOn=result.releaseOn;
+                ReleaseExamine=result.releaseExamine;
+                ReleaseDraft=result.releaseDraft;
+                ReleaseRecycle=result.releaseRecycle;
+                ReleaseFinished=result.releaseFinished;
+                current_release_data=result.releaseAll;
+            },
+            error: function (result) {
+                alert("拿发包方信息数据失败")
+            }
+        })
+        $.ajax({
+            type : 'POST',
+            url : '/user/MyContract',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            async:false,
+            success : function (result) {
+                adoptList=result.contractAll;
+                ContractOn=result.contractOn;
+                ContractExamine=result.contractExamine;
+                ContractFinished=result.contractFinished;
+                current_contract_data=result.contractAll;
+                //alert(JSON.stringify(adoptList)+"       "+JSON.stringify(ContractOn)+"      "+JSON.stringify(ContractExamine)+"         "+JSON.stringify(ContractFinished));
+            },
+            error: function (result) {
+                alert("拿承包方信息数据失败")
+            }
+        })
+        setCurrentReleaseData("ReleaseAll");
+        setCurrentContractData("ContractAll");
+
+        // var custom2 = new scrollbot(".custom-scroll-2",10).setStyle({
+        //     "background":"#202020",
+        //     "z-index":"2"
+        // },{
+        //     "background":"rgba(0,0,0,0)"
+        // });
+        // var psuedo = document.createElement("div");
+        // psuedo.style.cssText = "height:100%;width:2px;left:4px;background:#808080;position:absolute;z-index:1";
+        // custom2.scrollBarHolder.appendChild(psuedo);
+        // document.onreadystatechange = function(){
+        //     custom2.refresh();
+        // };
+        $("#publish_type_chosen").find(".chosen-single").find("span").bind('DOMNodeInserted', function(e) {
+            var type=$(e.target).html();
+            switch(type){
+            case "全部项目":
+                setCurrentReleaseData("ReleaseAll");
+                break;
+            case "正在执行":
+                setCurrentReleaseData("ReleaseOn");
+                break;
+            case "等待评估":
+                setCurrentReleaseData("ReleaseExamine");
+                break;
+            case "草稿箱":
+                setCurrentReleaseData("ReleaseDraft");
+                break;
+            case "回收站":
+                setCurrentReleaseData("ReleaseRecycle");
+                break;
+            case "已结束":
+                setCurrentReleaseData("ReleaseFinished");
+                break;
+            }
+            $("#publish_show").html("我发布的->"+type);
+        });
+        $("#adopt_type_chosen").find(".chosen-single").find("span").bind('DOMNodeInserted', function(e) {
+            var type=$(e.target).html();
+            switch(type){
+                case "全部项目":
+                    setCurrentContractData("ContractAll");
+                    break;
+                case "正在执行":
+                    setCurrentContractData("ContractOn");
+                    break;
+                case "等待评估":
+                    setCurrentContractData("ContractExamine");
+                    break;
+                case "已结束":
+                    setCurrentContractData("ContractFinished");
+                    break;
+            }
+            $("#adopt_show").html("我承包的->"+type);
+        });
+        $("#publish_list_show").click(function(){
+           current_show_model="grid";
+           document.getElementById("publish_list_show").style.display="none";
+           document.getElementById("publish_grid_show").style.display="";
+           document.getElementById("publish_pros_grid").style.display="";
+            document.getElementById("publish_pros_list").style.display="none";
+            setCurrentReleaseData(current_state);
+        });
+        $("#publish_grid_show").click(function(){
+            current_show_model="list";
+            document.getElementById("publish_list_show").style.display="";
+            document.getElementById("publish_grid_show").style.display="none";
+            document.getElementById("publish_pros_grid").style.display="none";
+            document.getElementById("publish_pros_list").style.display="";
+            setCurrentReleaseData(current_state);
+        });
+        $("#adopt_list_show").click(function(){
+            current_show_model="grid";
+            document.getElementById("adopt_list_show").style.display="none";
+            document.getElementById("adopt_grid_show").style.display="";
+            document.getElementById("adopt_pros_grid").style.display="";
+            document.getElementById("adopt_pros_list").style.display="none";
+            setCurrentContractData(current_state);
+        });
+        $("#adopt_grid_show").click(function(){
+            current_show_model="list";
+            document.getElementById("adopt_list_show").style.display="";
+            document.getElementById("adopt_grid_show").style.display="none";
+            document.getElementById("adopt_pros_grid").style.display="none";
+            document.getElementById("adopt_pros_list").style.display="";
+            setCurrentContractData(current_state);
+        });
+        $('#publish_table').filterTable({
+            inputSelector: '#publish_search'
+        });
+        $('#adopt_table').filterTable({
+            inputSelector: '#adopt_search'
+        });
+        $("#publish_btn").click(function() {
+            if(current_type=="publish") {
+                searchProByName(current_release_data, $("#search_search").val());
+                //alert(search_result.length);
+                releaseCommonTemplete(current_state, search_result);
+            }
+        });
+        $("#adopt_btn").click(function() {
+            if(current_type=="adopt") {
+                searchProByName(current_contract_data, $("#adopt_search").val());
+                //alert(search_result.length);
+                contractCommonTemplete(current_state,search_result);
+            }
+        });
+        list_releaseCommonTemplete("all",publishList);
+        list_contractCommonTemplete("all",adoptList);
+        $('#message_table').filterTable({
+            inputSelector: '#message_search'
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/listUnread',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            async:false,
+            success:function(result){
+                unread_list=result;
+                for(var x=0;x<result.length;x++) {
+                    var new_element = "<tr id='unread" + x + "'>\n" +
+                        "                        <td class='time'>" + result[x].time + "</td>\n" +
+                        "                        <td class='context'>" + result[x].event + "</td>\n" +
+                        "                        <td class='isRead' style='text-align: center'></td>\n" +
+                        "                    </tr>";
+                    $("#message_table_body").append(new_element);
+                    $("#unread"+x).find(".isRead").append("<i class=\"far fa-envelope\" style='margin-right: auto;margin-left: auto'></i>");
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/listRead',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            async:false,
+            success:function(result){
+                read_list=result;
+                $("#message_table_body").empty();
+                for(var x=0;x<result.length;x++) {
+                    var new_element = "<tr id='read" + x + "'>\n" +
+                        "                        <td class='time'>" + result[x].time + "</td>\n" +
+                        "                        <td class='context'>" + result[x].event + "</td>\n" +
+                        "                        <td class='isRead' style='text-align: center'></td>\n" +
+                        "                    </tr>";
+                    $("#message_table_body").append(new_element);
+                    $("#read"+x).find(".isRead").append("<i class=\"far fa-envelope-open\" style='margin-right: auto;margin-left: auto'></i>");
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/listUnread',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            success:function(result){
+                if(result.length>0){
+                    messages=result;
+                    document.getElementById("unread_number").innerText=result.length;
+                    document.getElementById("unread_number").style.display="";
+                    document.getElementById("unread_message_list").style.display="";
+                    document.getElementById("howmany").innerText="您有"+result.length+"条未读消息";
+                    for(var i=0;i<result.length;i++){
+                        var new_element="<li>\n" +
+                            "                            <a href=\"#\" id=\"message"+i+"\">\n" +
+                            "                                <span class=\"content\"></span>\n" +
+                            "                                <span class=\"time small italic pull-right\"></span>\n" +
+                            "                            </a>\n" +
+                            "                        </li>";
+                        $("#unread_message_list").append(new_element);
+                        var show_content=result[i].event.length<=18?(result[i].event):(result[i].event.substring(0,18)+"...");
+                        $("#message"+i).find(".content").text(show_content);
+                        $("#message"+i).find(".time").text(result[i].time);
+                    }
+                    document.getElementById("bell").addEventListener("mousedown",readMessage,false);
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+    });
+
+        function clickReadMessage(e){
+            var times={};
+            var temp_pos=parseInt(e.currentTarget.id.substring(6));
+            times.push(unread_list[temp_pos].time);
+            var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,messageList:times};
+            $.ajax({
+                type : 'POST',
+                url : '/setState',
+                contentType:"application/json",
+                dataType:"json",
+                data :JSON.stringify(temp_para),
+                success: function(result){
+                    $("#"+e.currentTarget.id).find(".isRead").empty();
+                    $("#"+e.currentTarget.id).find(".isRead").append( "<i class=\"far fa-envelope-open\"></i>");
+                    console.log("阅读成功");
+                },
+            error: function(){
+                alert("传输失败");
+            }
+        })
+    }
+
+    function readMessage(){
+        document.getElementById("unread_number").style.display="none";
+        var times=new Array();
+        for(var i=0;i<messages.length;i++){
+            times.push(messages[i].time);
+        }
+        var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,messageList:times};
+        $.ajax({
+            type : 'POST',
+            url : '/setState',
+            contentType:"application/json",
+            dataType:"json",
+            data :JSON.stringify(temp_para),
+            success: function(result){
+                console.log("阅读成功");
+            },
+            error: function(){
+                alert("传输失败");
+            }
+        })
+    }
+
+    function contractCommonTemplete(type,data){
+        //alert(JSON.stringify(data));
+        for(var y=0;y<=20;y++){
+            $("#adopt_project"+y).find(".folder--durga").css("display","none");
+            $("#adopt_project"+y).find(".dummy").css("display","");
+        }
+        var contract_elements=[];
+        var temp_elements=document.getElementsByTagName("*");
+        for(var i=0;i<temp_elements.length;i++){
+            var temp_element=temp_elements[i];
+            if(temp_element.className=="folder folder--durga adopt"){
+                contract_elements.push(temp_element);
+            }
+        }
+        menu_type="common_menu";
+        for(var x=0;x<contract_elements.length;x++){
+            contract_elements[x].addEventListener("contextmenu",onContextMenu,false);
+        }
+        document.addEventListener('mousedown', onMouseDown, false);
+        for(var pointer=0;pointer<data.length;pointer++){
+            $("#adopt_project"+pointer).find(".folder--durga").css("display","");
+            $("#adopt_project"+pointer).find(".dummy").css("display","none");
+            $("#adopt_project"+pointer).find(".folder__caption").text(data[pointer].name);
+            $("#adopt_project"+pointer).click(function(){
+                var position=parseInt(this.id.substring(13));
+                localStorage.setItem("projectdetail_id",current_contract_data[position].pid);
+                window.location.href="project_detail";
+            });
+        }
+    }
+
+    function list_contractCommonTemplete(type,data){
+        $("#adopt_table_body").empty();
+        menu_type="common_menu";
+        document.getElementById("final_get").style.display=type=="finished"?"":"none";
+        for(var i=0;i<data.length;i++){
+            var new_element="";
+            if(type=="finished"){
+                new_element = "<tr id='adopt_pro" + i + "'>\n" +
+                    "                        <td class='pro_name'>" + data[i].name + "</td>\n" +
+                    "                        <td class='pro_type'>" + data[i].type + "</td>\n" +
+                    "                        <td class='worker_num'>" + data[i].numOfWorker + "</td>\n" +
+                    "                        <td class='remain_time'>" + data[i].remainTime + "</td>\n" +
+                    "                        <td class='pro_points'>" + data[i].points + "</td>\n" +
+                    "                        <td class='get_points'>" + data[i].finalGet + "</td>\n" +
+                    "                        <td class='pro_introduce' style='text-align: center'>" + data[i].briefInfor + "</td>\n" +
+                    "                    </tr>";
+            }else {
+                new_element = "<tr id='adopt_pro" + i + "'>\n" +
+                    "                        <td class='pro_name'>" + data[i].name + "</td>\n" +
+                    "                        <td class='pro_type'>" + data[i].type + "</td>\n" +
+                    "                        <td class='worker_num'>" + data[i].numOfWorker + "</td>\n" +
+                    "                        <td class='remain_time'>" + data[i].remainTime + "</td>\n" +
+                    "                        <td class='pro_points'>" + data[i].points + "</td>\n" +
+                    "                        <td class='pro_introduce'style='text-align: center'>" + data[i].briefInfor + "</td>\n" +
+                    "                    </tr>";
+            }
+            $("#adopt_table_body").append(new_element);
+            $("#adopt_pro"+i).click(function(){
+                var position=parseInt(this.id.substring(9));
+                localStorage.setItem("projectdetail_id",current_contract_data[position].pid);
+                window.location.href="project_detail";
+            });
+            document.getElementById("adopt_pro"+i).addEventListener("contextmenu",onContextMenu,false);
+        }
+        document.addEventListener('mousedown', onMouseDown, false);
+    }
+
+    function releaseCommonTemplete(type,data){
+        for(var y=0;y<=20;y++){
+            $("#publish_project"+y).find(".folder--durga").css("display","none");
+            $("#publish_project"+y).find(".dummy").css("display","");
+        }
+        var release_elements=[];
+        var temp_elements=document.getElementsByTagName("*");
+        for(var i=0;i<temp_elements.length;i++){
+            var temp_element=temp_elements[i];
+            if(temp_element.className=="folder folder--durga publish"){
+                release_elements.push(temp_element);
+            }
+        }
+        if(type=="draft"||type=="problem"){
+            menu_type="republish_menu";
+            for(var x=0;x<release_elements.length;x++){
+                release_elements[x].addEventListener("contextmenu",onContextMenu,false);
+            }
+            document.addEventListener('mousedown', onMouseDown, false);
+        }else if(type=="recycle"){
+            menu_type="delete_menu";
+            for(var x=0;x<release_elements.length;x++){
+                release_elements[x].addEventListener("contextmenu",onContextMenu,false);
+            }
+            document.addEventListener('mousedown', onMouseDown, false);
+        }else {
+            menu_type="common_menu";
+            for(var x=0;x<release_elements.length;x++){
+                release_elements[x].addEventListener("contextmenu",onContextMenu,false);
+            }
+            document.addEventListener('mousedown', onMouseDown, false);
+        }
+        for(var pointer=0;pointer<data.length;pointer++){
+            $("#publish_project"+pointer).find(".folder--durga").css("display","");
+            $("#publish_project"+pointer).find(".dummy").css("display","none");
+            $("#publish_project"+pointer).find(".folder__caption").text(data[pointer].name);
+            if(type=="draft"||type=="problem") {
+                $("#publish_project" + pointer).click(function () {
+                    var position = parseInt(this.id.substring(15));
+                    localStorage.setItem("project_id", current_release_data[position].pid);
+                    window.location.href = "upload";
+                });
+            }else if(type=="recyle"){
+                $.alert({
+                    title: '无法查看详情!',
+                    content: '回收站中的项目无法查看项目的详情，请将回收站中的项目还原至草稿箱中重新发布',
+                    confirmButton: '我知道了',
+                    confirmButtonClass: 'btn-primary',
+                    icon: 'fa fa-info',
+                    animation: 'zoom',
+                });
+            }else{
+                $("#publish_project" + pointer).click(function () {
+                    var position = parseInt(this.id.substring(15));
+                    localStorage.setItem("projectdetail_id", current_release_data[position].pid);
+                    window.location.href = "project_detail";
+                });
+            }
+        }
+    }
+
+    function list_releaseCommonTemplete(type,data){
+            //alert("yes");
+        $("#publish_table_body").empty();
+        for(var i=0;i<data.length;i++){
+            var new_element="<tr id='publish_pro"+i+"'>\n" +
+                "                        <td>"+data[i].name+"</td>\n" +
+                "                        <td>"+data[i].type+"</td>\n" +
+                "                        <td>"+data[i].numOfWorker+"</td>\n" +
+                "                        <td>"+data[i].remainTime+"</td>\n" +
+                "                        <td>"+data[i].points+"</td>\n" +
+                "                        <td style='text-align: center'>"+data[i].briefInfor+"</td>\n" +
+                "                    </tr>";
+            $("#publish_table_body").append(new_element);
+            if(type=="draft"||type=="problem") {
+                $("#publish_pro" + i).click(function () {
+                    var position = parseInt(this.id.substring(11));
+                    localStorage.setItem("project_id", current_release_data[position].pid);
+                    window.location.href = "upload";
+                });
+            }else if(type=="recyle"){
+                $.alert({
+                    title: '无法查看详情!',
+                    content: '回收站中的项目无法查看项目的详情，请将回收站中的项目还原至草稿箱中重新发布',
+                    confirmButton: '我知道了',
+                    confirmButtonClass: 'btn-primary',
+                    icon: 'fa fa-info',
+                    animation: 'zoom',
+                });
+            }else{
+                $("#publish_pro" + i).click(function () {
+                    var position = parseInt(this.id.substring(11));
+                    localStorage.setItem("projectdetail_id", current_release_data[position].pid);
+                    window.location.href = "project_detail";
+                });
+            }
+            if(type=="draft"||type=="problem")
+                menu_type="republish_menu";
+            else if(type=="recycle")
+                menu_type="delete_menu";
+            else
+                menu_type="common_menu";
+            document.getElementById("publish_pro"+i).addEventListener("contextmenu",onContextMenu,false);
+        }
+        document.addEventListener('mousedown', onMouseDown, false);
+    }
+
+    function set_type(type){
+        current_type=type;
+    }
+
+    function check_detail(){
+        if(current_type=="adopt"){
+            localStorage.setItem("projectdetail_id", current_contract_data[current_choose].pid);
+            window.location.href = "project_detail";
+        }else{
+            localStorage.setItem("projectdetail_id", current_release_data[current_choose].pid);
+            window.location.href = "project_detail";
+        }
+    }
+
+    function setCurrentReleaseData(type){
+           // alert(type);
+        switch(type){
+            case "ReleaseAll":
+                current_release_data=publishList;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("all",publishList);
+                else
+                    list_releaseCommonTemplete("all",publishList);
+                document.getElementById("publish_show").innerText="我发布的->全部项目";
+                current_state=type;
+                break;
+            case "ReleaseOn":
+                current_release_data=ReleaseOn;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("On",ReleaseOn);
+                else
+                    list_releaseCommonTemplete("On",ReleaseOn);
+                document.getElementById("publish_show").innerText="我发布的->正在执行";
+                current_state=type;
+                break;
+            case "ReleaseExamine":
+                current_release_data=ReleaseExamine;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("Examine",ReleaseExamine);
+                else
+                    list_releaseCommonTemplete("Examine",ReleaseExamine);
+                document.getElementById("publish_show").innerText="我发布的->等待评估";
+                current_state=type;
+                break;
+            case "ReleaseDraft":
+                current_release_data=ReleaseDraft;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("draft",ReleaseDraft);
+                else
+                    list_releaseCommonTemplete("draft",ReleaseDraft);
+                document.getElementById("publish_show").innerText="我发布的->草稿箱";
+                current_state=type;
+                break;
+            case "ReleaseRecycle":
+                current_release_data=ReleaseRecycle;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("recycle",ReleaseRecycle);
+                else
+                    list_releaseCommonTemplete("recycle",ReleaseRecycle);
+                document.getElementById("publish_show").innerText="我发布的->回收站";
+                current_state=type;
+                break;
+            case "ReleaseFinished":
+                current_release_data=ReleaseFinished;
+                if(current_show_model=="grid")
+                    releaseCommonTemplete("finished",ReleaseFinished);
+                else
+                    list_releaseCommonTemplete("finished",ReleaseFinished);
+                document.getElementById("publish_show").innerText="我发布的->已结束";
+                current_state=type;
+                break;
+        }
+    }
+
+    function setCurrentContractData(type){
+        switch(type){
+            case "ContractAll":
+                current_contract_data=adoptList;
+                if(current_show_model=="grid")
+                    contractCommonTemplete("all",adoptList);
+                else
+                    list_contractCommonTemplete("all",adoptList);
+                document.getElementById("adopt_show").innerText="我承包的->全部项目";
+                break;
+            case "ContractOn":
+                current_contract_data=ContractOn;
+                if(current_show_model=="grid")
+                    contractCommonTemplete("on",ContractOn);
+                else
+                    list_contractCommonTemplete("on",ContractOn);
+                document.getElementById("adopt_show").innerText="我承包的->我中标的";
+                break;
+            case "ContractExamine":
+                current_contract_data=ContractExamine;
+                if(current_show_model=="grid")
+                    contractCommonTemplete("examine",ContractExamine);
+                else
+                    list_contractCommonTemplete("examine",ContractExamine);
+                document.getElementById("adopt_show").innerText="我承包的->等待评估";
+                break;
+            case "ContractFinished":
+                current_contract_data=ContractFinished;
+                if(current_show_model=="grid")
+                    contractCommonTemplete("finished",ContractFinished);
+                else
+                    list_contractCommonTemplete("finished",ContractFinished);
+                document.getElementById("adopt_show").innerText="我承包的->已结束";
+                break;
+        }
+    }
+
+    function downloadPNG(){
+        //待完成
+    }
+
+    function downloadJSON() {
+        var current_id=(current_type=="publish"?current_release_data[current_choose].pid:current_contract_data[current_choose].pid);
+        var download_content;
+        var eleLink = document.createElement('a');
+        eleLink.download =current_id+".json";
+        eleLink.style.display = 'none';
+        $.ajax({
+            type : 'POST',
+            url : '/project/read',
+            data :{pid:current_id},
+            async:false,
+            success : function (result) {
+
+                //need修改
+
+                //download_content=result.picList;
+            },
+            error: function (result) {
+                alert("拿承包方信息数据失败")
+            }
+        });
+        // 字符内容转变成blob地址
+        var blob = new Blob([JSON.stringify(download_content)]);
+        eleLink.href = URL.createObjectURL(blob);
+        // 触发点击
+        document.body.appendChild(eleLink);
+        eleLink.click();
+        // 然后移除
+        document.body.removeChild(eleLink);
+    }
+
+    function reupload(){
+        localStorage.setItem("project_id", current_release_data[current_choose].pid);
+        window.location.href = "upload";
+    }
+
+    function gotoRecyle(){
+        $.confirm({
+            title: '确认删除',
+            content: '确认将当前项目删除至回收站中吗？删除至回收站之后仍然能够从回收站中复原该项目',
+            confirmButton: '确认回收',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,pid:current_release_data[current_choose].pid};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/remove',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.ajax({
+                                type : 'POST',
+                                url : '/user/MyRelease',
+                                data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                                async:false,
+                                success:function(data){
+                                    ReleaseDraft=data.releaseDraft;
+                                    ReleaseRecycle=data.releaseRecycle;
+                                    //ReleaseNobodyTake=data.releaseNobodyTake;
+                                    //ReleaseNoChoose=data.releaseNoChoose;
+                                    //ReleaseUnFinish=data.releaseUnFinish;
+                                    var temp_type;
+                                    switch (current_state){
+                                        case "ReleaseDraft":
+                                            current_release_data=ReleaseDraft;
+                                            temp_type="draft";
+                                            break;
+                                    }
+                                    releaseCommonTemplete(temp_type,current_release_data);
+                                },
+                                error:function(data) {
+                                    alert("传输错误");
+                                }
+                            });
+                            $.alert({
+                                title: '回收成功!',
+                                content: '成功将该项目回收至回收站中',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }else{
+                            $.alert({
+                                title: '回收失败!',
+                                content: '由于某些原因，回收该项目失败了',
+                                confirmButton: '重新回收',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function returnDraft(){
+        $.confirm({
+            title: '确认复原',
+            content: '确认将当前回收站中的项目复原至草稿箱中吗？复原后项目将可以重新发布',
+            confirmButton: '确认复原',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,pid:current_release_data[current_choose].pid};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/recover',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.ajax({
+                                type : 'POST',
+                                url : '/user/MyRelease',
+                                data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                                async:false,
+                                success:function(data){
+                                    ReleaseDraft=data.releaseDraft;
+                                    ReleaseRecycle=data.releaseRecycle;
+                                    current_release_data=data.releaseRecycle;
+                                    releaseCommonTemplete("recycle",current_release_data);
+                                },
+                                error:function(data) {
+                                    alert("传输错误");
+                                }
+                            });
+                            $.alert({
+                                title: '复原成功!',
+                                content: '成功将该项目复原至草稿箱中，您可以点击草稿箱进行查看',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }else{
+                            $.alert({
+                                title: '复原失败!',
+                                content: '由于某些原因，复原该项目失败了',
+                                confirmButton: '重新回收',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function deleteProject(){
+        $.confirm({
+            title: '确认永久删除',
+            content: '确认将当前回收站中的项目永久删除吗？永久删除该项目后将无法重新复原该项目，请谨慎选择',
+            confirmButton: '确认永久删除',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,pid:current_release_data[current_choose].pid};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/delete',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.ajax({
+                                type : 'POST',
+                                url : '/user/MyRelease',
+                                data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                                async:false,
+                                success:function(data){
+                                    ReleaseRecycle=data.releaseRecycle;
+                                    current_release_data=data.releaseRecycle;
+                                    releaseCommonTemplete("recycle",current_release_data);
+                                },
+                                error:function(data) {
+                                    alert("传输错误");
+                                }
+                            });
+                            $.alert({
+                                title: '永久删除成功!',
+                                content: '成功将该项目永久删除，您无法再重新复原该项目',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }else{
+                            $.alert({
+                                title: '永久删除失败!',
+                                content: '由于某些原因，永久删除该项目失败了',
+                                confirmButton: '重新回收',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function nameUpSort(){
+
+    }
+
+    function sizeUpSort(){
+
+    }
+
+    function dateUpSort(){
+
+    }
+
+    function nameDownSort(){
+
+    }
+
+    function sizeDownSort(){
+
+    }
+
+    function DateDownSort(){
+
+    }
+
+    function logout(){
+        $.confirm({
+            title: '确认登出',
+            content: '确认退出当前登录用户吗？',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                $.ajax({
+                    type : 'POST',
+                    url : '/user/logout',
+                    data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            localStorage.removeItem("current_user");
+                            $.alert({
+                                title: '登出成功!',
+                                content: '成功登出当前用户',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="login";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '登出失败!',
+                                content: '由于某些原因，登出当前用户失败了',
+                                confirmButton: '重新登出',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function sleep(numberMillis) {
+        var now = new Date();
+        var exitTime = now.getTime() + numberMillis;
+        while (true) {
+            now = new Date();
+            if (now.getTime() > exitTime)
+                return;
+        }
+    }
+
+    function searchProByName(data,input){
+        if(input=="")
+            search_result=data;
+        else{
+            var temp_data=new Array();
+            for(var i=0;i<data.length;i++){
+                if(data[i].name.length<input.length) continue;
+                var hasFound=false;
+                for(var j=0;j<=data[i].name.length-input.length;j++) {
+                    // alert(data[i].name.substring(j, input.length) + " " + input);
+                    if (data[i].name.substring(j, input.length) == input) {
+                        hasFound = true;
+                        break;
+                    }
+                }
+                if (hasFound) temp_data.push(data[i]);
+            }
+            search_result=temp_data;
+        }
+    }
+
+</script>
+
+<script>window.jQuery || document.write('<script src="/js/personal_page/new/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript" src="/js/personal_page/new/jqPaginator.js"></script>
+<script type="text/javascript">
+
+    $.jqPaginator('#pagination2', {
+        totalPages: 2,
+        visiblePages: 10,
+        currentPage: 1,
+        first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+        prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+        next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+        last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+        onPageChange: function (num) {
+            // //$('#p2').text(text+num);
+            // document.getElementById("graphics").innerHTML=num;
+            if(num==1){
+                page1();
+            }
+            else if(num==2){
+                page2();
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

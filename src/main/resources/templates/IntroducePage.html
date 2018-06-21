@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>众包标注平台首页</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/flexslider.css" rel="stylesheet" >
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/queries.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/css.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/pop-up-box" type="text/css" media="all">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <style>
+        .cd-vertical-nav li:first-of-type a::after {
+            /* change icon using image sprites */
+            /*background-position: 0px -48px;*/
+            content: "\f015";
+            color: black;
+            font-size: 16px;
+            top: 4px;
+            font-family: FontAwesome;
+            /* fix bug with transitions - set scale(0.01) rather than scale(0) */
+            -webkit-transform: translateX(-50%) translateY(4.5em) scale(0.01);
+            -moz-transform: translateX(-50%) translateY(4.5em) scale(0.01);
+            -ms-transform: translateX(-50%) translateY(4.5em) scale(0.01);
+            -o-transform: translateX(-50%) translateY(4.5em) scale(0.01);
+            transform: translateX(-50%) translateY(4.5em) scale(0.01);
+        }
+
+        .cd-vertical-nav li:nth-of-type(2) a::after {
+            /*background-position: 0px -32px;*/
+            content: "\f0ee";
+            color: black;
+            font-size: 16px;
+            top: 4px;
+            font-family: FontAwesome;
+            -webkit-transform: translateX(-50%) translateY(1.5em) scale(0.01);
+            -moz-transform: translateX(-50%) translateY(1.5em) scale(0.01);
+            -ms-transform: translateX(-50%) translateY(1.5em) scale(0.01);
+            -o-transform: translateX(-50%) translateY(1.5em) scale(0.01);
+            transform: translateX(-50%) translateY(1.5em) scale(0.01);
+        }
+
+        .cd-vertical-nav li:nth-of-type(3) a::after {
+            /*background-position: 0px -16px;*/
+            content: "\f0c0";
+            color: black;
+            font-size: 16px;
+            top: 4px;
+            font-family: FontAwesome;
+            -webkit-transform: translateX(-50%) translateY(-1.5em) scale(0.01);
+            -moz-transform: translateX(-50%) translateY(-1.5em) scale(0.01);
+            -ms-transform: translateX(-50%) translateY(-1.5em) scale(0.01);
+            -o-transform: translateX(-50%) translateY(-1.5em) scale(0.01);
+            transform: translateX(-50%) translateY(-1.5em) scale(0.01);
+        }
+
+        .cd-vertical-nav li:nth-of-type(4) a::after {
+            /*background-position: 0px 0px;*/
+            content: "\f0f7";
+            color: black;
+            font-size: 16px;
+            top: 4px;
+            font-family: FontAwesome;
+            -webkit-transform: translateX(-50%) translateY(-4.5em) scale(0.01);
+            -moz-transform: translateX(-50%) translateY(-4.5em) scale(0.01);
+            -ms-transform: translateX(-50%) translateY(-4.5em) scale(0.01);
+            -o-transform: translateX(-50%) translateY(-4.5em) scale(0.01);
+            transform: translateX(-50%) translateY(-4.5em) scale(0.01);
+        }
+
+        .cd-vertical-nav li:nth-of-type(5) a::after {
+            /*background-position: 0px 0px;*/
+            content: "\f201";
+            color: black;
+            font-size: 16px;
+            top: 4px;
+            font-family: FontAwesome;
+            -webkit-transform: translateX(-50%) translateY(-7.5em) scale(0.01);
+            -moz-transform: translateX(-50%) translateY(-7.5em) scale(0.01);
+            -ms-transform: translateX(-50%) translateY(-7.5em) scale(0.01);
+            -o-transform: translateX(-50%) translateY(-7.5em) scale(0.01);
+            transform: translateX(-50%) translateY(-7.5em) scale(0.01);
+        }
+
+    </style>
+
+</head>
+<body id="top">
+<header id="home">
+    <section class="hero" id="hero" style="display: none">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-right navicon">
+                    <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center inner">
+                    <h1 class="animated fadeInDown"><span></span></h1>
+                    <p class="animated fadeInUp delay-05s"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <a href="http://www.gbtags.com/gb/share/3577.htm" class="learn-more-btn"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="cd-vertical-nav">
+        <ul class="nnav">
+            <li><a href="/cwzz/login" class="smooth"><span class="label" style="color: #6b6b6b;">项目大厅</span></a></li>
+            <li><a href="/cwzz/login" class="smooth"><span class="label" style="color: #6b6b6b;">发布项目</span></a></li>
+            <li><a href="/cwzz/login" class="smooth"><span class="label" style="color: #6b6b6b;">个人中心</span></a></li>
+            <li><a href="/cwzz/login" class="smooth"><span class="label" style="color: #6b6b6b;">个人项目</span></a></li>
+            <li><a href="/cwzz/login" class="smooth"><span class="label" style="color: #6b6b6b;">统计信息</span></a></li>
+        </ul>
+    </nav>
+
+    <div class="navbar navbar-fixed-top skrollable skrollable-between" role="navigation"
+         data-0="line-height:100px; height:100px; background-color:rgba(0,0,0,0);"
+         data-300="line-height:60px; height:60px; background-color:rgba(255, 255, 255, 0.8);"
+         style="line-height: 100px; height: 100px; background-color: rgba(0, 0, 0, 0);">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="fa fa-bars color-white"></span>
+                </button>
+                <!--<h1>众包标注平台<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>" data-0="display:none"-->
+                       <!--data-300="margin-top:10px;display:inline" style="display:none"></a>-->
+                <!--</h1>-->
+                <h1>众包标注平台<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>"
+                       data-0="margin-top:5px;display:inline" data-300="margin-top:0px;display:none"
+                       style="display:inline;margin-top:5px;"></a>
+                </h1>
+            </div>
+
+            <div class="menuContainer navbar-collapse collapse js-navbar-scrollyspy">
+                <ul class="menu nav navbar-nav skrollable skrollable-between " data-0="margin-top:20px;display:inline"
+                    data-300="margin-top:5px;display:none" style="margin-top: 20px;display:inline">
+                    <li><a href="/cwzz/introduce">首页</a>
+                        <ul class="submenu">
+                            <li><a href="/introduce">网站介绍</a></li>
+                            <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/home">项目</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/home">项目大厅</a></li>
+                            <li><a href="/cwzz/upload">发布项目</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/personal_center">个人</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/personal_center">个人信息</a></li>
+                            <li><a href="/cwzz/personal_center">任务详情</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<%=basePath%>/help">帮助</a>
+                        <ul class="submenu">
+                            <li><a href="<%=basePath%>/help">详情咨询</a></li>
+                            <li><a href="<%=basePath%>/aboutus">关于我们</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/cwzz/login">登录</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/register">注册</a></li>
+                        </ul>
+                        <!--<a class="smooth" href="../pages/strategy/my-strategy.jsp"><%=username%>-->
+                        <!--</a>-->
+                        <!--<ul class="submenu">-->
+                        <!--<li><a href="../pages/strategy/my-strategy.jsp">我的策略</a></li>-->
+                        <!--<li><a href="../pages/user/mystock.jsp">我的自选</a></li>-->
+                        <!--<li id="quit-btn" class="quit"><a href="<%=basePath%>">退出</a></li>-->
+                        <!--</ul>-->
+                    </li>
+                </ul>
+
+
+                <ul class="menu nav navbar-nav skrollable skrollable-between nnav" data-0="margin-top:20px;display:none"
+                    data-300="margin-top:5px;display:inline;" style="margin-top: 20px;display:none">
+                    <li><a href="/cwzz/introduce">首页</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/introduce">网站介绍</a></li>
+                            <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/home">项目</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/home">项目大厅</a></li>
+                            <li><a href="/cwzz/upload">发布项目</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/personal_center">个人</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/personal_center">个人信息</a></li>
+                            <li><a href="/cwzz/personal_center">任务详情</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<%=basePath%>/help">帮助</a>
+                        <ul class="submenu">
+                            <li><a href="<%=basePath%>/help">详情咨询</a></li>
+                            <li><a href="<%=basePath%>/aboutus">关于我们</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/cwzz/login">登录</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/register">注册</a></li>
+                        </ul>
+                        <!--<a class="smooth" href="../pages/strategy/my-strategy.jsp"><%=username%>-->
+                        <!--</a>-->
+                        <!--<ul class="submenu">-->
+                        <!--<li><a href="../pages/strategy/my-strategy.jsp">我的策略</a></li>-->
+                        <!--<li><a href="../pages/user/mystock.jsp">我的自选</a></li>-->
+                        <!--<li class="quit"><a href="<%=basePath%>">退出</a></li>-->
+                        <!--</ul>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section id="section-home" class="appear carousel carousel-fade slide" data-ride="carousel" data-interval="5000"
+             data-pause="hover">
+
+        <ol class="carousel-indicators">
+            <li data-target="#section-home" data-slide-to="0" class="active"></li>
+            <li data-target="#section-home" data-slide-to="1" class=""></li>
+            <li data-target="#section-home" data-slide-to="2" class=""></li>
+            <li data-target="#section-home" data-slide-to="3" class=""></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item firstcar active" style="background: url('https://i.imgur.com/siqWvC0.jpg'); height: 700px;">
+                <div class="container-fluid">
+                    <div class="row home-top1">
+                        <div class="col-md-12 text-center">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">众包标注平台</p>
+                            <br>
+                            <p class="carouselText3 animation206 animated fadeInUp center-block" style="color: white">
+                                发布承包&nbsp;&nbsp;&nbsp;&nbsp;互利共赢
+                            </p><br>
+                            <p class="carouselText3 animation209 animated fadeInUp center-block" style="color: white">
+                                标注：为处理数据提供了一种更好的方法，为机器学习提高了更可靠的数据集
+                            </p><br>
+                            <p class="carouselText3 animation212 animated fadeInUp center-block" style="color: white">
+                                众包：将喜欢外包却受限于工作时间地点的人们聚集起来，为客户提供更好的服务
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background: url('https://i.imgur.com/v83v8fw.jpg'); height: 700px;">
+                <div class="container-fluid">
+                    <div class="row home-top1">
+                        <div class="col-md-12 text-center">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">致力做最完美的平台</p>
+                            <br>
+                            <p class="carouselText3 animation206 animated fadeInUp center-block" style="color: white">
+                                提供最人性化服务,满足众包双方需求
+                            </p><br>
+                            <p class="carouselText3 animation209 animated fadeInUp center-block" style="color: white">
+                                提供最全标注工具,实现图片完美标注
+                            </p><br>
+                            <p class="carouselText3 animation212 animated fadeInUp center-block" style="color: white">
+                                提供专业标注评测,为众包者完善评估
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background: url('https://i.imgur.com/J3FaHsa.jpg'); height: 700px;">
+                <div class="container-fluid">
+                    <div class="row home-top1">
+                        <div class="col-md-12 text-center">
+                            <br>
+                            <br>
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">为承包工程的用户提供等级制度</p>
+                            <br>
+                            <br>
+                            <br>
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">赚取积分，赢得口碑，努力成为更高级的接包者</p>
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">每日Top10，看看谁是最活跃的接包员</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background: url('https://i.imgur.com/IeA9wB3.jpg'); height: 700px;">
+                <div class="container">
+                    <div class="row home-top1">
+                        <div class="col-md-12 text-center">
+                            <!--<img src="img/t3.png" class="animation203 animated fadeInDown img-responsive center-block">-->
+                            <!--<p class="carouselText1 animation203 animated fadeInDown">我们的理念</p>-->
+                            <p class="carouselText2 animated animation203 fadeInDown center-block" style="color: white">我们的优势</p>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="row car-four">
+                                <div class="col-md-4 col-xs-4 color-white align-center animated fadeInDown animation206">
+                                    <i class="fa fa-circle-o fa-5x" style="color: white"></i>
+                                    <p class="carouselText4">简&nbsp;&nbsp;&nbsp;&nbsp;洁</p>
+                                    <p class="carouselText1">简约的界面风格</p>
+                                </div>
+                                <div class="col-md-4 col-xs-4 align-center color-white animated fadeInDown animation209">
+                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
+                                    <p class="carouselText4">可&nbsp;&nbsp;&nbsp;&nbsp;靠</p>
+                                    <p class="carouselText1">详尽的数据统计
+                                    </p>
+                                </div>
+                                <div class="col-md-4 col-xs-4 align-center color-white animated fadeInDown animation212">
+                                    <i class="fa fa-cogs fa-5x" style="color: white"></i>
+                                    <p class="carouselText4">高&nbsp;&nbsp;&nbsp;&nbsp;效</p>
+                                    <p class="carouselText1">智能的任务分析
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mice">
+            <a href="<%=basePath%>#section-product" class="smooth">
+                <div>
+                    <span class="unu"></span>
+                    <span class="doi"></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</header>
+<section class="intro text-center section-padding" id="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 wp1">
+                <h1 class="arrow">众包标注平台</h1>
+                <p>本网站旨在建立一个供发包方发布项目图片，供接包方承包项目的标注平台。标注涉及对图片进行区域和方框等标记，并进行对标记的描述。图片标注用于提供能为深度学习服务的图片数据集。<br> 欢迎访问并使用众包标注平台</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="features text-center section-padding" id="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="arrow">在众包标注平台，你可以</h1>
+                <div class="features-wrapper">
+                    <div class="col-md-4 wp2">
+                        <div class="icon">
+                            <i class="fa fa-cloud-upload shadow"></i>
+                        </div>
+                        <h2>发布专属项目</h2>
+                        <p>定制个性化项目，上传你所需要处理的所有图片数据，由竞标得到最终承包者，各路标注接受方供你选择。自由规定项目奖励，完成时期，享受最大程度的项目掌控。</p>
+                    </div>
+                    <div class="col-md-4 wp2 delay-05s">
+                        <div class="icon">
+                            <i class="fa fa-cloud-download shadow"></i>
+                        </div>
+                        <h2>承包心怡项目</h2>
+                        <p>浏览项目大厅，多种类型，高额奖励，多样任务强度的各式项目供你从中选择，通过赚取项目奖励，逐步升级，努力登上每周活跃榜，成为标注大神。</p>
+                    </div>
+                    <div class="col-md-4 wp2 delay-1s">
+                        <div class="icon">
+                            <i class="fas fa-chart-line shadow"></i>
+                        </div>
+                        <h2>详细任务分析</h2>
+                        <p>个人经历详细统计，你可以通过查看个人已承包/发布项目，实时了解你正在进行或已经结束的项目经历。统计项目好评，结果评价，数据化了解你的个人信息。</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="text-center" id="responsive">
+    <div class="container-fluid nopadding responsive-services">
+        <div class="wrapper">
+            <div class="mission_show">
+                <div class="wp3"></div>
+            </div>
+            <div class="fluid-white"></div>
+        </div>
+        <div class="container designs">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-7">
+                    <div id="servicesSlider">
+                        <ul class="slides">
+                            <li>
+                                <h1 class="arrow">任务视图界面</h1>
+                                <p>左侧导航栏提供所有需要执行的项目图片数据集的总览，可以通过点击左侧切换任一一张图片任务</p>
+                                <p>中间是正在进行的项目图片，下侧提供图片编辑工具，可以实现方框标注，区域自由标注，橡皮擦，选择线条颜色粗细，撤销，重做等功能</p>
+                                <p>右侧提供项目整体标注，和完成了一次标记后进行的该标记的描述</p>
+                            </li>
+                            <li>
+                                <h1 class="arrow">任务完成并保存</h1>
+                                <p>图片文件进行编辑时提供自动保存功能，当点击左侧图片导航栏进行图片切换时将自动保存上一张正在进行编辑的项目图片标记和描述</p>
+                                <p>用户在进行某一张图片时可以通过点击下载按钮，下载当前正在进行编辑的这张项目图片和相关的描述标记信息，图片将自动下载到本地的download目录下，保存格式为.json格式，无法再本地打开，需要通过导入到网站项目文件进行预览</p>
+                                <p>完成所有图片的标注后，就可以通过返回任务列表并默认保存所有进行的项目标注和描述</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="swag text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>想 了 解 自 己 的 任 务 经 历 ？<span>数 据 统 计 分 析<em> 一 定 能 够</em> 帮 到 你</span></h1>
+                <a href="#portfolio" class="down-arrow-btn"><i class="fa fa-chevron-down"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="portfolio text-center section-padding" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id="portfolioSlider">
+                <ul class="slides">
+                    <li>
+                        <div class="col-md-4 wp4">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/7b53EeX.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>折线图</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                        <div class="col-md-4 wp4 delay-05s">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/LolqvOC.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>柱状图</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                        <div class="col-md-4 wp4 delay-1s">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/7rtibRb.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>StepLine</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-md-4 wp4">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/Kg5X5fR.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>堆叠区域图</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                        <div class="col-md-4 wp4 delay-05s">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/fDSXKoj.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>扇形图</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                        <div class="col-md-4 wp4 delay-1s">
+                            <div class="overlay-effect effects clearfix">
+                                <div class="img">
+                                    <img src="https://i.imgur.com/FHaSZle.png" alt="Portfolio Item">
+                                    <div class="overlay">
+                                        <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                                        <a class="close-overlay hidden">x</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>瀑布流线图</h2>
+                            <p>利用图表和表格让你更加了解自己的项目完成情况</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="ignite-cta text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="ignite-btn">Ignite Your Passion</a>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="team text-center section-padding" id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="arrow">了解我们的开发团队</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="team-wrapper">
+                <div id="teamSlider">
+                    <ul class="slides">
+                        <li>
+                            <div class="col-md-6 wp5">
+                                <img src="https://i.imgur.com/8ZOfMmu.png" alt="Team Member">
+                                <h2>Cao ZhenFei</h2>
+                                <p>前端工程师，负责网站前端界面</p>
+                                <div class="social">
+                                    <ul class="social-buttons">
+                                        <li><a href="#" class="social-btn"><i class="fa fa-qq" data-toggle="tooltip" title="qq:1046277348"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-weixin" data-toggle="tooltip" title="微信：czf18068389665"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-envelope"data-toggle="tooltip" title="邮箱：1046277348@qq.com"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 wp5 delay-05s">
+                                <img src="https://i.imgur.com/bbALwaO.png" alt="Team Member">
+                                <h2>Wang Xu</h2>
+                                <p>前端工程师，负责网站前端界面</p>
+                                <div class="social">
+                                    <ul class="social-buttons">
+                                        <li><a href="#" class="social-btn"><i class="fa fa-qq" data-toggle="tooltip" title="qq：1936676473"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-weixin" data-toggle="tooltip" title="微信：wx8339459"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-envelope" data-toggle="tooltip" title="邮箱：1936676473@qq.com"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-md-6 wp5">
+                                <img src="https://i.imgur.com/IvGVHrL.png" alt="Team Member">
+                                <h2>Zhang Ping</h2>
+                                <p>后端工程师，负责网站后端数据保存与维护</p>
+                                <div class="social">
+                                    <ul class="social-buttons">
+                                        <li><a href="#" class="social-btn"><i class="fa fa-qq" data-toggle="tooltip" title="qq:2946062178"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-weixin" data-toggle="tooltip" title="微信:wxid_p750vioqjgwy22"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-envelope" data-toggle="tooltip" title="邮箱:2946062178@qq.com"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wp5 delay-05s">
+                                <img src="https://i.imgur.com/0CQ9XGd.png" alt="Team Member">
+                                <h2>Zhong Jie</h2>
+                                <p>后端工程师，负责网站后端数据保存与维护</p>
+                                <div class="social">
+                                    <ul class="social-buttons">
+                                        <li><a href="#" class="social-btn"><i class="fa fa-qq" data-toggle="tooltip" title="qq:779761563"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-weixin" data-toggle="tooltip" title="微信:zongzi19981221"></i></a></li>
+                                        <li><a href="#" class="social-btn"><i class="fa fa-envelope" data-toggle="tooltip" title="邮箱:779761563@qq.com"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="subscribe text-center">
+    <div class="container">
+        <h1><i class="fa fa-paper-plane"></i><span>告知我们</span></h1>
+        <form action="#">
+            <input type="text" name="" value="" placeholder="" required>
+            <input type="submit" name="" value="Send">
+        </form>
+    </div>
+</section>
+<section class="dark-bg text-center section-padding contact-wrap" id="contact">
+    <a href="#top" class="up-btn"><i class="fa fa-chevron-up"></i></a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="arrow">想要了解更多</h1>
+            </div>
+        </div>
+        <div class="row contact-details">
+            <div class="col-md-4">
+                <div class="light-box box-hover">
+                    <h2><i class="fa fa-map-marker"></i><span>地址</span></h2>
+                    <p>江苏省南京市仙林大道163号南京大学仙林校区</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="light-box box-hover">
+                    <h2><i class="fa fa-mobile"></i><span>电话</span></h2>
+                    <p>025-89383330</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="light-box box-hover">
+                    <h2><i class="fa fa-paper-plane"></i><span>Email</span></h2>
+                    <p><a href="#">cwzz@qq.com</a></p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<ul class="social-buttons">-->
+                    <!--<li><a href="#" class="social-btn"><i class="fa fa-dribbble"></i></a></li>-->
+                    <!--<li><a href="#" class="social-btn"><i class="fa fa-twitter"></i></a></li>-->
+                    <!--<li><a href="#" class="social-btn"><i class="fa fa-envelope"></i></a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="legals">
+                    <li>@Copyright NJUcwzz</li>
+                    <!--<li><a href="#">Legals</a></li>-->
+                </ul>
+            </div>
+            <div class="col-md-6 credit">
+                <p>Designed &amp; Developed by <a href="http://www.peterfinlan.com/">NJUcwzz</a></a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type='text/javascript' src="http://libs.baidu.com/jquery/1.7.1/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/waypoints.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/jquery.flexslider.js"></script>
+<script src="/js/modernizr.js"></script>
+
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/skrollr.min.js"></script>
+<script src="/js/stellar.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/main.js"></script>
+<script type="text/javascript" src="/js/three.min.js"></script>
+<script src="/js/jquery.bootstrap-dropdown-hover.js"></script>
+<script src="/js/jquery.bootstrap-dropdown-hover.min.js"></script>
+
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fac45a0f68a119fbe4d1c4c3ac3044dbd' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script id="vs" type="x-shader/x-vertex">
+			varying vec2 vUv;
+			void main() {
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+</script>
+<script id="fs" type="x-shader/x-fragment">
+			uniform sampler2D map;
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+			varying vec2 vUv;
+			void main() {
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+
+
+</script>
+<script type="text/javascript">
+    if (!Modernizr.mq('only all and (max-width: 1024px)')) {
+        var container;
+        var camera, scene, renderer;
+        var mesh, geometry, material;
+        var mouseX = 0, mouseY = 0;
+        var start_time = Date.now();
+        var windowHalfX = window.innerWidth / 2;
+        var windowHalfY = 700 / 2;
+        init();
+        function init() {
+            container = document.createElement('div');
+            document.getElementById('sky').appendChild(container);
+            // Bg gradient
+            var canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 700;
+            var context = canvas.getContext('2d');
+            var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#1e4877");
+            gradient.addColorStop(0.5, "#4584b4");
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+            container.style.backgroundSize = '32px 100%';
+            container.style.height = '700px';
+            camera = new THREE.PerspectiveCamera(30, window.innerWidth / 700, 1, 3000);
+            camera.position.z = 6000;
+            scene = new THREE.Scene();
+            geometry = new THREE.Geometry();
+            var texture = THREE.ImageUtils.loadTexture('img/cloud10.png', null, animate);
+            texture.magFilter = THREE.LinearMipMapLinearFilter;
+            texture.minFilter = THREE.LinearMipMapLinearFilter;
+            var fog = new THREE.Fog(0x4584b4, -100, 3000);
+            material = new THREE.ShaderMaterial({
+                uniforms: {
+                    "map": {type: "t", value: texture},
+                    "fogColor": {type: "c", value: fog.color},
+                    "fogNear": {type: "f", value: fog.near},
+                    "fogFar": {type: "f", value: fog.far}
+                },
+                vertexShader: document.getElementById('vs').textContent,
+                fragmentShader: document.getElementById('fs').textContent,
+                depthWrite: false,
+                depthTest: false,
+                transparent: true
+            });
+            var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
+            for (var i = 0; i < 8000; i++) {
+                plane.position.x = Math.random() * 1000 - 500;
+                plane.position.y = -Math.random() * Math.random() * 200 - 15;
+                plane.position.z = i;
+                plane.rotation.z = Math.random() * Math.PI;
+                plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+                THREE.GeometryUtils.merge(geometry, plane);
+            }
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            mesh = new THREE.Mesh(geometry, material);
+            mesh.position.z = -8000;
+            scene.add(mesh);
+            renderer = new THREE.WebGLRenderer({antialias: false});
+            renderer.setSize(window.innerWidth, 700);
+            container.appendChild(renderer.domElement);
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = ( event.clientX - windowHalfX ) * 0.25;
+            mouseY = ( event.clientY - windowHalfY ) * 0.15;
+        }
+
+        function onWindowResize(event) {
+            camera.aspect = window.innerWidth / 700;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, 700);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            position = ( ( Date.now() - start_time ) * 0.03 ) % 8000;
+            camera.position.x += ( mouseX - camera.position.x ) * 0.01;
+            camera.position.y += ( -mouseY - camera.position.y ) * 0.01;
+            camera.position.z = -position + 8000;
+            renderer.render(scene, camera);
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#quit-btn").click(function () {
+            $.ajax({
+                async: false,
+                type : 'POST',
+                url : '/user/signin/quit',
+                data : {'username':"<%=username%>"},
+                success : function (data) {
+//                    alert(data);
+//                console.log(data);   //data即为后台返回的数据
+                    if(eval("("+data+")")=='退出成功') {
+                        self.location = '/';
+                    }else{
+                        var pop_info="<div class='pop-page'>"+"退出失败"+"</div>"
+                        $(pop_info).one('animationend webkitAnimationEnd', function () {
+                            $(this).remove();
+                        });
+                        $("body").append(pop_info);
+                    }
+                },
+                error: function (data) {
+                    var pop_info="<div class='pop-page'>"+"退出失败"+"</div>"
+                    $(pop_info).one('animationend webkitAnimationEnd', function () {
+                        $(this).remove();
+                    });
+                    $("body").append(pop_info);
+
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/MainWorkingWeb.css" type="text/css" rel="stylesheet"/>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/js/temp.js"></script>
+    <script src="/js/UpLoadWeb.js"></script>
+
+    <title>Title</title>
+</head>
+<body style="margin: 0px;padding: 0px;background-color: #FFFFFF;">
+
+<div id="menu" style="background-color: #323232;text-align: center;position: fixed;top:0px;width: 100%">
+    <img id="logo" src="https://i.imgur.com/cX0w7rV.png" class="pic" style="float: left">
+    <button id="firstPage" class="fontButton">首页</button>
+    <button id="project" class="fontButton">项目</button>
+    <button id="community" class="fontButton">社区</button>
+    <button id="message" class="fontButton">信息</button>
+    <img id="search" src="https://i.imgur.com/0yw87JL.png" class="pic" style="float: left">
+    <img src="https://i.imgur.com/XqADcA2.png" class="pic">
+</div>
+
+<div>
+    <img src="https://i.imgur.com/XqADcA2.png" class="pic">
+</div>
+
+<div id="info" style="background-color: #FAFAFA;width: 100%;text-align: center">
+    <h1>新建上传项目</h1>
+    创建者：<input type="text" >  创建日期：<input type="text"> 项目名称：<input type="text" > <br><br>
+    项目ID：<input type="text" >  开始日期：<input type="text" > 截止日期：<input type="text" > <br><br>
+</div>
+
+<div style="text-align: center">
+    <h1>上传的图片</h1>
+</div>
+
+<div style="background-color: #FAFAFA;width: 100%;clear: both;padding-top:10px;padding-bottom:10px;text-align: left">
+
+    <div id="photos" style="background-color: #FAFAFA;width: 100%;">
+
+    </div>
+
+    <div style="text-align: center">
+        <label class="ui_button ui_button_primary" for="doc"><img src="https://i.imgur.com/lTJ4ZBP.png"></label>
+        <form><input type="file" name="file" id="doc" multiple="multiple" style="position:absolute;clip:rect(0 0 0 0);" onchange="setImagePreviews();" accept="image/*"></form>
+        <button onclick="submit()" >添加完成</button>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

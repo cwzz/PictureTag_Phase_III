@@ -1,0 +1,134 @@
+.right_advert {
+    /* width: 218px;*/
+    height: 220px;
+    position: fixed;
+    top: 300px;
+    right: 0;
+    z-index: 10000;
+}
+.right_wicket {
+    width: 53px ;
+    height: 221px;
+    position: relative;
+    /*left: 165px;*/
+    left:0;
+    border-top: 1px solid #e8e8e8;
+    background: white;
+}
+.right_wicket li {
+    width: 53px ;
+    height: 55px ;
+}
+.right_wicket li a {
+    cursor: pointer;
+    text-decoration: none;
+    width: 53px ;
+    height: 55px ;
+    border: 1px solid #e8e8e8;
+    border-top: none;
+}
+.right_wicket .right_share .bshare-custom a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/share.png) no-repeat;
+    background-position: center;
+}
+.right_wicket .right_share .bshare-custom .a_share {
+    display: none;
+    width: 102%;
+    height: 103%;
+    position: relative;
+    left: -1px;
+    top: -1px;
+    background: #6d46bc;
+    color: white;
+    text-align: center;
+    line-height: 55px;
+}
+.right_wicket .right_share a:hover .a_share {
+    display: block;
+}
+.right_wicket .right_weixin a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/two_code.png) no-repeat;
+    background-position: center;
+}
+.right_wicket .right_weixin a .right_two {
+    display: none;
+    width: 161px;
+    height: 167px;
+    border: 1px solid #E8E8E8;
+    background: url(../img/erweima.png) no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    border-right: none;
+    position: absolute;
+    left: -163px;
+    bottom: -2px;
+}
+.right_wicket .right_weixin a .two_weixin {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #6d46bc;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    width: 102%;
+    height: 103%;
+    position: relative;
+    left: -1px;
+}
+.right_wicket .right_weixin a:hover .right_two,
+.right_wicket .right_weixin a:hover .two_weixin {
+    display: block;
+}
+.right_wicket .right_service a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/onlinekefu.png) no-repeat;
+    background-position: center;
+}
+.right_wicket .right_service a .service_share {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #6d46bc;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    width: 102%;
+    height: 103%;
+    position: relative;
+    left: -1px;
+}
+.right_wicket .right_service a:hover .service_share {
+    display: block;
+}
+.right_wicket .right_top a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/top.png) no-repeat;
+    background-position: center;
+}
+.right_wicket .right_top a .top_share {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #f7d034;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    width: 102%;
+    height: 103%;
+    position: relative;
+    left: -1px;
+}
+.right_wicket .right_top a:hover .top_share {
+    display: block;
+}

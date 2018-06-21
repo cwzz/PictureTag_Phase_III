@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <title>众包标注平台项目详细信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css" media="all">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/queries.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/css.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/pop-up-box" type="text/css" media="all">
+    <link rel="stylesheet" type='text/css' href="/css/log.css">
+    <link rel="stylesheet" type='text/css' href="/css/ProjectDetailPageStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-lib/demand_detail.css">
+    <link rel="stylesheet" type='text/css' href="/css/ProjectDetailPageForPublishStyle.css">
+    <link rel="stylesheet" href="/css/rippler.css">
+    <link rel="stylesheet" href="/css/bars-1to10.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/line-icons.css">
+    <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css" />
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/classie.js"></script>
+    <script src="js/jquery.rippler.js"></script>
+    <script src="/js/jquery.barrating.js"></script>
+    <script src="/js/examples.js"></script>
+    <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+</head>
+<body style="background: #ffffff">
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="choosePersonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    请确认您的选择？
+                </h4>
+            </div>
+            <div class="modal-body">
+                是否确定选择该竞标者中标？确定选择后将不可更改，请谨慎选择
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="navbar navbar-fixed-top skrollable skrollable-between" role="navigation"
+     style="line-height:60px; height:80px; background-color:rgba(255, 255, 255, 0.8);">
+    <div class="container">
+        <div class="navbar-header" style="margin-top: 22px">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="fa fa-bars color-white"></span>
+            </button>
+            <p style="font-size:2em;margin: 0.67em 0;color: #353535">众包标注平台<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>"
+                                                                              style="display:none;margin-top:5px;"></a>
+            </p>
+        </div>
+
+        <ul class="menu nav navbar-nav skrollable skrollable-between nnav"
+            style="margin-top:22px;display:inline;left: 48%;position: absolute;" >
+            <li><a href="/cwzz/introduce">首页</a>
+                <ul class="submenu">
+                    <li><a href="/introduce">网站介绍</a></li>
+                    <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
+                </ul>
+            </li>
+            <li><a href="/cwzz/home">项目</a>
+                <ul class="submenu">
+                    <li><a href="/cwzz/home">项目大厅</a></li>
+                    <li><a href="/cwzz/upload">发布项目</a></li>
+                </ul>
+            </li>
+            <li><a href="/cwzz/personal_center">个人</a>
+                <ul class="submenu">
+                    <li><a href="/cwzz/personal_center">个人信息</a></li>
+                    <li><a href="/cwzz/personal_center">任务详情</a></li>
+                </ul>
+            </li>
+            <li><a href="<%=basePath%>/help">帮助</a>
+                <ul class="submenu">
+                    <li><a href="<%=basePath%>/help">详情咨询</a></li>
+                    <li><a href="<%=basePath%>/aboutus">关于我们</a></li>
+                </ul>
+            </li>
+            <!--<li>-->
+            <!--<a href="<%=basePath%>/user/signin">登录</a>-->
+            <!--<ul class="submenu">-->
+            <!--<li><a href="<%=basePath%>/user/signup">注册</a></li>-->
+            <!--</ul>-->
+            <!--</li>-->
+        </ul>
+
+        <div class="top-nav notification-row" style="margin-left: 0px;margin-top: 0px;display: inline-block;position: absolute;left:85%">
+            <!-- notificatoin dropdown start-->
+            <ul class="nav pull-right top-menu">
+                <!-- alert notification start-->
+                <li id="alert_notificatoin_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="bell">
+
+                        <i class="icon-bell-l"></i>
+                        <span class="badge bg-important" id="unread_number" style="display: none"></span>
+                    </a>
+                    <ul class="dropdown-menu extended notification" id="unread_message_list" style="display: none;">
+                        <div class="notify-arrow notify-arrow-blue"></div>
+                        <li>
+                            <p class="blue" id="howmany"></p>
+                        </li>
+                    </ul>
+                </li>
+                <!-- alert notification end-->
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        <span class="username" id="username"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li class="eborder-top">
+                            <a href="#"><i class="fas fa-home"></i> 个人中心</a>
+                        </li>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                        </li>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-exchange-alt"></i> 切换账号</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!-- notificatoin dropdown end-->
+        </div>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<div>
+    <div class="headfooter" >
+        <div class="headfootercontent">
+            <h1 class="hfcb"><a href="http://www.rdplat.com/">众包标注平台</a></h1>
+
+            <div class="top_m_m">
+                <div class="free_requirment">
+                    <a href="/cwzz/upload" target="_blank" class="free_a" onclick="newProject()"><i class="fa fa-cloud-upload"></i>免费发布需求</a>
+                </div>
+                <div class="top_m_m_t">
+                    <a style="float:left;" class="navzise" href="javascript:void(0)" onClick="Submit(0)" id="all">全部</a>
+                    <a style="float:left;" class="heise" href="javascript:void(0)" id="xq" onClick="Submit(4)">项目</a>
+                    <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(2)" id="pr">承包方</a>
+                    <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(3)" id="dp">发包方</a>
+
+                    <!-- <a class="heise" href="javascript:void(0)" onClick="Submit(2)" id="fw">服务</a> -->
+                </div>
+                <div class="top_m_m_b">
+                    <div id="form_search">
+                        <input type="hidden" value="0" id="flag" name="flag">
+                        <input type="text" value="" class="formcontrol" name="keyword" id="tags" placeholder="请输入关键字">
+                        <input type="submit" value="" class="formsousuo" name="" onclick="search_keyword()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+</div>
+<script>
+    function Submit(type) {
+        if (type == "0") {
+            $("#flag").val(type);
+            //$("#form_search").submit();
+            // $("#fw").removeClass('heise');
+            // $("#fw").addClass('navzise');
+
+            $("#xq").removeClass('navzise');
+            $("#xq").addClass('heise');
+
+            $("#pr").removeClass('navzise');
+            $("#pr").addClass('heise');
+
+            $("#dp").removeClass('navzise');
+            $("#dp").addClass('heise');
+
+            $("#all").removeClass('heise');
+            $("#all").addClass('navzise');
+            $(".formcontrol").removeAttr('placeholder');
+            $(".formcontrol").attr('placeholder','请输入关键字');
+
+        }
+        if (type == "2") {
+            $("#flag").val(type);
+            //$("#form_search").submit();
+            $("#pr").removeClass('heise');
+            $("#pr").addClass('navzise');
+
+            $("#xq").removeClass('navzise');
+            $("#xq").addClass('heise');
+
+            // $("#fw").removeClass('navzise');
+            // $("#fw").addClass('heise');
+
+            $("#dp").removeClass('navzise');
+            $("#dp").addClass('heise');
+
+            $("#all").removeClass('navzise');
+            $("#all").addClass('heise');
+            $(".formcontrol").removeAttr('placeholder');
+            $(".formcontrol").attr('placeholder','请输入承包方关键字');
+
+        }
+        if (type == "3") {
+            $("#flag").val(type);
+            //$("#form_search").submit();
+            $("#dp").removeClass('heise');
+            $("#dp").addClass('navzise');
+
+            $("#xq").removeClass('navzise');
+            $("#xq").addClass('heise');
+
+            $("#pr").removeClass('navzise');
+            $("#pr").addClass('heise');
+
+            // $("#fw").removeClass('navzise');
+            // $("#fw").addClass('heise');
+
+            $("#all").removeClass('navzise');
+            $("#all").addClass('heise');
+            $(".formcontrol").removeAttr('placeholder');
+            $(".formcontrol").attr('placeholder','请输入发包方关键字');
+        }
+        if (type == "4") {
+            $("#flag").val(type);
+            //$("#form_search").submit();
+            $("#xq").removeClass('heise');
+            $("#xq").addClass('navzise');
+            // $("#fw").removeClass('navzise');
+            // $("#fw").addClass('heise');
+            $("#pr").removeClass('navzise');
+            $("#pr").addClass('heise');
+            $("#dp").removeClass('navzise');
+            $("#dp").addClass('heise');
+            $("#all").removeClass('navzise');
+            $("#all").addClass('heise');
+            $(".formcontrol").removeAttr('placeholder');
+            $(".formcontrol").attr('placeholder','请输入项目方关键字');
+        }
+    }
+</script>
+
+<div class="index_middle">
+    <div class="left" style="width:100%;height:auto;overflow: hidden;background-color:transparent; border-style: none">
+        <div class="row" style="display: inline-block;width: 100%;margin-left: 0px;margin-right: 0px">
+            <div class="demand_detail">
+                <h3 class="demand_name_h3"><span id="project_name"></span>        <a onclick="open_preview()">->点击预览项目图片列表</a></h3>
+                <div class="row" id="zhongbiao_area" style="display: none">
+                    <div class="spec_requirement col-md-6" style="width: 50%;margin-bottom: 20px" id="continue_work"><a>->继续执行项目</a></div>
+                    <button class="btn btn-default rippler rippler-inverse col-md-3 commit_project_result" href="#" style=";background: #ffffff;border-color: #1b76d9;margin-top: 5px;margin-bottom: 10px">
+                        <span class="glyphicon glyphicon-ok"></span>&nbsp;确认提交项目执行结果
+                    </button>
+                </div>
+                <div class="task_number_time">
+                    需求号：<span id="project_id"></span>
+                    发包方：<span id="project_publisher"></span>
+                    发布时间：<span id="project_publish_time"></span>
+                    奖励积分：<span id="project_points"></span>
+                </div>
+                <div class="text_shadow_area text_shadow_area1" style="height: 173px">
+                    <div class="width_430">分类：<span id="project_type"></span></div>
+                    <div class="width_340">投标截止时间：<span id="project_bidtime"></span></div>
+                    <div class="width_430">需求完成时间：<span id="project_completetime"></span></div>
+
+                    <div class="width_340">联系方式：仅承包方投标后可见</div>
+
+                    <div class="clear"></div>
+
+                    <div class="progress" style="width: 700px;position:absolute;margin-top: 25px;margin-bottom: 25px">
+                        <div class="progress-bar"  id="bid_state" style="width: 70px;margin-left: 0px;background:transparent;">
+                            <div class="progress-value">承包方竞标</div>
+                        </div>
+                        <div class="progress-bar" id="choose_state" style="width: 210px;margin-left: 0px;background: transparent;">
+                            <div class="progress-value">发包方选标</div>
+                        </div>
+                        <div class="progress-bar" id="underway_state" style="width: 350px; margin-left: 0px;background: transparent;">
+                            <div class="progress-value">执行项目</div>
+                        </div>
+                        <div class="progress-bar" id="comment_state" style="width: 490px;margin-left: 0px;background:transparent;">
+                            <div class="progress-value">评估结果</div>
+                        </div>
+                        <div class="progress-bar" id="complete_state" style="width: 630px;margin-left: 0px;background:linear-gradient(to right, #55267f 35%, #664187 68%);">
+                            <div class="progress-value">项目完成</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear" style="height:30px;"></div>
+                <div class="text_shadow_area text_shadow_area2">
+                    <div class="spec_requirement">具体需求：</div>
+                    <div class="spec_requirement_p" id="project_detailrequire">
+                    </div>
+
+                    <!-- 补充需求 -->
+                    <div class="spec_requirement">补充说明：</div>
+                    <p class="supplementary_demand" id="project_otherrequire"></p>
+                    <div class="clear" style="height:10px;"></div>
+                    <!-- 付款比例 -->
+                    <div class="spec_requirement">阶段奖励说明：</div>
+                    <div class="node_table_header">
+                        <span>阶段节点</span>
+                        <span>计划完成时间</span>
+                        <span>奖励比例</span>
+                        <span>评估结果机制</span>
+                    </div>
+                    <div class="clear" style="width:760px;height:10px;background:#fff;"></div>
+                    <div class="node_table_body">
+                        <span>完成30%图片的标注</span>
+                        <span>2018-04-20</span>
+                        <span>30%</span>
+                        <span>发包方检查</span>
+                    </div>
+                    <div class="node_table_body">
+                        <span>完成70%图片的标注</span>
+                        <span>2018-04-30</span>
+                        <span>70%</span>
+                        <span>发包方检查</span>
+                    </div>
+                    <div class="node_table_body">
+                        <span>完成100%图片的标注</span>
+                        <span>2018-05-10</span>
+                        <span>100%</span>
+                        <span>发包方检查</span>
+                    </div>
+                    <div class="clear" style="width:760px;height:10px;background:#fff;"></div>
+                    <div class="clear" style="height:30px;"></div>
+                </div>
+                <div class="clear" style="height:30px;"></div>
+                <!-- 参与投标 -->
+                <div class="text_shadow_area text_shadow_area3">
+                    <div class="spec_requirement">参与投标：</div>
+                    <div style="width: 96%;margin-left: auto;margin-right: auto;margin-bottom: 20px" id="bid_person_list">
+
+                    </div>
+                </div>
+                <div class="clear" style="height:30px;"></div>
+                <div class="text_shadow_area text_shadow_area3" style="display: none" id="project_result">
+                    <div class="spec_requirement">完成结果评估:</div>
+                    <div class="row">
+                        <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目完成结果评星：</div>
+                        <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="star_result"></div>
+                    </div>
+                    <div class="row">
+                        <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目结果付款结果：</div>
+                        <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="money_result"></div>
+                    </div>
+                    <div class="row">
+                        <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目结果简单评论：</div>
+                        <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="comment_result"></div>
+                    </div>
+                    <button class="btn btn-default rippler rippler-inverse complain" href="#" style="left: 70% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px" id="appeal_btn">
+                        <span class="glyphicon glyphicon-ok"></span>&nbsp;对评估结果提交申诉
+                    </button>
+                </div>
+                <div class="clear" style="height:30px;"></div>
+            </div>
+
+            <!-- 右侧推荐金主信息，推荐需求 -->
+            <div class="demand_rec">
+                <div class="immediate_tender_float">
+                    <div class="immediate_tender_fixed">
+                        <!--<a href="http://www.rdplat.com/leaderSubmission/create/leaderTaskId/1507/fUserId/24763" class="immediate_tender">立即投标</a>-->
+                        <p class="bid_attitude" id="show_state"></p>
+                    </div>
+                </div>
+                <!--<div class="clear" style="width:100%;height:1px;background:#e5e5e5;"></div>-->
+                <div class="fabaofang" style="padding-left: 0px">
+                    <div class="serviceBox">
+                        <div class="service-icon" style="height: 100%;top:0%">
+                            <i class="fa fa-cart-arrow-down" style="font-size: 50px"></i>
+                        </div>
+                        <div class="service-Content" style="margin-left: 15px;top:0%;display: inline-block">
+                            <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">发包方</h3>
+                            <p class="description" style="margin-bottom: 0px;margin-top: 0px" id="publisher_name"></p>
+                            <p class="description" style="margin-bottom: 0px;margin-top: 0px">发布项目：<span id="publisher_releasenum"></span></p>
+                            <p class="description" style="margin-bottom: 0px;margin-top: 0px">承包项目：<span id="publisher_contractnum"></span></p>
+                        </div>
+                        <div class="service-Content" style="margin-left: 10px;margin-top: 60px;display: inline-block">
+                            <p class="description"><a>了解更多</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="title">
+                    <p>推荐需求</p>
+                    <p style="margin-left: 150px"><a href="http://www.rdplat.com/leaderTask/">更多&gt;&gt;</a></p>
+                </div>
+                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
+                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
+                        <div class="serviceBox" style="height: 100%">
+                            <div class="service-icon" style="top:0%">
+                                <i class="fa fa-tags" style="font-size: 50px"></i>
+                            </div>
+                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
+                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
+                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
+                                <p class="description">
+                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
+                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
+                        <div class="serviceBox" style="height: 100%">
+                            <div class="service-icon" style="top:0%">
+                                <i class="fa fa-tags" style="font-size: 50px"></i>
+                            </div>
+                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
+                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
+                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
+                                <p class="description">
+                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
+                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
+                        <div class="serviceBox" style="height: 100%">
+                            <div class="service-icon" style="top:0%">
+                                <i class="fa fa-tags" style="font-size: 50px"></i>
+                            </div>
+                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
+                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
+                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
+                                <p class="description">
+                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
+                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
+                        <div class="serviceBox" style="height: 100%">
+                            <div class="service-icon" style="top:0%">
+                                <i class="fa fa-tags" style="font-size: 50px"></i>
+                            </div>
+                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
+                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
+                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
+                                <p class="description">
+                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<footer class="col-md-12">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="legals">
+                    <li>@Copyright NJUcwzz</li>
+                    <!--<li><a href="#">Legals</a></li>-->
+                </ul>
+            </div>
+            <div class="col-md-6 credit">
+                <p>Designed &amp; Developed by <a href="">NJUcwzz</a></a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //
+    //     $(".rippler").rippler({
+    //         // addElement:"svg"
+    //     });
+    //
+    // });
+
+</script>
+
+<script>
+    var project_state;
+    var project_id;
+    var current_row=-1;
+    var current_col=0;
+    var biduser_names;
+    var pro_name;
+    var messages;
+    $(document).ready(function(){
+        document.getElementById("username").innerText=JSON.parse(localStorage.getItem("current_user")).username;
+        project_state=localStorage.getItem("projectdetail_state");
+        project_id=localStorage.getItem("projectdetail_id");
+        $.ajax({
+            type : 'POST',
+            url : '/listUnread',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            success:function(result){
+                if(result.length>0){
+                    messages=result;
+                    document.getElementById("unread_number").innerText=result.length;
+                    document.getElementById("unread_number").style.display="";
+                    document.getElementById("unread_message_list").style.display="";
+                    document.getElementById("howmany").innerText="您有"+result.length+"条未读消息";
+                    for(var i=0;i<result.length;i++){
+                        var new_element="<li>\n" +
+                            "                            <a href=\"#\" id=\"message"+i+"\">\n" +
+                            "                                <span class=\"content\"></span>\n" +
+                            "                                <span class=\"time small italic pull-right\"></span>\n" +
+                            "                            </a>\n" +
+                            "                        </li>";
+                        $("#unread_message_list").append(new_element);
+                        var show_content=result[i].event.length<=18?(result[i].event):(result[i].event.substring(0,18)+"...");
+                        $("#message"+i).find(".content").text(show_content);
+                        $("#message"+i).find(".time").text(result[i].time);
+                    }
+                    document.getElementById("bell").addEventListener("mousedown",readMessage,false);
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/project/read',
+            data :{pid:project_id},
+            success : function (data) {
+                biduser_names=data.pro_requestList;
+                document.getElementById("project_name").innerText=data.pro_name;
+                pro_name=data.pro_name;
+                project_state=data.state;
+                document.getElementById("project_id").innerText=data.pro_ID;
+                document.getElementById("project_publisher").innerText=data.pro_requester;
+                document.getElementById("project_publish_time").innerText=data.releaseTime;
+                document.getElementById("project_points").innerText=data.accumulate_points;
+                document.getElementById("publisher_name").innerText=data.pro_requester;
+                if(data.projectType=="ANIMALTAG"){
+                    document.getElementById("project_type").innerText="全部分类->动物类标注";
+                }else if(data.projectType=="SCENETAG"){
+                    document.getElementById("project_type").innerText="全部分类->风景类标注";
+                }else if(data.projectType=="PERSONTAG"){
+                    document.getElementById("project_type").innerText="全部分类->人物类标注";
+                }else if(data.projectType=="GOODSTAG"){
+                    document.getElementById("project_type").innerText="全部分类->物品类标注";
+                }else{
+                    document.getElementById("project_type").innerText="全部分类->其他类标注";
+                }
+                document.getElementById("project_bidtime").innerText=data.requestDownTime;
+                document.getElementById("project_completetime").innerText=data.workTime+"天";
+                var state_id;
+                if(data.state=="WaitUndertake"){
+                    state_id="bid_state";
+                    document.getElementById("show_state").innerText="您已投标   需求正在招标中...";
+                }else if(data.state=="CHOOSING"){
+                    state_id="choose_state";
+                    document.getElementById("show_state").innerText="您已投标   项目正在选标中...";
+                }else if(data.state=="Taging"){
+                    state_id="underway_state";
+                    var isZhongBiao=data.pro_worker==JSON.parse(localStorage.getItem("current_user")).username;
+                    var temp_str=isZhongBiao?"您已中标":"您未中标";
+                    document.getElementById("show_state").innerText=temp_str+"   项目正在执行中...";
+                    if(isZhongBiao){
+                        document.getElementById("zhongbiao_area").style.display="";
+                        document.getElementById("continue_work").onclick=function() {
+                            // var work_pics=data.picList;
+                            // var argument={work_id:project_id,work_pics:work_pics};
+                            localStorage.setItem("work_id",project_id);
+                            localStorage.setItem("workOrsee","work");
+                            window.location.href="/cwzz/work";
+                        }
+                    }else{
+                        document.getElementById("zhongbiao_area").style.display="none";
+                    }
+                    document.getElementById("project_result").style.display="none";
+                }else if(data.state=="EXAMINE"){
+                    state_id="comment_state";
+                    var isZhongBiao=data.pro_worker==JSON.parse(localStorage.getItem("current_user")).username;
+                    var temp_str=isZhongBiao?"您已中标":"您未中标";
+                    document.getElementById("show_state").innerText=temp_str+"   项目正在评估结果...";
+                    document.getElementById("zhongbiao_area").style.display="none";
+                    document.getElementById("project_result").style.display="none";
+                }else if(data.state=="APPEAL"){
+                    state_id="comment_state";
+                    var isZhongBiao=data.pro_worker==JSON.parse(localStorage.getItem("current_user")).username;
+                    var temp_str=isZhongBiao?"您已中标":"您未中标";
+                    document.getElementById("show_state").innerText=temp_str+"   项目正在申诉...";
+                    document.getElementById("zhongbiao_area").style.display="none";
+                    document.getElementById("project_result").style.display="none";
+                }else{
+                    state_id="complete_state";
+                    var isZhongBiao=data.pro_worker==JSON.parse(localStorage.getItem("current_user")).username;
+                    var temp_str=isZhongBiao?"您已中标":"您未中标";
+                    document.getElementById("show_state").innerText=temp_str+"项目已经结束...";
+                    document.getElementById("project_result").style.display="";
+                    document.getElementById("star_result").innerText=data.grade;
+                    document.getElementById("money_result").innerText=data.actualPoints;
+                    document.getElementById("comment_result").innerText=data.comment.content;
+                    if(isZhongBiao&&data.appeal)
+                        document.getElementById("appeal_btn").style.css="";
+                    else
+                        document.getElementById("appeal_btn").style.css="none";
+                }
+                $("#"+state_id).css("background","linear-gradient(to right, #55267f 35%, #664187 68%)");
+                $("#"+state_id).siblings().css("background","transparent");
+                document.getElementById("project_detailrequire").innerText=data.detailRequire;
+                document.getElementById("project_otherrequire").innerText=data.note==""?"暂无":data.note;
+                for(var i=0;i<data.pro_requestList.length;i++){
+                    if(i%4==0){
+                        current_row++;
+                        var new_row="<div class=\"row\" id='row"+current_row+"'></div>";
+                        $("#bid_person_list").append(new_row);
+                        current_col=0;
+                    }
+                    var new_col="<div class=\"col-md-3\" id='item"+i+"' style=\"padding-left: 0px;padding-right: 0px\">\n" +
+                        "                                    <div class=\"serviceBox\">\n" +
+                        "                                        <div class=\"service-icon\">\n" +
+                        "                                            <i class=\"fa fa-user-secret\"></i>\n" +
+                        "                                        </div>\n" +
+                        "                                        <div class=\"service-Content\" style=\"position:absolute;margin-top: 15px\">\n" +
+                        "                                            <h3 class=\"title\">用户名:</h3>\n" +
+                        "                                            <p class=\"description\"></p>\n" +
+                        "                                        </div>\n" +
+                        "                                    </div>\n" +
+                        "                                </div>"
+                    $("#row"+current_row).append(new_col);
+                    $("#row"+current_row).find("#item"+i).find(".description").text(data.pro_requestList[i]);
+                    $("#row"+current_row).find("#item"+i).click(function(){
+                        var position=parseInt(this.id.substring(4));
+                        localStorage.setItem("biduser_name",biduser_names[position]);
+                        window.location.href="/cwzz/information";
+                    });
+                    current_col++;
+                }
+                if(state_id!="bid_state"){
+                    var tag="<i class=\"fas fa-trophy\" style=\"font-size:13px;color:#ff6c15;position: absolute;left: 60%;top: 7%\"> 已中标</i>";
+                    var pos=findBidPersonPosition(data.pro_worker);
+                    $("#item"+pos).append(tag);
+                }
+                $.ajax({
+                    type : 'POST',
+                    url : '/user/Personal',
+                    data :{username:data.pro_requester},
+                    success : function (result) {
+                        document.getElementById("publisher_releasenum").innerText=result.numRelease;
+                        document.getElementById("publisher_contractnum").innerText=result.numContract;
+                    },
+                    error: function (result) {
+                        alert("拿承包方信息数据失败")
+                    }
+                })
+            },
+            error: function (data) {
+                alert("搜索传输数据失败");
+            }
+        })
+    });
+
+    function readMessage(){
+        document.getElementById("unread_number").style.display="none";
+        var times=new Array();
+        for(var i=0;i<messages.length;i++){
+            times.push(messages[i].time);
+        }
+        var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,messageList:times};
+        $.ajax({
+            type : 'POST',
+            url : '/setState',
+            contentType:"application/json",
+            dataType:"json",
+            data :JSON.stringify(temp_para),
+            success: function(result){
+                console.log("阅读成功");
+            },
+            error: function(){
+                alert("传输失败");
+            }
+        })
+    }
+
+    function search_keyword(){
+        if(document.getElementById("tags").value==""){
+            $.alert({
+                title: '搜索失败！',
+                content: '关键词不能为空 <br> 请重新输入关键词',
+                confirmButton: '重新输入关键词',
+                confirmButtonClass: 'btn-primary',
+                icon: 'fa fa-info',
+                animation: 'rotate',
+                closeAnimation: 'right',
+                opacity: 0.5,
+            });
+        }else{
+            window.location.href="/cwzz/search";
+            localStorage.setItem("search_keyword",JSON.stringify(document.getElementById("tags").value));
+        }
+    }
+    function findBidPersonPosition(name){
+        for(var i=0;i<biduser_names.length;i++){
+            if(name==biduser_names[i])
+                return i;
+        }
+        return -1;
+    }
+
+    $('.commit_project_result').on('click', function () {
+        $.confirm({
+            title: '是否确认提交',
+            content: '确认提交项目完成结果后将无法继续修改该任务 <br> 是否确认要提交项目执行结果',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            opacity: 0.5,
+            confirm: function () {
+                var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,pid:project_id};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/submit',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '项目结果提交成功!',
+                                content: '成功提交该项目的执行结果，请耐心等待发起者对该项目的评估，评估结果出来后会第一时间通知您',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="project_detail_for_adopt";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '项目执行结果提交失败!',
+                                content: '由于某些原因，您提交该项目完成结果失败了，您可以刷新页面或重新登录来重新提交该项目',
+                                confirmButton: '重新提交',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("承包数据调用失败");
+                    }
+                })
+            }
+        });
+    });
+    $('.complain').on('click', function () {
+        $.confirm({
+            title: '确认对项目进行评估申诉',
+            content: 'url:/html-usage/ComplainConfirm.html',
+            confirmButton: '确认申诉',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                var myDate=new Date();
+                var date_str=myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDay()+" "+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds();
+                var temp_para={workerName:JSON.parse(localStorage.getItem("current_user")).username,appealDate:date_str,pid:project_id,proName:pro_name,appealReason:document.getElementById("input-name").value,state:false};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/appeal',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '项目申诉成功!',
+                                content: '成功对该项目的评估结果提出申诉，请耐心等待管理员人工审核，人工审核结果出来后会第一时间通知您',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="personal_center";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '项目申诉提交失败!',
+                                content: '由于某些原因，您对该项目的申诉请求提交失败了，您可以刷新页面或重新登录来重新提交该项目的申诉请求',
+                                confirmButton: '重新申诉',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    });
+
+    function open_preview(){
+        window.open("/cwzz/photos");
+    }
+
+    function logout(){
+        $.confirm({
+            title: '确认登出',
+            content: '确认退出当前登录用户吗？',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                $.ajax({
+                    type : 'POST',
+                    url : '/user/logout',
+                    data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            localStorage.removeItem("current_user");
+                            $.alert({
+                                title: '登出成功!',
+                                content: '成功登出当前用户',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="login";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '登出失败!',
+                                content: '由于某些原因，登出当前用户失败了',
+                                confirmButton: '重新登出',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

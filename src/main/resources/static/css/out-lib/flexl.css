@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+
+/**定义一个元素为伸缩容器**/
+.flex-box{
+    /** 各种版本兼容**/
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    /*以下为最新版本语句*/
+    display: -webkit-flex;
+    display: flex;
+}
+
+/** 水平伸缩容器**/
+.row-flex{
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -webkit-box-direction: normal;
+    -moz-box-lines: multiple;
+    -webkit-box-lines: multiple;
+    /*这个类中的默认flex-wrap设置成了nowrap，具体情况根据需求定制改动*/
+    -ms-flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+}
+
+/** 垂直伸缩容器**/
+.col-flex{
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -moz-box-direction: normal;
+    -moz-box-lines: multiple;
+    -webkit-box-lines: multiple;
+
+    /*以下为最新版本语句*/
+    /*这个类中的默认flex-wrap设置成了nowrap，具体情况根据需求定制改动*/
+    -webkit-flex-flow: column nowrap;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+}
+
+/** 子盒子在父盒子中水平竖直都居中**/
+.midCenter{
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+    box-pack:center;
+    -moz-box-align: center;
+
+    -webkit-box-align: center;
+    box-align: center;
+    box-pack:center;
+    -ms-flex-pack:center;
+    display: -ms-flexbox;
+    -ms-flex-align:center;
+
+    /*以下为最新版本语句*/
+    justify-content:center;
+    align-items: center;
+}
+
+/*应用在伸缩盒子的子盒子上*/
+.flex1{
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}

@@ -1,0 +1,46 @@
+.pop-page{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:50%;
+    top:40%;
+    margin-left: -175px;
+    background: rgba(255,255,255,0.7);
+    -webkit-backface-visibility:visible;
+    backface-visibility: visible;
+    transform:rotateX(-90deg);
+    -ms-transform:rotateX(-90deg); /* Internet Explorer */
+    -webkit-transform:rotateX(-90deg); /* Safari 和 Chrome */
+    animation:pop-remove 3s;
+    -webkit-animation: pop-remove 3s;
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    text-align: center;
+    line-height: 100px;
+    font-size: 18px;
+    font-weight: 300;
+    overflow: hidden;
+    z-index: 120;
+}
+
+@keyframes pop-remove {
+    20% {transform: rotateX(0deg);}
+    80% {transform: rotateX(0deg);}
+    100% {transform:rotateX(-90deg);}
+}
+
+@-webkit-keyframes pop-remove {
+    20% {transform: rotateX(0deg);}
+    80% {transform: rotateX(0deg);}
+    100% {transform:rotateX(-90deg);}
+}
+
+/*@keyframes pop-up {*/
+    /*0% {transform: rotateX(-90deg);}*/
+    /*40% {transform:rotateX(0deg);}*/
+/*}*/
+
+/*@-webkit-keyframes pop-up {*/
+    /*0% {transform: rotateX(-90deg);}*/
+    /*40% {transform:rotateX(0deg);}*/
+/*}*/

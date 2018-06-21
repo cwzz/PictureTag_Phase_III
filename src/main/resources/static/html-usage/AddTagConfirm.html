@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label>用简单的语言为此次标注添加描述</label>
+    <input autofocus type="text" id="input-name" placeholder="添加描述" class="form-control">
+</div>
+
+<script>
+    if($(".imageLabel-drop-edit").hasClass("imageLabel-drop-has"))
+        document.getElementById("input-name").value=$(".imageLabel-drop-edit").find(".imageLabel-imgdrop-font").html();
+</script>

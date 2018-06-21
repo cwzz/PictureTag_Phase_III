@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <title>众包标注平台搜索页面</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css" media="all">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/queries.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/css.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/pop-up-box" type="text/css" media="all">
+    <link rel="stylesheet" type='text/css' href="/css/log.css">
+    <link rel="stylesheet" type='text/css' href="/css/SearchPageStyle.css">
+    <link rel="stylesheet" href="http://images.rdplat.com/assets/default/css/new_index.css?v=2018040401">
+    <link rel="stylesheet" href="/css/pagination.css" />
+    <link rel="stylesheet" type="text/css" href="/css/out-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/line-icons.css">
+    <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css" />
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/classie.js"></script>
+    <script type="text/javascript" src="/js/jquery.pagination.js"></script>
+    <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+</head>
+<div id="wrapper" style="background: #ffffff">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-fixed-top navbar-inverse" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand" onclick="search_type('All')">
+                <a href="#">
+                    全部分类
+                </a>
+            </li>
+            <li onclick="search_type('ANIMALTAG')">
+                <a href="#"><i class="fa fa-fw fa-tree"></i> 动物类标注</a>
+            </li>
+            <li onclick="search_type('SCENETAG')">
+                <a href="#"><i class="fa fa-fw fa-image"></i> 风景类标注</a>
+            </li>
+            <li onclick="search_type('PERSONTAG')">
+                <a href="#"><i class="fa fa-fw fa-child"></i> 人物类标注</a>
+            </li>
+            <li onclick="search_type('GOODSTAG')">
+                <a href="#"><i class="fa fa-fw fa-paper-plane"></i> 物件类标注</a>
+            </li>
+            <li onclick="search_type('OTHERSTAG')">
+                <a href="#"><i class="fa fa-fw fa-plus"></i> 其他标注</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" style="background: #ffffff">
+
+        <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas" style="float:left" title="单击按钮展开全部分类">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+
+        <div class="navbar navbar-fixed-top skrollable skrollable-between" role="navigation"
+             style="line-height:60px; height:80px; background-color:rgba(255, 255, 255, 0.8);">
+            <div class="container">
+                <div class="navbar-header" style="margin-top: 22px">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bars color-white"></span>
+                    </button>
+                    <p style="font-size:2em;margin: 0.67em 0;color: #353535">众包标注平台<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>"
+                                                                                      style="display:none;margin-top:5px;"></a>
+                    </p>
+                </div>
+
+                <ul class="menu nav navbar-nav skrollable skrollable-between nnav"
+                    style="margin-top:22px;display:inline;left: 48%;position: absolute;" >
+                    <li><a href="/cwzz/introduce">首页</a>
+                        <ul class="submenu">
+                            <li><a href="/introduce">网站介绍</a></li>
+                            <!--<li><a href="<%=basePath%>/market/market">大盘概览</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/home">项目</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/home">项目大厅</a></li>
+                            <li><a href="/cwzz/upload">发布项目</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/cwzz/personal_center">个人</a>
+                        <ul class="submenu">
+                            <li><a href="/cwzz/personal_center">个人信息</a></li>
+                            <li><a href="/cwzz/personal_center">任务详情</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<%=basePath%>/help">帮助</a>
+                        <ul class="submenu">
+                            <li><a href="<%=basePath%>/help">详情咨询</a></li>
+                            <li><a href="<%=basePath%>/aboutus">关于我们</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="top-nav notification-row" style="margin-left: 0px;margin-top: 0px;display: inline-block;position: absolute;left:85%">
+                    <!-- notificatoin dropdown start-->
+                    <ul class="nav pull-right top-menu">
+                        <!-- alert notification start-->
+                        <li id="alert_notificatoin_bar" class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="bell">
+
+                                <i class="icon-bell-l"></i>
+                                <span class="badge bg-important" id="unread_number" style="display: none"></span>
+                            </a>
+                            <ul class="dropdown-menu extended notification" id="unread_message_list" style="display: none;">
+                                <div class="notify-arrow notify-arrow-blue"></div>
+                                <li>
+                                    <p class="blue" id="howmany"></p>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- alert notification end-->
+                        <!-- user login dropdown start-->
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <i class="fas fa-user"></i>
+                            </span>
+                                <span class="username" id="username"></span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <div class="log-arrow-up"></div>
+                                <li class="eborder-top">
+                                    <a href="#"><i class="fas fa-home"></i> 个人中心</a>
+                                </li>
+                                <li>
+                                    <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                                </li>
+                                <li>
+                                    <a onclick="logout()"><i class="fas fa-exchange-alt"></i> 切换账号</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- user login dropdown end -->
+                    </ul>
+                    <!-- notificatoin dropdown end-->
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div>
+            <div class="headfooter" >
+                <div class="headfootercontent">
+                    <h1 class="hfcb"><a href="http://www.rdplat.com/">众包标注平台</a></h1>
+
+                    <div class="top_m_m">
+                        <div class="free_requirment">
+                            <a href="/cwzz/upload" target="_blank" class="free_a"><i class="fa fa-cloud-upload"></i>免费发布需求</a>
+                        </div>
+                        <div class="top_m_m_t">
+                            <a style="float:left;" class="navzise" href="javascript:void(0)" onClick="Submit(0)" id="all">全部</a>
+                            <a style="float:left;" class="heise" href="javascript:void(0)" id="xq" onClick="Submit(4)">项目</a>
+                            <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(2)" id="pr">承包方</a>
+                            <a style="float:left;" class="heise" href="javascript:void(0)" onClick="Submit(3)" id="dp">发包方</a>
+
+                            <!-- <a class="heise" href="javascript:void(0)" onClick="Submit(2)" id="fw">服务</a> -->
+                        </div>
+                        <div class="top_m_m_b">
+                            <div id="form_search">
+                                <input type="hidden" value="0" id="flag" name="flag">
+                                <input type="text" value="" class="formcontrol" name="keyword" id="tags" placeholder="请输入关键字">
+                                <input type="submit" value="" class="formsousuo" name="" onclick="search_keyword()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+    </div>
+    <script>
+        function Submit(type) {
+            if (type == "0") {
+                $("#flag").val(type);
+                //$("#form_search").submit();
+                // $("#fw").removeClass('heise');
+                // $("#fw").addClass('navzise');
+
+                $("#xq").removeClass('navzise');
+                $("#xq").addClass('heise');
+
+                $("#pr").removeClass('navzise');
+                $("#pr").addClass('heise');
+
+                $("#dp").removeClass('navzise');
+                $("#dp").addClass('heise');
+
+                $("#all").removeClass('heise');
+                $("#all").addClass('navzise');
+                $(".formcontrol").removeAttr('placeholder');
+                $(".formcontrol").attr('placeholder','请输入关键字');
+
+            }
+            if (type == "2") {
+                $("#flag").val(type);
+                //$("#form_search").submit();
+                $("#pr").removeClass('heise');
+                $("#pr").addClass('navzise');
+
+                $("#xq").removeClass('navzise');
+                $("#xq").addClass('heise');
+
+                // $("#fw").removeClass('navzise');
+                // $("#fw").addClass('heise');
+
+                $("#dp").removeClass('navzise');
+                $("#dp").addClass('heise');
+
+                $("#all").removeClass('navzise');
+                $("#all").addClass('heise');
+                $(".formcontrol").removeAttr('placeholder');
+                $(".formcontrol").attr('placeholder','请输入承包方关键字');
+
+            }
+            if (type == "3") {
+                $("#flag").val(type);
+                //$("#form_search").submit();
+                $("#dp").removeClass('heise');
+                $("#dp").addClass('navzise');
+
+                $("#xq").removeClass('navzise');
+                $("#xq").addClass('heise');
+
+                $("#pr").removeClass('navzise');
+                $("#pr").addClass('heise');
+
+                // $("#fw").removeClass('navzise');
+                // $("#fw").addClass('heise');
+
+                $("#all").removeClass('navzise');
+                $("#all").addClass('heise');
+                $(".formcontrol").removeAttr('placeholder');
+                $(".formcontrol").attr('placeholder','请输入发包方关键字');
+            }
+            if (type == "4") {
+                $("#flag").val(type);
+                //$("#form_search").submit();
+                $("#xq").removeClass('heise');
+                $("#xq").addClass('navzise');
+                // $("#fw").removeClass('navzise');
+                // $("#fw").addClass('heise');
+                $("#pr").removeClass('navzise');
+                $("#pr").addClass('heise');
+                $("#dp").removeClass('navzise');
+                $("#dp").addClass('heise');
+                $("#all").removeClass('navzise');
+                $("#all").addClass('heise');
+                $(".formcontrol").removeAttr('placeholder');
+                $(".formcontrol").attr('placeholder','请输入项目方关键字');
+            }
+        }
+    </script>
+
+        <div class="middle" style="height: 33px">
+            <div class="m_t" style="width:100%;">
+                <div style="float:left;font-size:14px;color:#55267f;line-height:32px;"><a href="" target="_self" style="color:#664187;" id="result_type">首页</a></div>
+                <div style="float: right;font-size:14px;color:#999999;line-height:32px;">共<span style="color:#55267f;" id="result_number">0</span>个结果</div>
+            </div>
+        </div>
+        <div class="middle" style="height: 135px">
+            <div class="m_m_t" style="margin-top: 0px;height: 100%">
+                <div class="navcontainer" style="height: 100%">
+                    <!-- 需求状态筛选 -->
+                    <div class="nav-class flex-box">
+                        <div class="lefttitle">
+                            <div class="title">需求状态：</div>
+                        </div>
+                        <div class="rightcontent flex1">
+                            <a href="#" value="" id="state1" class="abackimg" onclick="search_state('All')">全部</a>
+                            <a href="#" value="h1" id="state2" onclick="search_state('BidTime')">招标中</a>
+                            <a href="#" value="h2" id="state3" onclick="search_state('Underway')">进行中</a>
+                            <a href="#" value="h3" id="state4" onclick="search_state('Finished')">已完成</a>
+                        </div>
+                    </div>
+                    <!-- 金额 -->
+                    <div class="nav-class flex-box">
+                        <div class="lefttitle">
+                            <div class="title">积<em>国科</em>分：</div>
+                        </div>
+                        <div class="rightcontent flex1">
+                            <a href="#" value="" id="point1" class="abackimg" onclick="search_pointsRange('All')">全部</a>
+                            <a href="#" value="j1" id="point2" onclick="search_pointsRange('BelowThirty')">30以下</a>
+                            <a href="#" value="j2" id="point3" onclick="search_pointsRange('BetweenThirtyAndFifty')">30-50</a>
+                            <a href="#" value="j3" id="point4" onclick="search_pointsRange('BetweenFiftyAndOneHundred')">50-100</a>
+                            <a href="#" value="j4" id="point5" onclick="search_pointsRange('AboveOneHundred')">100以上</a>
+                        </div>
+                    </div>
+                    <!-- 发布日期 -->
+                    <div class="nav-class flex-box">
+                        <div class="lefttitle">
+                            <div class="title">发布日期：</div>
+                        </div>
+                        <div class="rightcontent flex1">
+                            <a href="#" value="" id="time1" class="abackimg" onclick="search_numberOfDays('All')">全部</a>
+                            <a href="#" value="t1523462400" id="time2" onclick="search_numberOfDays('Today')">今天发布</a>
+                            <a href="#" value="t1523289600" id="time3" onclick="search_numberOfDays('ThreeDays')">三日内</a>
+                            <a href="#" value="t1522944000" id="time4" onclick="search_numberOfDays('OneWeek')">一周内</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="left:0px;height:60px;background: #fff;width: 9999px"></div>
+
+        <div class="index_middle">
+            <div class="left" style="width:100%" id="project_list">
+                <div class="row" id="pro_template" style="display: none">
+                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;width: 100%">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <i class="fa fa-tags"></i>
+                            </div>
+                            <div class="service-Content div-inline" style="margin-bottom: 0px;width: 70% ">
+                                <h3 class="title pro_type">动物类标注->猫类标注</h3>
+                                <h4 class="subtitle pro_name">三只小猫的标注</h4>
+                                <p class="description pro_intro">
+                                    本项目需要承包人员在所有图片数据中，找出每一张图片中的三只小猫，并分别进行标注和描述。本项目需要承包人员在所有图片数据中，找出每一张图片中的三只小猫，并分别进行标注和描述。本项目需要承包人员在所有图片数据中
+                                </p>
+                            </div>
+                            <div class="button-area div-inline" style="left: 75%;top: 40%;position: absolute">
+                                <ul class="my_buttons" style="width: 100%">
+                                    <li class="toggle_info" style="font-size: 20px;margin-bottom: 10px"><a href="#" class="my_btn" style="font-size: 20px"><i class="fa fa-thumbs-up" data-toggle="tooltip" title="已投标人数" style="color: rgb(86,61,67)"></i></a><span class="bid_person">: 7人</span></li>
+                                    <li class="toggle_info" style="font-size: 20px"><a href="#" class="my_btn" style="font-size: 20px"><i class="fa fa-hourglass-half" data-toggle="tooltip" title="剩余竞标时间" style="color: rgb(86,61,67)"></i></a><span class="remain_time">: 30天</span></li>
+                                </ul>
+                            </div>
+                            <div class="div-inline" style="left:88%;width: 10% ;top: 26%;position: absolute">
+                                <h3 class="title">积分奖励：</h3>
+                                <h3 class="title pro_money">￥666</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Pagination" class="pagination" style="position: absolute;left: 45%"><!-- 这里显示分页 --></div>
+        </div>
+
+
+        <div style="left:0px;height:60px;background: #fff;width: 9999px"></div>
+
+        <div class="my_footer" style="left: 0px;height: 123px" id="tail">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="legals">
+                            <li>@Copyright NJUcwzz</li>
+                            <!--<li><a href="#">Legals</a></li>-->
+                        </ul>
+                    </div>
+                    <div class="col-md-6 credit">
+                        <p>Designed &amp; Developed by <a href="http://www.peterfinlan.com/">NJUcwzz</a></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<script>
+    $(document).ready(function () {
+        // 获取窗口宽度
+        var winWidth;
+        // var winHeight;
+        if (window.innerWidth)
+            winWidth = window.innerWidth;
+        // if (window.innerHeight)
+        //     winHeight = window.innerHeight;
+        document.getElementById("tail").style.width=winWidth;
+        // document.getElementById("sidebar-wrapper").style.height=winHeight;
+    });
+</script>
+
+<script type="text/javascript">
+    var trigger = $('.hamburger'),
+        overlay = $('.overlay'),
+        isClosed = false;
+    $(document).ready(function () {
+
+        trigger.click(function () {
+            hamburger_cross();
+        });
+
+        function hamburger_cross() {
+
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+                document.getElementById("tail").style.display="";
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+                document.getElementById("tail").style.display="none";
+            }
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+        });
+    });
+
+    var actual_result;
+    var local_type="All";
+    var local_keyword="";
+    var local_state="All";
+    var local_pointsRange="All";
+    var local_numberOfDays="All";
+    var messages;
+    $(document).ready(function () {
+        $.ajax({
+            type : 'POST',
+            url : '/listUnread',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            success:function(result){
+                if(result.length>0){
+                    messages=result;
+                    document.getElementById("unread_number").innerText=result.length;
+                    document.getElementById("unread_number").style.display="";
+                    document.getElementById("unread_message_list").style.display="";
+                    document.getElementById("howmany").innerText="您有"+result.length+"条未读消息";
+                    for(var i=0;i<result.length;i++){
+                        var new_element="<li>\n" +
+                            "                            <a href=\"#\" id=\"message"+i+"\">\n" +
+                            "                                <span class=\"content\"></span>\n" +
+                            "                                <span class=\"time small italic pull-right\"></span>\n" +
+                            "                            </a>\n" +
+                            "                        </li>";
+                        $("#unread_message_list").append(new_element);
+                        var show_content=result[i].event.length<=18?(result[i].event):(result[i].event.substring(0,18)+"...");
+                        $("#message"+i).find(".content").text(show_content);
+                        $("#message"+i).find(".time").text(result[i].time);
+                    }
+                    document.getElementById("bell").addEventListener("mousedown",readMessage,false);
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+        document.getElementById("username").innerText=JSON.parse(localStorage.getItem("current_user")).username;
+        var storage_type=localStorage.getItem("search_type");
+        var storage_keyword=localStorage.getItem("search_keyword");
+        local_type=storage_type?JSON.parse(storage_type):"All";
+        local_keyword=storage_keyword?JSON.parse(storage_keyword):"";
+        document.getElementById("tags").value=local_keyword;
+        search_result();
+    });
+    function readMessage(){
+        document.getElementById("unread_number").style.display="none";
+        var times=new Array();
+        for(var i=0;i<messages.length;i++){
+            times.push(messages[i].time);
+        }
+        var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,messageList:times};
+        $.ajax({
+            type : 'POST',
+            url : '/setState',
+            contentType:"application/json",
+            dataType:"json",
+            data :JSON.stringify(temp_para),
+            success: function(result){
+                console.log("阅读成功");
+            },
+            error: function(){
+                alert("传输失败");
+            }
+        })
+    }
+    function search_result(){
+        var search_argu={keywords:local_keyword,type:local_type,state:local_state,pointsRange:local_pointsRange,numberOfDays:local_numberOfDays};
+        $.ajax({
+            type : 'POST',
+            url : '/project/search',
+            contentType:"application/json",
+            dataType:"json",
+            data :JSON.stringify(search_argu),
+            success : function (data) {
+                actual_result=eval(data);
+                var actual_type="";
+                if(local_type=="All"){
+                    actual_type="全部分类"
+                }else if(local_type=="ANIMALTAG"){
+                    actual_type="全部分类->动物类标注"
+                }else if(local_type=="SCENETAG"){
+                    actual_type="全部分类->风景类标注"
+                }else if(local_type=="PERSONTAG"){
+                    actual_type="全部分类->人物类标注"
+                }else if(local_type=="GOODSTAG"){
+                    actual_type="全部分类->物品类标注"
+                }else if(local_type=="OTHERSTAG"){
+                    actual_type="全部分类->其他标注"
+                }
+                document.getElementById("result_type").innerText=actual_type;
+                document.getElementById("result_number").innerText=actual_result.length;
+                $("#project_list").empty();
+                if(actual_result.length==0){
+                    $("#project_list").empty();
+                }else {
+                    for (var j = 0; j < actual_result.length; j++) {
+                        var show_pro_type = "";
+                        var temp_id="project"+j;
+                        if (actual_result[j].projectType == "ANIMALTAG") {
+                            show_pro_type = "动物类标注"
+                        } else if (actual_result[j].projectType == "SCENETAG") {
+                            show_pro_type = "风景类标注"
+                        } else if (actual_result[j].projectType == "PERSONTAG") {
+                            show_pro_type = "人物类标注"
+                        } else if (actual_result[j].projectType == "GOODSTAG") {
+                            show_pro_type = "物品类标注"
+                        } else if (actual_result[j].projectType == "OTHERSTAG") {
+                            show_pro_type = "其他标注"
+                        }
+                        var new_pro = "<div class=\"row\" id="+temp_id+">\n" +
+                            "                    <div class=\"col-md-12\" style=\"padding-left: 0px;padding-right: 0px;width: 100%\">\n" +
+                            "                        <div class=\"serviceBox\">\n" +
+                            "                            <div class=\"service-icon\">\n" +
+                            "                                <i class=\"fa fa-tags\"></i>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"service-Content div-inline\" style=\"margin-bottom: 0px;width: 70% \">\n" +
+                            "                                <h3 class=\"title pro_type\"></h3>\n" +
+                            "                                <h4 class=\"subtitle pro_name\"></h4>\n" +
+                            "                                <p class=\"description pro_intro\"></p>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"button-area div-inline\" style=\"left: 75%;top: 40%;position: absolute\">\n" +
+                            "                                <ul class=\"my_buttons\" style=\"width: 100%\">\n" +
+                            "                                    <li class=\"toggle_info\" style=\"font-size: 20px;margin-bottom: 10px\"><a href=\"#\" class=\"my_btn\" style=\"font-size: 20px\"><i class=\"fa fa-thumbs-up\" data-toggle=\"tooltip\" title=\"已投标人数\" style=\"color: rgb(86,61,67)\"></i></a><span class=\"bid_person\"></span></li>\n" +
+                            "                                    <li class=\"toggle_info\" style=\"font-size: 20px\"><a href=\"#\" class=\"my_btn\" style=\"font-size: 20px\"><i class=\"fa fa-hourglass-half\" data-toggle=\"tooltip\" title=\"剩余竞标时间\" style=\"color: rgb(86,61,67)\"></i></a><span class=\"remain_time\"></span></li>\n" +
+                            "                                </ul>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"div-inline\" style=\"left:88%;width: 10% ;top: 26%;position: absolute\">\n" +
+                            "                                <h3 class=\"title\">积分奖励：</h3>\n" +
+                            "                                <h3 class=\"title pro_money\">￥666</h3>\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                    </div>\n" +
+                            "                </div>";
+                        $("#project_list").append(new_pro);
+                        $("#"+temp_id).find(".pro_type").text(show_pro_type);
+                        $("#"+temp_id).find(".pro_name").text(actual_result[j].pro_name);
+                        $("#"+temp_id).find(".pro_intro").text(actual_result[j].brief_intro);
+                        $("#"+temp_id).find(".bid_person").text("：" + actual_result[j].worker_num + "人");
+                        $("#"+temp_id).find(".remain_time").text("：" + actual_result[j].remainBidTime + "天");
+                        $("#"+temp_id).find(".pro_money").text("￥" + actual_result[j].accumulate_points);
+                        $("#"+temp_id).click(function(){
+                            var position=parseInt(this.id.substring(7));
+                            localStorage.setItem("projectdetail_id",actual_result[position].pro_ID);
+                            localStorage.setItem("projectdetail_state",actual_result[position].state);
+                            window.location.href="/cwzz/project_detail";
+                        });
+                    }
+                }
+            },
+            error: function (data) {
+                alert("搜索传输数据失败")
+            }
+        })
+    }
+    function search_type(type){
+        local_type=type;
+        trigger.click();
+        search_result();
+    }
+    function search_keyword(){
+        local_keyword=document.getElementById("tags").value;
+        search_result();
+    }
+    function search_state(state){
+        local_state=state;
+        var id;
+        if(state=='All'){
+            id="state1";
+        }else if(state=='BidTime'){
+            id="state2";
+        }else if(state=='Underway'){
+            id="state3";
+        }else{
+            id="state4";
+        }
+        $("#"+id).addClass("abackimg");
+        $("#"+id).siblings().removeClass("abackimg");
+        search_result();
+    }
+    function search_pointsRange(pointsRange){
+        local_pointsRange=pointsRange;
+        var id;
+        if(pointsRange=='All'){
+            id="point1";
+        }else if(pointsRange=='BelowThirty'){
+            id="point2";
+        }else if(pointsRange=='BetweenThirtyAndFifty'){
+            id="point3";
+        }else if(pointsRange=='BetweenFiftyAndOneHundred'){
+            id="point4";
+        }else{
+            id="point5";
+        }
+        $("#"+id).addClass("abackimg");
+        $("#"+id).siblings().removeClass("abackimg");
+        search_result();
+    }
+    function search_numberOfDays(numberOfDays){
+        local_numberOfDays=numberOfDays;
+        var id;
+        if(numberOfDays=='All'){
+            id="time1";
+        }else if(numberOfDays=='Today'){
+            id="time2";
+        }else if(numberOfDays=='ThreeDays'){
+            id="time3";
+        }else {
+            id = "time4";
+        }
+        $("#"+id).addClass("abackimg");
+        $("#"+id).siblings().removeClass("abackimg");
+        search_result();
+    }
+
+    function logout(){
+        $.confirm({
+            title: '确认登出',
+            content: '确认退出当前登录用户吗？',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                $.ajax({
+                    type : 'POST',
+                    url : '/user/logout',
+                    data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            localStorage.removeItem("current_user");
+                            $.alert({
+                                title: '登出成功!',
+                                content: '成功登出当前用户',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="login";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '登出失败!',
+                                content: '由于某些原因，登出当前用户失败了',
+                                confirmButton: '重新登出',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

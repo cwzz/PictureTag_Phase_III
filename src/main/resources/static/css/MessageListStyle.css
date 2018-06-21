@@ -1,0 +1,68 @@
+.messageh1{
+    /*font-family:"Pacifico",cursive;*/
+    font-weight:bold;
+    position:relative;
+    color: #ffffff;
+    text-align: center;
+}
+
+.messageh1:after{
+    position:absolute;
+    content:"";
+    width:100%;
+    height:2px;
+    background:#202020;
+    bottom:0;
+    left:0;
+    color: #ffffff;
+}
+
+.messagep{
+    font-size:1.5em;
+    margin:10px 0;
+    line-height:1.3em;
+    color: #ffffff;
+    text-align: center;
+}
+
+.scrolls{
+    padding:20px;
+}
+
+/*.title{*/
+    /*font-size:3em;*/
+    /*text-align:left;*/
+    /*padding:5px 20px;*/
+/*}*/
+
+/*.title a{*/
+    /*color:#f44336;*/
+/*}*/
+
+.custom-scroll{
+    width:80%;
+    height:80%;
+    padding:20px;
+    text-align:left;
+    background: url("https://i.imgur.com/vYR6VQg.jpg") no-repeat;
+    margin-top:25px;
+    display:inline-block;
+    overflow:auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 25px;
+    border-color: #57acdf;
+}
+
+.custom-scroll img{
+    width:100%;
+}
+
+/*.btn{*/
+    /*display:inline-block;*/
+    /*padding:10px;*/
+    /*border:1px solid #333;*/
+    /*font-size:2em;*/
+    /*margin:1em;*/
+    /*cursor:pointer;*/
+/*}*/

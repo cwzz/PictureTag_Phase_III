@@ -1,0 +1,65 @@
+.my_serviceBox{
+    border: 1px solid #ededed;
+    padding: 16px 30px 16px 90px;
+    position: relative;
+    transition: all 0.5s ease 0s;
+    height: 150px;
+    margin-right: 0px;
+}
+.my_serviceBox:hover{
+    border-color: rgb(86,61,67);
+}
+.my_serviceBox:before,
+.my_serviceBox:after{
+    content: "";
+    display: block;
+    width: 50px;
+    height: 5px;
+    background: rgb(86,61,67);
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: all 0.5s ease 0s;
+}
+.my_serviceBox:before{
+    top: -3px;
+}
+.my_serviceBox:after{
+    bottom: -3px;
+}
+.my_serviceBox:hover:before,
+.my_serviceBox:hover:after{
+    left: 40px;
+    opacity: 1;
+}
+.my_serviceBox .my_service-icon{
+    display: inline-block;
+    position: absolute;
+    top: 27px;
+    left:23px;
+    font-size: 80px;
+    height: 80px;
+    color: rgb(86,61,67);
+    opacity: 0.3;
+    transition: all 0.5s ease-in 0s;
+}
+.my_serviceBox:hover .my_service-icon{
+    opacity: 1;
+}
+.my_serviceBox .my_title{
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(86,61,67);
+}
+.my_serviceBox .my_subtitle{
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(86,61,67);
+    margin-bottom: 10px;
+}
+.my_serviceBox .my_description{
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+    margin-bottom: 0px;
+}

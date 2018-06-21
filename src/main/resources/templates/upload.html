@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>免费发布需求</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/upload/upload.css">
+	<style type="text/css">
+		h3 {
+			margin-bottom: 1rem;
+			border-left: 5px solid #446cb3;
+			padding-left: 0.5rem;
+			color: black;
+			font-size: 22px;
+		}
+
+		 #time input{
+			 max-width: 400px;
+			outline: none;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			color: rgba(0, 0, 0, 0.87);
+			padding: 0 0 0 11px;
+			height: 40px;
+			width: 100%;
+			margin-right: 0;
+			margin-bottom: 0.5rem;
+		}
+
+		.container{padding: 1.5em 0;}
+		.custom-input {
+		  position: relative;
+		  padding-top: 20px;
+		  margin-bottom: 10px;
+		}
+
+		.custom-input input {
+		  padding-left: 15px;
+		}
+
+		.custom-input label {
+		  cursor: text;
+		  margin: 0;
+		  padding: 0;
+		  left: 15px;
+		  top: 27px;
+		  position: absolute;
+		  font-size: 14px;
+		  color: #ccc;
+		  font-weight: normal;
+		  transition: all .3s ease;
+		}
+
+		.custom-input label.active {
+		  top: 0;
+		  left: 0;
+		  font-size: 12px;
+		}
+
+		.custom-input label.active.focusIn {
+		  color: #66afe9;
+		}
+
+		.submitPart{
+			background-color: #FFFFFF;
+			border-color: #66afe9;
+			border: 5px;
+			border-radius: 15px;
+			-webkit-text-fill-color: #66afe9;
+			font-size: 30px;
+
+		}
+	</style>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!--时间选择器-->
+	<script async>
+        function fp_ready(){
+            // setting custom defaults
+            Flatpickr.l10n.firstDayOfWeek = 1;
+
+            //Regular flatpickr
+            document.getElementById("flatpickr-tryme").flatpickr();
+            document.getElementsByClassName("calendar").flatpickr();
+
+            var calendars = document.getElementsByClassName("flatpickr").flatpickr();
+
+            var real_selection = document.getElementById("realdate");
+            document.getElementById("alt")._flatpickr.config.onChange = function(obj, str){
+                real_selection.textContent = str;
+            }
+
+            document.getElementById("disableRange").flatpickr({
+                disable: [
+                    {
+                        from: "2016-08-16",
+                        to: "2016-08-19"
+                    },
+                    "2016-08-24",
+                    new Date().fp_incr(30) // 30 days from now
+                ],
+                minDate: "today"
+            });
+
+            document.getElementById("disableOddDays").flatpickr({
+                disable: [
+                    function(date) { return date.getDate()%2; } // disable odd days
+                ]
+            });
+            document.getElementById("enableNextSeven").flatpickr({
+                enable: [
+                    {
+                        from: "today",
+                        to: new Date().fp_incr(7)
+                    }
+                ]
+            });
+            document.getElementById("enableCustom").flatpickr({
+                enable: [
+                    function(dateObj){
+                        return dateObj.getDay() %6 !== 0 && dateObj.getFullYear() === 2016;
+                    }
+                ]
+            });
+
+            // Event API
+            var events = document.getElementById("events");
+            document.getElementById("events-api-example").flatpickr({
+                minDate: "today",
+                enableTime: true,
+                onChange: function(dateObj, dateStr, fp) {
+                    console.log(fp.selectedDateObj);
+                    events.innerHTML += "<b>onChange</b> (<code>" + dateObj + "</code>, <code>" + dateStr + "</code> )<br>";
+                    events.scrollTop = events.offsetTop;
+                },
+                onOpen: function(dateObj, dateStr, fp){
+                    events.innerHTML += "<b>onOpen</b> (<code>" + dateObj + "</code>, <code>" + dateStr + "</code> )<br>";
+                    events.scrollTop = events.offsetTop;
+                },
+                onClose: function(dateObj, dateStr, fp){
+                    events.innerHTML += "<b>onClose</b> (<code>" + dateObj + "</code>, <code>" + dateStr + "</code> )<br>";
+                    events.scrollTop = events.offsetTop;
+                },
+                onReady: function(dateObj, dateStr, fp){
+                    events.innerHTML += "<b>onReady</b> (<code>" + dateObj + "</code>, <code>" + dateStr + "</code> )<br>";
+                    events.scrollTop = events.offsetTop;
+                }
+            });
+
+            // Check in/out example
+            var check_in = document.getElementById("check_in_date").flatpickr({
+                altInput: true,
+                altFormat: "\\C\\h\\e\\c\\k \\i\\n\\: l, F j Y",
+                minDate: new Date()
+            });
+            var check_out = document.getElementById("check_out_date").flatpickr({
+                altInput: true,
+                altFormat: "\\C\\h\\e\\c\\k \\o\\u\\t: l, F j Y",
+                minDate: new Date()
+            });
+
+            check_in.config.onChange = function(dateObj) {
+                check_out.set("minDate", dateObj.fp_incr(1));
+            };
+            check_out.config.onChange = function(dateObj) {
+                check_in.set("maxDate", dateObj.fp_incr(-1));
+            }
+
+            var fiscal = document.getElementById("fiscal").flatpickr({
+                weekNumbers: true
+            });
+
+            // Fiscal calendar
+            fiscal.getWeek = function(givenDate){
+                var checkDate = new Date(givenDate.getTime());
+                checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+                var time = checkDate.getTime();
+                checkDate.setMonth(7);
+                checkDate.setDate(28);
+                var week = (Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 2);
+                if (week < 1) {
+                    week = 52 + week;
+                }
+                return 'FW' + ("0" + week).slice(-2);
+            }
+
+            fiscal.redraw();
+
+
+            // Date format
+            var fpInstance = new Flatpickr(document.createElement("input")),
+                formatOutput = document.getElementById("dateFormatOutput"),
+                now = new Date();
+
+            document.getElementById("dateFormatComposer").addEventListener("keyup", function(e){
+                formatOutput.textContent = fpInstance.formatDate(e.target.value, now);
+            });
+
+        }
+	</script>
+	<script async src="/js/upload/flatpickr.js" onload="fp_ready()"></script>
+    <script async src="/css/upload/assets/prettify.js?skin=none" onload="prettyPrint()"></script>
+	<link rel="stylesheet" id=cal_style type="text/css" href="/css/upload/flatpickr.min.css">
+
+	<!--分类选择器-->
+	<link href="/css/upload/component-chosen.css" rel="stylesheet">
+
+	<!--上传分页模块-->
+	<link rel='stylesheet' href='/css/upload/jquery.cardtabs.css'>
+	<link rel='stylesheet' href='css/upload/demo.css'>
+
+</head>
+
+<body style="background-color: #FAF9F8;">
+
+<iframe src="/cwzz/head" style="width: 100%;height: 250px;border: none"></iframe>
+
+<header class="htmleaf-header" style="background-color: #FAF9F8; -webkit-text-fill-color: #000000">
+	<h1>发 起 众 包 请 求</h1>
+</header>
+
+<div id="inner_part" style="background-color: #FFFFFF;margin-left: 50px;margin-right: 50px">
+	<!--用到时间选择器的话这个标签必须使用-->
+	<input id="flatpickr-tryme" placeholder="Try me.." style="display: none">
+
+	<!--这里是基本信息的填写块-->
+	<div style="margin-left: 30px;">
+		<h3>我们需要：您的项目信息</h3>
+		<p><strong>请您认真填写这些项目</strong></p>
+	</div>
+	<div class="container" style="padding-top: 0px; padding-bottom: 0px">
+		<div class="row">
+			<div>
+				<label>需求名称</label><br>
+				<input type="text" id="require_name" style="width: 100%">
+			</div>
+
+			<div>
+				<label>项目备注</label><br>
+				<input type="text" id="project_note" style="width: 100%">
+			</div>
+
+			<div>
+				<label>项目简介</label><br>
+				<input type="text" id="project_brief_intro" style="width: 100%">
+			</div>
+		</div>
+	</div>
+
+	<!--这里是具体信息描述模块-->
+	<div style="margin-left: 30px;">
+		<h3>我们需要：您项目的具体描述</h3>
+		<p><strong>请精确到要标注物品的关键词等细节信息</strong></p>
+	</div>
+	<div style="width: 100%;height: 200px;padding-left: 50px;padding-right: 50px">
+		<textarea style="background-color: #FAF9F8;font-size: 20px;width: 100%;height: 100%" id="detail_require"></textarea>
+	</div>
+
+
+	<!--这里是项目分类的填写块-->
+	<div style="margin-left: 30px">
+		<h3>我们还需要：您的项目分类</h3>
+		<p><strong>这将会对您项目的选择过程有很大程度的影响</strong></p>
+	</div>
+	<div class="col-xs-12 col-md-4 mb-5" style="margin-left: 45px">
+		<select id="required" class="form-control form-control-chosen-required" data-placeholder="请选择标注分类...">
+			<option></option>
+			<option>动物类标注</option>
+			<option>风景类标注</option>
+			<option>人物类标注</option>
+			<option>物件类标注</option>
+			<option>其他类标注</option>
+		</select>
+	</div>
+	<br>
+	<br>
+
+	<!--这里是时间选择模块-->
+	<div style="margin-left: 30px">
+		<h3>我们仍然需要：您的时间安排表</h3>
+		<p><strong>这将会为您生成一份具体的工作安排表</strong></p>
+	</div>
+	<div id="time">
+		<div style="margin-bottom: 20px;margin-left: 65px">
+			<label style="-webkit-text-fill-color: #d2d2d2; font-weight: normal">工作截止时间</label><br>
+			<input class=flatpickr data-enable-time=true data-time_24hr=true id="work_time">
+		</div>
+	</div>
+
+	<!--这里是项目大小的填写块-->
+	<div style="margin-left: 30px">
+		<h3>我们还需要：您对项目大小的估计</h3>
+		<p><strong>这将会对您项目的积分推荐有较大影响</strong></p>
+	</div>
+	<div class="col-xs-12 col-md-4 mb-5" style="margin-left: 45px">
+		<select id="project_size" class="form-control form-control-chosen-required" data-placeholder="请选择项目预估大小...">
+			<option></option>
+			<option>100以下</option>
+			<option>100-500</option>
+			<option>500-1000</option>
+			<option>1000-5000</option>
+			<option>5000以上</option>
+		</select>
+	</div>
+	<br>
+	<br>
+
+	<!--推荐积分模块-->
+	<div style="margin-left: 30px;">
+		<h3>okay：我们已经根据您所填写的信息计算出推荐设置的积分</h3>
+		<p><strong>你可以点击acquire按钮来获取系统推荐的积分值,当然您也可以根据自身需要更改积分值</strong></p>
+	</div>
+	<div style="margin-left: 65px;margin-right: 65px">
+		<label>项目价值积分</label><br>
+		<input type="text" id="credits_available">
+		<button onclick="getRecommend()" style="background-color: #ffffff; -webkit-text-fill-color: #66afe9; font-weight: bold; border: none">acquire</button>
+	</div>
+
+    <div style="width: 100%;height: 20px"></div>
+</div>
+
+<div id="upload_part" style="background-color: #FFFFFF;margin-bottom: 30px;margin-left: 50px;margin-right: 50px">
+	<!--照片上传模块-->
+	<div style="margin-left: 30px">
+		<h3>最后还差一点：您的项目图片</h3>
+		<p><strong>同样的图片只会被上传一次</strong></p>
+	</div>
+
+	<div class='example' style="margin-right: 10px;margin-left: 10px">
+		<div class='tabsholder1'>
+			<div data-tab="上传图片">
+				<div style="margin-left: 65px;">
+					<label class="ui_button ui_button_primary" for="doc" style="font-weight:unset;-webkit-text-fill-color: #d2d2d2;font-size: 25px;cursor: pointer;">+上传我的图片</label>
+					<form><input type="file" name="file" id="doc" multiple="multiple" style="position:absolute;clip:rect(0 0 0 0);" onchange="setImagePreviews(event);" accept="image/*"></form>
+				</div>
+				<div class="related" id="photos" style="background-color: #FFFFFF;min-height: 100px;margin-left: 35px;margin-right:35px;border-width: 10px;background-color: #f2f2f2">
+				</div>
+				<div style="width: 100%;height: 20px"></div>
+			</div>
+
+			<div data-tab="上传压缩包">
+                <div style="margin-left: 65px;">
+                    <label class="ui_button ui_button_primary" for="rar" style="font-weight:unset;-webkit-text-fill-color: #d2d2d2;font-size: 25px;cursor: pointer;">+上传压缩包</label>
+                    <form id="test_form">
+                        <input type="file" id="rar" name="zipFile" style="position:absolute;clip:rect(0 0 0 0);" onchange="uploadRAR()">
+                        <input type="text" name="projectID" id="hide_pid" style="display: none">
+                    </form>
+                </div>
+
+                <div class="related" id="rar_photos" style="background-color: #FFFFFF;min-height: 100px;margin-left: 35px;margin-right:35px;border-width: 10px;background-color: #f2f2f2">
+                </div>
+                <div style="width: 100%;height: 20px"></div>
+			</div>
+		</div>
+	</div>
+
+	<!--完成提交模块-->
+	<div style="margin-left: 30px;">
+		<h3>现在：你可以选择上传或者保存你的项目</h3>
+		<p><strong>在保存之后您可以在个人中心/我发布的/草稿箱中找到您的项目</strong></p>
+	</div>
+
+	<div style="word-spacing: 50px;margin-left: 65px">
+		<button class="submitPart" id="submit" onclick="upload_final()">上传并提交</button>
+		<button class="submitPart" id="save" onclick="save()">暂存草稿箱</button>
+	</div>
+
+	<div style="width: 100%;height: 20px"></div>
+</div>
+
+<iframe src="/cwzz/foot" style="border: none;width: 100%" id="foot"></iframe>
+
+<script>
+    function setIframeHeight(iframe) {
+        if (iframe) {
+            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+            if (iframeWin.document.body) {
+                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            }
+        }
+    };
+
+    window.onload = function () {
+        setIframeHeight(document.getElementById('foot'));
+    };
+</script>
+
+	<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="/js/upload/jquery-2.1.1.min.js"><\/script>')</script>
+	<script type="text/javascript" src="/js/upload/phanimate.jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $('.custom-input input').phAnim();
+		})
+
+		$(document).ready(function () {
+			var width=document.getElementById("creator_phone").offsetWidth;
+			var window_width=window.innerWidth;
+            if(window_width*0.5>width){
+                $("#inner_part").css({"margin-left":"25%","margin-right":"25%"})
+                $("#upload_part").css({"margin-left":"25%","margin-right":"25%"})
+            }
+			else if(window_width*0.6>width){
+			    $("#inner_part").css({"margin-left":"20%","margin-right":"20%"})
+                $("#upload_part").css({"margin-left":"20%","margin-right":"20%"})
+			}
+            else if(window_width*0.7>width){
+                $("#inner_part").css({"margin-left":"15%","margin-right":"15%"})
+                $("#upload_part").css({"margin-left":"15%","margin-right":"15%"})
+            }
+            else if(window_width*0.8>width){
+                $("#inner_part").css({"margin-left":"10%","margin-right":"10%"})
+                $("#upload_part").css({"margin-left":"10%","margin-right":"10%"})
+            }
+            else if(window_width*0.9>width){
+                $("#inner_part").css({"margin-left":"5%","margin-right":"5%"})
+                $("#upload_part").css({"margin-left":"5%","margin-right":"5%"})
+            }
+        })
+  	</script>
+
+	<!--分类选择器的引用-->
+	<script>window.jQuery || document.write('<script src="/js/upload/classify/jquery-1.11.0.min.js"><\/script>')</script>
+	<script src="/js/upload/classify/chosen.jquery.js"></script>
+	<script type="text/javascript">
+    $('.form-control-chosen').chosen({
+        allow_single_deselect: true,
+        width: '100%'
+    });
+    $('.form-control-chosen-required').chosen({
+        allow_single_deselect: false,
+        width: '100%'
+    });
+    $('.form-control-chosen-search-threshold-100').chosen({
+        allow_single_deselect: true,
+        disable_search_threshold: 100,
+        width: '100%'
+    });
+    $('.form-control-chosen-optgroup').chosen({
+        width: '100%'
+    });
+
+    $(function() {
+        $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+    });
+    $(document).on('click', '[title="clickable_optgroup"] .group-result', function() {
+        var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+        if(unselected.length) {
+            unselected.trigger('mouseup');
+        } else {
+            $(this).nextUntil('.group-result').each(function() {
+                $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+            });
+        }
+    });
+</script>
+
+	<!--上传分页-->
+	<script type='text/javascript' src='/js/upload/jquery.cardtabs.js'></script>
+	<script type='text/javascript'>
+    $('.tabsholder1').cardTabs();
+	</script>
+</body>
+</html>

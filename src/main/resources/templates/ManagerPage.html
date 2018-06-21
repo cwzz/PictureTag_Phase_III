@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>众包标注平台管理员系统</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css" media="all">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/queries.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/css/css.css" type="text/css" media="all">
+    <link rel="stylesheet" type='text/css' href="/css/log.css">
+    <link rel="stylesheet" type="text/css" href="/css/ManagerPageStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-lib/demand_detail.css">
+    <link rel="stylesheet" type="text/css" href="/css/style-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/line-icons.css">
+    <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="/css/rippler.css">-->
+    <link rel="stylesheet" href="/css/bars-1to10.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css" />
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/classie.js"></script>
+    <script src="/js/jquery.barrating.js"></script>
+    <script src="/js/examples.js"></script>
+    <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+
+    <!--分页-->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--统计数据的js-->
+    <script src="/js/statistic/echarts.js"></script>
+    <script src="/js/personal_page/newManagerStatistics.js"></script>
+
+    <style>
+       .scrollbot-outer-parent{
+           width: 100%;
+       }
+        .scrollbot-inner-parent{
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body style="background: #ffffff">
+
+<div class="navbar navbar-fixed-top skrollable skrollable-between" role="navigation"
+     style="line-height:60px; height:80px; background-color:rgba(255, 255, 255, 0.8);">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="fa fa-bars color-white"></span>
+            </button>
+            <p style="font-size:2em;margin: 0.67em 0;color: #353535;left: 2%;position: absolute">众包标注平台管理员系统<a class="navbar-brand skrollable skrollable-between" href="<%=basePath%>"
+                                                                              style="display:none;margin-top:5px;"></a>
+            </p>
+        </div>
+
+        <div class="top-nav notification-row" style="margin-left: 0px;margin-top: 0px;display: inline-block;position: absolute;left:85%">
+            <!-- notificatoin dropdown start-->
+            <ul class="nav pull-right top-menu">
+                <!-- alert notification start-->
+                <li id="alert_notificatoin_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="bell">
+
+                        <i class="icon-bell-l"></i>
+                        <span class="badge bg-important" id="unread_number" style="display: none"></span>
+                    </a>
+                    <ul class="dropdown-menu extended notification" id="unread_message_list" style="display: none;">
+                        <div class="notify-arrow notify-arrow-blue"></div>
+                        <li>
+                            <p class="blue" id="howmany"></p>
+                        </li>
+                    </ul>
+                </li>
+                <!-- alert notification end-->
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        <span class="username" id="username">管理员</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                        </li>
+                        <li>
+                            <a onclick="logout()"><i class="fas fa-exchange-alt"></i> 切换账号</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!-- notificatoin dropdown end-->
+        </div>
+
+    </div>
+</div>
+
+<div id="wrapper">
+    <div id="left-side" style="height: 100%">
+        <ul style="top: 0% ;position: absolute;left: 0%">
+            <li class="data-table active">
+                <i class="fas fa-chart-line icon active" style="margin-left: 0px;background: transparent"></i>
+                统计数据查询
+            </li>
+            <li class="data-chart">
+                <i class="fas fa-chart-pie icon" style="margin-left: 0px;background: transparent"></i>
+                统计图表查询
+            </li>
+            <li class="handle">
+                <i class="fas fa-phone-volume icon" style="margin-left: 0px;background: transparent"></i>
+                用户申诉处理
+            </li>
+            <li class="more_func">
+                <i class="fas fa-lock icon" style="margin-left: 0px;background: transparent"></i>
+                更多功能，尽情期待
+            </li>
+        </ul>
+    </div>
+
+    <div id="border">
+        <div id="line" class="one"></div>
+    </div>
+
+    <div id="right-side" style="height: 100%">
+        <div id="first" class="active" style="height: 100%">
+        </div>
+        <div id="second" style="height: 100%">
+            <div id="graphics">
+                <div style="float: left" id="left-graphic">
+                    <div id="gra1"></div>
+                    <div id="text1"></div>
+                </div>
+                <div style="float: left" id="right_graphic">
+                    <div id="gra2"></div>
+                    <div id="text2"></div>
+                </div>
+            </div>
+            <ul class="pagination" id="pagination2"></ul>
+        </div>
+        <div id="third" style="height: 100%" class="custom-scroll custom-scroll-2">
+            <section class="panel" id="require_list" style="height: 100%;width: 100%;margin-left: 0px;margin-top:0px;">
+                <div class="panel-body progress-panel" style="width: 100%">
+                    <div class="row">
+                        <div class="col-lg-8 task-progress pull-left">
+                            <h1>用户申诉请求列表</h1>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover personal-task" >
+                    <tbody id="table_body">
+                    <tr>
+                        <td>申诉日期</td>
+                        <td>申诉项目名称</td>
+                        <td>申诉人</td>
+                        <td>申诉理由</td>
+                        <td>是否处理</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <div class="index_middle" id="project_detail" style="margin-top: 0px;width: 100%;display: none">
+                <div class="left" style="width:100%;height:auto;overflow: hidden;background-color:transparent; border-style: none">
+                    <div class="row" style="display: inline-block;width: 100%;margin-left: 0px;margin-right: 0px">
+                        <div class="demand_detail" style="width: 100%">
+                            <h3 class="demand_name_h3"><span id="project_name"></span>        <a onclick="open_preview()">->点击预览项目图片列表</a></h3>
+                            <div class="task_number_time">
+                                需求号：<span id="project_id"></span>
+                                发包方：<span id="project_publisher"></span>
+                                发布时间：<span id="project_publish_time"></span>
+                                奖励积分：<span id="project_points"></span>
+                                中标工人：<span id="project_worker"></span>
+                            </div>
+                            <div class="text_shadow_area text_shadow_area1" style="height: 173px">
+                                <div class="width_430">分类：<span id="project_type"></span></div>
+                                <div class="width_340">投标截止时间：<span id="project_bidtime"></span></div>
+                                <div class="width_430">需求完成时间：<span id="project_completetime"></span></div>
+
+                                <div class="width_340">联系方式：仅承包方投标后可见</div>
+
+                                <div class="clear"></div>
+
+                                <div class="progress" style="width: 700px;position:relative;margin-top: 25px;margin-bottom: 25px">
+                                    <div class="progress-bar"  id="bid_state" style="width: 70px;margin-left: 0px;background:transparent;">
+                                        <div class="progress-value">承包方竞标</div>
+                                    </div>
+                                    <div class="progress-bar" id="choose_state" style="width: 210px;margin-left: 0px;background: transparent;">
+                                        <div class="progress-value">发包方选标</div>
+                                    </div>
+                                    <div class="progress-bar" id="underway_state" style="width: 350px; margin-left: 0px;background: transparent;">
+                                        <div class="progress-value">执行项目</div>
+                                    </div>
+                                    <div class="progress-bar" id="comment_state" style="width: 490px;margin-left: 0px;background:transparent;">
+                                        <div class="progress-value">评估结果</div>
+                                    </div>
+                                    <div class="progress-bar" id="complete_state" style="width: 630px;margin-left: 0px;background:linear-gradient(to right, #55267f 35%, #664187 68%);">
+                                        <div class="progress-value">项目完成</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear" style="height:30px;"></div>
+                            <div class="text_shadow_area text_shadow_area2">
+                                <div class="spec_requirement">具体需求：</div>
+                                <div class="spec_requirement_p" id="project_detailrequire">
+                                </div>
+
+                                <!-- 补充需求 -->
+                                <div class="spec_requirement">补充说明：</div>
+                                <p class="supplementary_demand" id="project_otherrequire"></p>
+                                <div class="clear" style="height:10px;"></div>
+                                <!-- 付款比例 -->
+                                <div class="spec_requirement">阶段奖励说明：</div>
+                                <div class="node_table_header">
+                                    <span>阶段节点</span>
+                                    <span>计划完成时间</span>
+                                    <span>奖励比例</span>
+                                    <span>评估结果机制</span>
+                                </div>
+                                <div class="clear" style="width:760px;height:10px;background:#fff;"></div>
+                                <div class="node_table_body">
+                                    <span>完成30%图片的标注</span>
+                                    <span>2018-04-20</span>
+                                    <span>30%</span>
+                                    <span>发包方检查</span>
+                                </div>
+                                <div class="node_table_body">
+                                    <span>完成70%图片的标注</span>
+                                    <span>2018-04-30</span>
+                                    <span>70%</span>
+                                    <span>发包方检查</span>
+                                </div>
+                                <div class="node_table_body">
+                                    <span>完成100%图片的标注</span>
+                                    <span>2018-05-10</span>
+                                    <span>100%</span>
+                                    <span>发包方检查</span>
+                                </div>
+                                <div class="clear" style="width:760px;height:10px;background:#fff;"></div>
+                                <div class="clear" style="height:30px;"></div>
+                            </div>
+                            <div class="clear" style="height:30px;"></div>
+                            <div class="text_shadow_area text_shadow_area3" id="project_result">
+                                <div class="spec_requirement">完成结果评估:</div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目完成结果的评星：</div>
+                                    <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="star_result"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目结果的付款结果：</div>
+                                    <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="money_result"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次项目结果的简单评论：</div>
+                                    <div class="spec_requirement col-md-6" style="width: 75%;font-size: 10px" id="comment_result"></div>
+                                </div>
+                            </div>
+                            <div class="clear" style="height:30px;"></div>
+                            <div class="text_shadow_area text_shadow_area3">
+                                <div class="spec_requirement">管理员重新评估：    <a onclick="check_work_result()">->检查项目完成情况</a></div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">管理员评星：</div>
+                                    <iframe id="star" src="/cwzz/star" style="border: none; width: 300px;height: 50px"></iframe>
+                                </div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">管理员制定项目结果付款比例：</div>
+                                    <div class="box-body col-md-6" style="width: 75%;padding-top: 10px">
+                                        <select id="example-1to10" name="rating">
+                                            <option value="1" selected="selected">10%</option>
+                                            <option value="2">20%</option>
+                                            <option value="3">30%</option>
+                                            <option value="4">40%</option>
+                                            <option value="5">50%</option>
+                                            <option value="6">60%</option>
+                                            <option value="7">70%</option>
+                                            <option value="8">80%</option>
+                                            <option value="9">90%</option>
+                                            <option value="10">100%</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">管理员对审核结果评价：</div>
+                                    <textarea  id="comment_input" class="col-md-6" style= "overflow:hidden; resize:none; width: 65%;height: 80px;border-radius: 15px;border-color: #1B76D9;margin-bottom: 20px"> </textarea>
+                                </div>
+
+                                <button class="btn btn-default rippler rippler-inverse later_handle" href="#" style="left: 20% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px">
+                                    <span class="glyphicon glyphicon-ok"></span>&nbsp;下次再处理
+                                </button>
+
+                                <button class="btn btn-default rippler rippler-inverse commit_manager_comment" href="#" style="left: 50% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px">
+                                    <span class="glyphicon glyphicon-ok"></span>&nbsp;确认提交上述评价
+                                </button>
+                            </div>
+                            <div class="clear" style="height:30px;"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fourth" style="height: 100%">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.data-table').click(function () {
+        $('.data-table').addClass('active');
+        $('.data-table > .icon').addClass('active');
+        $('.data-chart').removeClass('active');
+        $('.handle').removeClass('active');
+        $('.more_func').removeClass('active');
+        $('.data-chart > .icon').removeClass('active');
+        $('.handle > .icon').removeClass('active');
+        $('.more_func > .icon').removeClass('active');
+        $('#line').addClass('one');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('four');
+    });
+    $('.data-chart').click(function () {
+        $('.data-chart').addClass('active');
+        $('.data-chart > .icon').addClass('active');
+        $('.data-table').removeClass('active');
+        $('.handle').removeClass('active');
+        $('.more_func').removeClass('active');
+        $('.data-table > .icon').removeClass('active');
+        $('.handle > .icon').removeClass('active');
+        $('.more_func > .icon').removeClass('active');
+        $('#line').addClass('two');
+        $('#line').removeClass('one');
+        $('#line').removeClass('three');
+        $('#line').removeClass('four');
+    });
+    $('.handle').click(function () {
+        $('.handle').addClass('active');
+        $('.handle > .icon').addClass('active');
+        $('.data-chart').removeClass('active');
+        $('.data-table').removeClass('active');
+        $('.more_func').removeClass('active');
+        $('.data-chart > .icon').removeClass('active');
+        $('.data-table > .icon').removeClass('active');
+        $('.more_func > .icon').removeClass('active');
+        $('#line').addClass('three');
+        $('#line').removeClass('two');
+        $('#line').removeClass('one');
+        $('#line').removeClass('four');
+    });
+    $('.more_func').click(function () {
+        $('.more_func').addClass('active');
+        $('.more_func > .icon').addClass('active');
+        $('.data-chart').removeClass('active');
+        $('.handle').removeClass('active');
+        $('.data-table').removeClass('active');
+        $('.data-chart > .icon').removeClass('active');
+        $('.handle > .icon').removeClass('active');
+        $('.data-table > .icon').removeClass('active');
+        $('#line').addClass('four');
+        $('#line').removeClass('two');
+        $('#line').removeClass('three');
+        $('#line').removeClass('one');
+    });
+    $('.data-table').click(function () {
+        $('#first').addClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+    });
+    $('.data-chart').click(function () {
+        $('#first').removeClass('active');
+        $('#second').addClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').removeClass('active');
+    });
+    $('.handle').click(function () {
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').addClass('active');
+        $('#fourth').removeClass('active');
+    });
+    $('.more_func').click(function () {
+        $('#first').removeClass('active');
+        $('#second').removeClass('active');
+        $('#third').removeClass('active');
+        $('#fourth').addClass('active');
+    });
+</script>
+
+<script src="/js/scrollbot.js" type="text/javascript"></script>
+<script  src="/js/scrollreveal.min.js" type="text/javascript"></script>
+<script>
+
+    custom2 = new scrollbot(".custom-scroll-2",10).setStyle({
+        "background":"#202020",
+        "z-index":"2"
+    },{
+        "background":"rgba(0,0,0,0)"
+    });
+    var psuedo = document.createElement("div");
+    psuedo.style.cssText = "height:100%;width:2px;left:4px;background:#808080;position:absolute;z-index:1";
+    custom2.scrollBarHolder.appendChild(psuedo);
+
+    document.onreadystatechange = function(){
+        custom2.refresh();
+    }
+
+</script>
+
+<script>
+    var messages;
+    var appeal_list;
+    var current_choose;
+    $(document).ready(function(){
+        $.ajax({
+            type : 'POST',
+            url : '/listUnread',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            success:function(result){
+                if(result.length>0){
+                    messages=result;
+                    document.getElementById("unread_number").innerText=result.length;
+                    document.getElementById("unread_number").style.display="";
+                    document.getElementById("unread_message_list").style.display="";
+                    document.getElementById("howmany").innerText="您有"+result.length+"条未读消息";
+                    for(var i=0;i<result.length;i++){
+                        var new_element="<li>\n" +
+                            "                            <a href=\"#\" id=\"message"+i+"\">\n" +
+                            "                                <span class=\"content\"></span>\n" +
+                            "                                <span class=\"time small italic pull-right\"></span>\n" +
+                            "                            </a>\n" +
+                            "                        </li>";
+                        $("#unread_message_list").append(new_element);
+                        var show_content=result[i].event.length<=18?(result[i].event):(result[i].event.substring(0,18)+"...");
+                        $("#message"+i).find(".content").text(show_content);
+                        $("#message"+i).find(".time").text(result[i].time);
+                    }
+                    document.getElementById("bell").addEventListener("mousedown",readMessage,false);
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/project/showAppealPro',
+            contentType:"application/json",
+            dataType:"json",
+            success:function(result){
+                appeal_list=eval(result);
+                for(var i=0;i<appeal_list.length;i++){
+                    var new_element="<tr id='appeal"+i+"'>\n" +
+                        "                        <td class='date'></td>\n" +
+                        "                        <td class='pro_name'></td>\n" +
+                        "                        <td class='appeal_worker'></td>\n" +
+                        "                        <td class='appeal_reason'></td>\n" +
+                        "                        <td class='appeal_state'></td>\n" +
+                        "                    </tr>";
+                    $("#table_body").append(new_element);
+                    $("#table_body").find("#appeal"+i).find(".date").text(appeal_list[i].appealDate);
+                    $("#table_body").find("#appeal"+i).find(".pro_name").text(appeal_list[i].proName);
+                    $("#table_body").find("#appeal"+i).find(".appeal_worker").text(appeal_list[i].workerName);
+                    $("#table_body").find("#appeal"+i).find(".appeal_reason").text(appeal_list[i].appealReason);
+                    $("#table_body").find("#appeal"+i).find(".appeal_state").text(appeal_list[i].state?"已处理":"未处理");
+                    $("#table_body").find("#appeal"+i).click(function(){
+                        var position= parseInt(this.id.substring(6));
+                        current_choose=position;
+                        $.ajax({
+                            type : 'POST',
+                            url : '/project/read',
+                            data :{pid:appeal_list[current_choose].pid},
+                            success:function(data){
+                                document.getElementById("project_name").innerText=data.pro_name;
+                                document.getElementById("project_id").innerText=data.pro_ID;
+                                document.getElementById("project_publisher").innerText=data.pro_requester;
+                                document.getElementById("project_publish_time").innerText=data.releaseTime;
+                                document.getElementById("project_points").innerText=data.accumulate_points;
+                                document.getElementById("project_worker").innerText=data.pro_worker;
+                                if(data.projectType=="ANIMALTAG"){
+                                    document.getElementById("project_type").innerText="全部分类->动物类标注";
+                                }else if(data.projectType=="SCENETAG"){
+                                    document.getElementById("project_type").innerText="全部分类->风景类标注";
+                                }else if(data.projectType=="PERSONTAG"){
+                                    document.getElementById("project_type").innerText="全部分类->人物类标注";
+                                }else if(data.projectType=="GOODSTAG"){
+                                    document.getElementById("project_type").innerText="全部分类->物品类标注";
+                                }else{
+                                    document.getElementById("project_type").innerText="全部分类->其他类标注";
+                                }
+                                document.getElementById("project_bidtime").innerText=data.requestDownTime;
+                                document.getElementById("project_completetime").innerText=data.workTime+"天";
+                                document.getElementById("project_detailrequire").innerText=data.detailRequire;
+                                document.getElementById("project_otherrequire").innerText=data.note==""?"暂无":data.note;
+                                document.getElementById("star_result").innerText=data.grade;
+                                document.getElementById("money_result").innerText=data.actualPoints;
+                                document.getElementById("comment_result").innerText=data.comment.content;
+                                document.getElementById("require_list").style.display="none";
+                                document.getElementById("project_detail").style.display="";
+                            },
+                            error:function(data){
+                                alert("传输失败");
+                            }
+                        });
+                    });
+                }
+            },
+            error:function(result){
+                alert("传输失败");
+            }
+        });
+    })
+    function readMessage(){
+        document.getElementById("unread_number").style.display="none";
+        var times=new Array();
+        for(var i=0;i<messages.length;i++){
+            times.push(messages[i].time);
+        }
+        var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,messageList:times};
+        $.ajax({
+            type : 'POST',
+            url : '/setState',
+            contentType:"application/json",
+            dataType:"json",
+            data :JSON.stringify(temp_para),
+            success: function(result){
+                console.log("阅读成功");
+            },
+            error: function(){
+                alert("传输失败");
+            }
+        })
+    }
+    $('.commit_manager_comment').on('click', function () {
+        $.confirm({
+            title: '是否确认提交',
+            content: '确认提交管理员项目重新评估结果后将改变项目实际评分和积分获取情况 <br> 请仔细核对项目重新评估结果是否合理',
+            confirmButton: '确认提交',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            opacity: 0.5,
+            confirm: function () {
+                var myDate=new Date();
+                var date_str=myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDay()+" "+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds();
+                var temp_comment={userFrom:"admin",userTo:appeal_list[current_choose].workerName,proID:appeal_list[current_choose].pid,comment_time:date_str,content:document.getElementById("comment_input").value};
+                var temp_grade=localStorage.getItem("star_rating");
+                var temp_points=document.getElementById("example-1to10").value/10*project_points;
+                var temp_para={pid:appeal_list[current_choose].pid,grade:temp_grade,comment:temp_comment,points:temp_points};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/appealEnd',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '提交管理员评估结果成功!',
+                                content: '成功提交管理员对于该项目的审核结果，中标工人与承包工人将能看到您对于该申诉项目的审核结果',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="project_detail_for_publish";
+                                }
+                            });
+                            $("#appeal"+current_choose).find(".appeal_state").text("已处理");
+                            document.getElementById("require_list").style.display="";
+                            document.getElementById("project_detail").style.display="none";
+                        }else{
+                            $.alert({
+                                title: '提交管理员评估结果失败!',
+                                content: '由于某些原因，您提交管理员项目审核结果失败了，您可以刷新页面或重新登录来重新提交项目评估结果',
+                                confirmButton: '重新提交',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    });
+    $('.later_handle').on('click', function () {
+        $.alert({
+            title: '请及时处理!',
+            content: '您选择下次处理该用户的申诉，为避免用户等待时间过长，请及时处理用户申诉请求',
+            confirmButton: '我知道了',
+            confirmButtonClass: 'btn-primary',
+            icon: 'fa fa-info',
+            animation: 'zoom',
+            confirm: function(){
+                document.getElementById("require_list").style.display="";
+                document.getElementById("project_detail").style.display="none";
+            }
+        });
+    });
+
+    function check_work_result(){
+        localStorage.setItem("work_id",appeal_list[current_choose].pid);
+        localStorage.setItem("workOrsee","see");
+        window.open("/cwzz/work");
+    }
+
+    function open_preview(){
+        localStorage.setItem("projectdetail_id",appeal_list[current_choose].pid);
+        window.open("/cwzz/photos");
+    }
+
+    function gotoManagerStatistic(){
+        window.open("/cwzz/manager_data");
+    }
+
+    function logout(){
+        $.confirm({
+            title: '确认登出',
+            content: '确认退出当前登录用户吗？',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                $.ajax({
+                    type : 'POST',
+                    url : '/user/logout',
+                    data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            localStorage.removeItem("current_user");
+                            $.alert({
+                                title: '登出成功!',
+                                content: '成功登出当前用户',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="login";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '登出失败!',
+                                content: '由于某些原因，登出当前用户失败了',
+                                confirmButton: '重新登出',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+</script>
+
+<!--分页-->
+<script>window.jQuery || document.write('<script src="/js/personal_page/new/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript" src="/js/personal_page/new/jqPaginator.js"></script>
+<script type="text/javascript">
+
+    $.jqPaginator('#pagination2', {
+        totalPages: 2,
+        visiblePages: 10,
+        currentPage: 1,
+        first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+        prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+        next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+        last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+        onPageChange: function (num) {
+            // //$('#p2').text(text+num);
+            // document.getElementById("graphics").innerHTML=num;
+            if(num==1){
+                page1();
+            }
+            else if(num==2){
+                page2();
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

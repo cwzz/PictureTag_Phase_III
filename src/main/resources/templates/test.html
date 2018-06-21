@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/js/statistic/echarts.js"></script>
+</head>
+<body>
+<input type="button" id="open_btn" onclick="chooseDIR()">
+<form id="choose_form"><input type="file" id="choose_file" style="display: none" onchange="download()"></form>
+
+
+<table>
+    <tr>
+        <td>选择导入数据源：</td>
+        <td><input id="path" type="text" name="path" size="30"></td>
+        <td><input type=button value="选择" onclick="browseFolder('path')"></td>
+    </tr>
+</table>
+</body>
+
+<script>
+    function chooseDIR() {
+        document.getElementById("choose_file").click();
+    }
+
+    function download() {
+        var data=new FormData($("#choose_form")[0]);
+        alert(data.toString())
+        alert(document.getElementById("choose_file").files[0])
+        alert(document.getElementById("choose_file").files[0].filename)
+    }
+
+    function browseFolder(path) {
+        try {
+            var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
+            var Shell = new ActiveXObject("Shell.Application");
+            var Folder = Shell.BrowseForFolder(0, Message, 64, 17); //起始目录为：我的电脑
+            //var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面
+            if (Folder != null) {
+                Folder = Folder.items(); // 返回 FolderItems 对象
+                Folder = Folder.item(); // 返回 Folderitem 对象
+                Folder = Folder.Path; // 返回路径
+                if (Folder.charAt(Folder.length - 1) != "\\") {
+                    Folder = Folder + "\\";
+                }
+                document.getElementById(path).value = Folder;
+                return Folder;
+            }
+        }
+        catch (e) {
+            alert(e.message);
+        }
+    }
+    function test2(e) {
+        alert("2222222222222")
+        var str=document.getElementById("test").value;
+        var obj=document.getElementById("test").files[0];
+        var picResult=window.URL.createObjectURL(obj);
+        document.getElementById("photo").innerHTML=str+obj+picResult;
+    }
+    function test3() {
+        alert("33333333333")
+    }
+</script>
+
+</html>

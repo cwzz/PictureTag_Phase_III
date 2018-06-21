@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/js/project_detail_page/star-rating-svg.css">
+</head>
+<body>
+<div class="my-rating-4"></div>
+
+<script src="/js/project_detail_page/jquery-2.1.1.min.js"></script>
+<script src="/js/project_detail_page/jquery.star-rating-svg.js"></script>
+<script>
+    $(function() {
+
+        $(".my-rating-4").starRating({
+            useFullStars:true,
+            totalStars: 5,
+            emptyColor: '#FEF7CD',
+            hoverColor: 'salmon',
+            activeColor: '#FF9511',
+            initialRating: 3,
+            strokeWidth: 0,
+            useGradient: false,
+            callback: function(currentRating, $el){
+                localStorage.setItem("star_rating",currentRating);
+            }
+        });
+
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+.imageLabel-box {
+    position: fixed;
+    /*top: 0%;*/
+    /*left: 0%;*/
+    z-index: 100;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #363636;
+    font-size: 14px;
+    opacity: 0;
+    transition: all .4s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.imageLabel-box.imageLabel-box-active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.imageLabel-box * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    list-style: none;
+    -webkit-tap-highlight-color: rgba(255,0,0,0);
+}
+
+.imageLabel-box button {
+    -webkit-user-select: none;
+}
+
+.imageLabel-box input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.imageLabel-box input::-webkit-inner-spin-button,.imageLabel-box input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none!important;
+}
+
+.imageLabel-box button,.imageLabel-box input[type=number],.imageLabel-box input[type=password],.imageLabel-box input[type=tel],.imageLabel-box input[type=text] {
+    -webkit-appearance: none;
+}
+
+.imageLabel-box input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.imageLabel-box .imageLabel {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.imageLabel-box .imageLabel .imageLabel-box {
+    width: 100%;
+    height: 100%;
+}
+
+.imageLabel-box .imageLabel-buttons {
+    padding: 10px;
+    text-align: center;
+}
+
+.imageLabel-box .imageLabel-buttons div {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #4b5060;
+}
+
+.imageLabel-box .imageLabel-buttons div.imageLabel-closes {
+    background-color: #959595;
+}
+
+.imageLabel-box .imageLabel-img-boxs {
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.imageLabel-box .imageLabel-img-boxs,.imageLabel-box .imageLabel-img-boxs .imageLabel-img-body {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageLabel-box .imageLabel-img-boxs .imageLabel-img-body {
+    position: relative;
+    overflow: hidden;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+}
+
+.imageLabel-box .imageLabel-drap-menu {
+    position: fixed;
+    z-index: 9999;
+    display: none;
+    width: 100px;
+    background-color: #fff;
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,.06),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -7px rgba(0,0,0,.2);
+}
+
+.imageLabel-box .imageLabel-drap-menu .btns {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.imageLabel-box .imageLabel-drap-menu .btns:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+.imageLabel-box .imageLabel-drap-menu .btns:active {
+    opacity: .9;
+}
+
+.imageLabel-img {
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s;
+}
+
+.imageLabel-img.imageLabel-img-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.imageLabel-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+.imageLabel-imgdrop {
+    position: absolute;
+    z-index: 10;
+    display: -ms-flexbox;
+    display: flex;
+    min-width: 7px;
+    min-height: 7px;
+    background-color: transparent;
+    cursor: move;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-size: 100% 100%;
+}
+
+.hasBorder{
+    border: 1px solid black;
+}
+
+.noBorder{
+    border:none;
+}
+
+/*.imageLabel-imgdrop:hover{*/
+    /*border: 1px dashed #959595*/
+/*}*/
+
+/*.imageLabel-imgdrop:hover>i{*/
+    /*display: block;*/
+/*}*/
+
+.imageLabel-imgdrop span {
+    color: #fff;
+}
+
+.imageLabel-imgdrop em.imageLable-em {
+    position: absolute;
+    z-index: -1;
+    display: none;
+    background-color: rgba(0,0,0,.2);
+}
+
+.imageLabel-imgdrop em.imageLable-em:first-of-type {
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 1px;
+    margin-left: -5000px;
+    width: 10000px;
+    height: 10000px;
+}
+
+.imageLabel-imgdrop em.imageLable-em:nth-of-type(2) {
+    top: -1px;
+    bottom: -1px;
+    left: 100%;
+    margin-left: 1px;
+    width: 10000px;
+}
+
+.imageLabel-imgdrop em.imageLable-em:nth-of-type(3) {
+    top: 100%;
+    left: 50%;
+    margin-top: 1px;
+    margin-left: -5000px;
+    width: 10000px;
+    height: 10000px;
+}
+
+.imageLabel-imgdrop em.imageLable-em:nth-of-type(4) {
+    top: -1px;
+    right: 100%;
+    bottom: -1px;
+    margin-right: 1px;
+    width: 10000px;
+}
+
+.imageLabel-imgdrop i {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background-color: #959595;
+    cursor: default!important;
+}
+
+.imageLabel-imgdrop i:first-of-type {
+    top: -5px;
+    left: -5px;
+    cursor: nw-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(2) {
+    top: -5px;
+    right: -5px;
+    cursor: ne-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(3) {
+    right: -5px;
+    bottom: -5px;
+    cursor: se-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(4) {
+    bottom: -5px;
+    left: -5px;
+    cursor: sw-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(5) {
+    top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    cursor: col-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(6) {
+    top: 50%;
+    right: -5px;
+    margin-top: -5px;
+    cursor: ew-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(7) {
+    bottom: -5px;
+    left: 50%;
+    margin-left: -5px;
+    cursor: col-resize;
+}
+
+.imageLabel-imgdrop i:nth-of-type(8) {
+    top: 50%;
+    left: -5px;
+    margin-top: -5px;
+    cursor: ew-resize;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-edit,.imageLabel-imgdrop.imageLabel-drop-now {
+    display: block!important;
+    background-color: transparent!important;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-edit .imageLabel-imgdrop-font,.imageLabel-imgdrop.imageLabel-drop-now .imageLabel-imgdrop-font {
+    opacity: 0;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-edit em.imageLable-em,.imageLabel-imgdrop.imageLabel-drop-now em.imageLable-em {
+    display: block;
+}
+
+.imageLabel-imgdrop em.imageLable-em {
+    pointer-events: none;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-edit {
+    border: 2px solid transparent;
+    -o-border-image: url("https://i.imgur.com/NWYjcgh.gif") 1 1 round;
+    border-image: url("https://i.imgur.com/NWYjcgh.gif") 1 1 round;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-has {
+    /*background :transparent!important;*/
+}
+
+.imageLabel-imgdrop.imageLabel-drop-chosen{
+    /*background-color: rgba(255,0,0,.3)!important*/
+    background-color: rgba(0,0,0,.2)!important
+}
+
+.imageLabel-imgdrop.imageLabel-drop-has .imageLabel-imgdrop-font {
+    opacity: 1;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-chosen .imageLabel-imgdrop-font {
+    opacity: 1;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-move {
+    background-color: transparent!important;
+}
+
+.imageLabel-imgdrop.imageLabel-drop-move .imageLabel-imgdrop-font {
+    opacity: 0;
+}
+
+.imageLabel-imgdrop .imageLabel-imgdrop-font {
+    position: absolute;
+    overflow: hidden;
+    padding: 2px;
+    pointer-events: none;
+}
+
+.imageLabel-imgdrop .imageLabel-imgdrop-font,.imageLabel-input {
+    top: 0;
+    left: 0;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.imageLabel-input {
+    position: fixed;
+    z-index: 999999;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .4s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.imageLabel-input .imageLabel-input-box {
+    transition: all .4s;
+    transform: scale(0);
+}
+
+.imageLabel-input.imageLabel-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.imageLabel-input.imageLabel-active .imageLabel-input-box {
+    transform: scale(1);
+}
+
+.imageLabel-btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 3px;
+    background-color: #333;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.06),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.3);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.imageLabel-btn:active {
+    opacity: .8;
+}
+
+.imageLabel-loading-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.imageLabel-loading {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-right-color: hsla(0,0%,100%,.2);
+    animation: imageLabelLoading 1s infinite linear;
+}
+
+@keyframes imageLabelLoading {
+    form {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.imageLable-i-s{
+    display: none;
+}

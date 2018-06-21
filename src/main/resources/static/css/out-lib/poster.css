@@ -1,0 +1,21 @@
+
+.all {
+    width: 100%;
+    height: 100%;
+}
+html,
+body,
+.container {
+    width: 100%;
+    height: 100%;
+}
+.fixedMask{position:fixed; display:none;top:0; left:0; z-index:999; width:100%; height:100%; background:#000; filter:alpha(opacity=30); opacity:0.3; }
+* html .fixedMask{ position: absolute; left: expression(documentElement.scrollLeft + documentElement.clientWidth - this.offsetWidth); top: expression(documentElement.scrollTop + documentElement.clientHeight - this.offsetHeight); }
+#ad{font-family:微软雅黑,sans-serif;border:5px solid #7c44ab;width:570px;height:250px;position:fixed;z-index:9999;left:50%;margin-left:-290px;top:50%;background:#fff;margin-top:-125px;display:none;}
+#ad h2{color:#7c44ab;font-size:20px;padding:7px 0;text-align: center;}
+#ad p{font-size:15px;color:#333333;padding:0 10px;line-height: 22px;text-indent: 2em;}
+#ad a{ font-size:15px;display:block;height:35px;width:110px;background: #7c44ab;border-radius: 4px;text-align: center;line-height: 35px;color:#fff;margin: 0 auto;text-decoration: none
+}
+
+
+

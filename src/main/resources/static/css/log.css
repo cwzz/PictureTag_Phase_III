@@ -1,0 +1,415 @@
+#sign-in-body{
+    font-size: 16px;
+    margin: 0 auto;
+    background: rgb(246,244,244);
+    font-weight: 500;
+    font-size: 1.05em;
+    background: url("https://i.imgur.com/t18CeyM.jpg") no-repeat;
+    background-size: 100% 100% ;
+}
+#sign-up-body{
+    font-size: 16px;
+    margin: 0 auto;
+    background: rgb(246,244,244);
+    font-weight: 500;
+    font-size: 1.05em;
+    background: url("https://i.imgur.com/t18CeyM.jpg") no-repeat;
+    background-size: 100% 110% ;
+
+}
+.sign-in-container{
+    /*background:rgb(246,244,244);*/
+    filter: Alpha(Opacity=85, Style=0);
+    opacity: 0.85;
+    /*position: absolute;*/
+    top: 0em;
+    width:100%;
+    /*height:100%;*/
+    height: auto;
+    /*z-index:0;*/
+}
+.sign-up-container{
+    /*background: rgb(246,244,244);*/
+    filter: Alpha(Opacity=85, Style=0);
+    opacity: 0.85;
+    /*position: absolute;*/
+    top: 0;
+    width:100%;
+    /*height:110%;*/
+    height: auto;
+    /*z-index:20;*/
+}
+.sign-logo{
+    position: relative;
+    margin-top: -100px;
+    padding-top: 160px;
+}
+
+.sign-up-logo{
+    position: relative;
+    margin-top: -100px;
+    padding-top: 80px;
+}
+#log-note{
+    display: block;
+    color:rgb(86,61,67);
+    font-size:1.0em;;
+    font-weight:300;
+}
+.sign-content {
+    font-size: 100%;
+    padding: 0em 0;
+}
+
+.sign-content h2 {
+    margin: 0 0 0.5em;
+    opacity: 0.1;
+}
+
+.sign-content p {
+    margin: 0em 0;
+    padding: 2em 0 0 0;
+    font-size: 0.65em;
+}
+div.send-form{
+    margin-top: 90px;
+    margin-bottom: 90px;
+}
+div.form-center{
+    text-align: center;
+}
+.input {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 1em;
+    max-width: 400px;
+    width: calc(100% - 2em);
+    vertical-align: top;
+}
+
+.input__field {
+    position: relative;
+    display: block;
+    float: right;
+    padding: 0.8em;
+    width: 60%;
+    border: none;
+    border-radius: 0;
+    background: #f0f0f0;
+    color: #aaa;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+    outline: none;
+}
+
+.input__label {
+    display: inline-block;
+    float: right;
+    padding: 0 1em;
+    width: 40%;
+    color: rgb(86,61,67);
+    font-weight: bold;
+    font-size: 70.25%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.input__label-content {
+    position: relative;
+    display: block;
+    padding: 1.6em 0;
+    width: 100%;
+}
+
+.graphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: none;
+}
+
+.icon {
+    color: #ddd;
+    font-size: 150%;
+}
+
+/* Individual styles */
+/* Hoshi */
+.input--hoshi {
+    overflow: hidden;
+}
+
+.input__field--hoshi {
+    margin-top: 1em;
+    padding: 0.85em 0.15em;
+    width: 100%;
+    background: transparent;
+    color: #595F6E;
+}
+
+.input__label--hoshi {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 0.25em;
+    width: 100%;
+    height: calc(100% - 1em);
+    text-align: left;
+    pointer-events: none;
+}
+
+.input__label-content--hoshi {
+    position: absolute;
+}
+
+.input__label--hoshi::before,
+.input__label--hoshi::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 10px);
+    border-bottom: 1px solid #B9C1CA;
+}
+
+.input__label--hoshi::after {
+    margin-top: 2px;
+    border-bottom: 4px solid red;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+}
+
+.input__label--hoshi-color-1::after {
+    border-color: rgb(86,61,67);
+}
+
+.input__label--hoshi-color-2::after {
+    border-color: rgb(86,61,67);
+}
+
+.input__label--hoshi-color-3::after {
+    border-color: rgb(86,61,67);
+}
+
+.input__field--hoshi:focus + .input__label--hoshi::after,
+.input--filled .input__label--hoshi::after {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.input__field--hoshi:focus + .input__label--hoshi .input__label-content--hoshi,
+.input--filled .input__label-content--hoshi {
+    -webkit-animation: anim-1 0.3s forwards;
+    animation: anim-1 0.3s forwards;
+}
+
+@-webkit-keyframes anim-1 {
+    50% {
+        opacity: 0;
+        -webkit-transform: translate3d(1em, 0, 0);
+        transform: translate3d(1em, 0, 0);
+    }
+    51% {
+        opacity: 0;
+        -webkit-transform: translate3d(-1em, -40%, 0);
+        transform: translate3d(-1em, -40%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, -40%, 0);
+        transform: translate3d(0, -40%, 0);
+    }
+}
+
+@keyframes anim-1 {
+    50% {
+        opacity: 0;
+        -webkit-transform: translate3d(1em, 0, 0);
+        transform: translate3d(1em, 0, 0);
+    }
+    51% {
+        opacity: 0;
+        -webkit-transform: translate3d(-1em, -40%, 0);
+        transform: translate3d(-1em, -40%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, -40%, 0);
+        transform: translate3d(0, -40%, 0);
+    }
+}
+/* Common button styles */
+.button {
+    float: left;
+    width:200px;
+    display: inline-block;
+    margin: 0.5em 0em;
+    padding: 0em 0em;
+    border: none;
+    background: none;
+    color: inherit;
+    vertical-align: top;
+    position: relative;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+    outline: none;
+}
+.button > span {
+    vertical-align: middle;
+}
+
+.button-content {
+    z-index: 1;
+    width:200px;
+    position: relative;
+    margin: 0 auto;
+}
+/* Box colors */
+.bg-2 {
+    background:rgb(86,61,67);
+    color: rgb(86,61,67);
+}
+/* Text color adjustments (we could stick to the "inherit" but that does not work well in Safari) */
+
+.bg-2 .button {
+    color: rgb(246,244,244);
+    background:rgb(86,61,67);
+    border-color: rgb(86,61,67);
+}
+
+
+/* Sizes */
+.button--size-s {
+    font-size: 14px;
+}
+.button--size-m {
+    font-size: 16px;
+}
+.button--size-l {
+    font-size: 18px;
+}
+
+/* Typography and Roundedness */
+.button--text-upper {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.button--text-thin {
+    font-weight: 300;
+}
+.button--text-medium {
+    font-weight: 500;
+}
+.button--text-thick {
+    font-weight: 600;
+}
+.button--round-s {
+    border-radius: 5px;
+}
+.button--round-m {
+    border-radius: 15px;
+}
+.button--round-l {
+    border-radius: 40px;
+}
+
+/* Borders */
+.button--border-thin {
+    border: 1px solid;
+}
+.button--border-medium {
+    border: 2px solid;
+}
+.button--border-thick {
+    border: 3px solid;
+}
+
+/* Individual button styles */
+
+/* Winona */
+.button--winona {
+    overflow: hidden;
+    padding: 0;
+    -webkit-transition: border-color 0.3s, background-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.button--winona::after {
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    color: rgb(86,61,67);
+    -webkit-transform: translate3d(0, 25%, 0);
+    transform: translate3d(0, 25%, 0);
+}
+.button--winona > span {
+    display: block;
+}
+.button--winona.button--inverted {
+    color: rgb(86,61,67);
+}
+.button--winona.button--inverted:after {
+    color: #fff;
+}
+.button--winona::after,
+.button--winona > span {
+    padding: 1em 0em;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.button--winona:hover {
+    border-color: rgb(86,61,67);
+    background-color:  rgb(246,244,244);
+}
+.button--winona.button--inverted:hover {
+    border-color: #21333C;
+    background-color: #21333C;
+}
+.button--winona:hover::after {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+.button--winona:hover > span {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
+}
+
+#changeLog{
+    text-align: center;
+    margin: 3em 3em 0 3em;
+    padding:1em 0 0 12em;
+    color: #9d5d52;
+    font-size: medium;
+}
+
+#changeLog a:hover{
+    color:rgb(86,61,67);
+}
+#changeLog a{
+    color:#9d5d52;
+    font-weight: 700;
+}

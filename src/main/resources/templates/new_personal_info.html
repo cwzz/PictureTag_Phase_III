@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <title>fromzero | start from scratch</title>
+    <!--[if IE]>
+    <script type="text/javascript" src="./lib/html5.js"></script>
+    <style>
+        article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { display: block; }
+    </style>
+    <![endif]-->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="/css/zxx.lib.css">
+    <link rel="stylesheet" href="/css/myStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/out-lib/demand_detail.css">
+    <link rel="stylesheet" type="text/css" href="/css/rippler.css">
+    <link rel="stylesheet" type="text/css" href="/css/upload/upload.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css" />
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/classie.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+
+    <style>
+        .input-area {
+            border:2px solid #ddd;
+            border-radius:0;
+            color:#999;
+            display:block;
+            /*font:400 1em/1 "Open Sans",sans-serif;*/
+            margin:0 0 0 0;
+            padding:1em 1.25em;
+            -webkit-transition:border-color 300ms,color 300ms;
+            transition:border-color 300ms,color 300ms;
+            -webkit-appearance:none;
+        }
+        .input-area:focus {
+            border-color:#333;
+            color:#333;
+            outline:0
+        }
+        .input-area {
+            margin:0;
+            min-height:7.5em;
+            line-height:1.5;
+            overflow:auto;
+            resize:vertical
+        }
+        .arrow {
+            border-top:9px solid #ddd;
+            border-right:9px solid #ddd;
+            border-bottom:9px inset transparent;
+            border-left:9px inset transparent;
+            display:block;
+            position:relative;
+            right:0%;
+            top:0%;
+            -webkit-transition:border-color 300ms;
+            transition:border-color 300ms;
+            width: 0px;
+        }
+        .input-area:focus+.arrow {
+            border-top-color:#333;
+            border-right-color:#333
+        }
+    </style>
+
+</head>
+<body class="" style="overflow-y: auto">
+
+<div class="content">
+    <div class="header_box fixed " style="padding-left: 20px">
+        <header class="fix ">
+            <div class="col-lg-6 title">我的信息</div>
+            <span style="position: absolute;left: 80%;cursor: pointer;" id="change_btn"><i class="fas fa-edit"></i>编辑个人资料</span>
+        </header>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="panel panel-default panel-information mt60" id="panel_baseInfo" data-distype="left">
+                <div class="panel-heading">
+                    基本信息
+                    <!--<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                </div>
+                <table class="table table-condensed table-noborder">
+                    <tr>
+                        <td class="tc text2"  width="20%">用户名</td>
+                        <td class="info_area" data-infovalue="name" width="30%" id="name">
+
+                        </td>
+                        <td class="tc text2" width="20%">性别</td>
+                        <td class="info_area" data-infovalue="sex" width="30%" id="sex">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tc text2" >年龄</td>
+                        <td class="info_area" data-infovalue="age" id="age">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tc text2"  >电话</td>
+                        <td class="info_area" data-infovalue="tel" id="tel">
+
+                        </td>
+                        <td class="tc text2" >邮箱</td>
+                        <td class="info_area" data-infovalue="email" id="email">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="panel panel-default panel-information mt20" id="panel_education" data-distype="normal">
+                <div class="panel-heading">
+                    项目经历
+                    <!--<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                </div>
+                <table class="table table-condensed table-noborder">
+                    <tr>
+                        <td class="tc "  width="20%">当前经验值</td>
+                        <td class="info_area" width="30%" id="experience"></td>
+                        <td class="tc " width="20%">当前积分</td>
+                        <td class="info_area" width="30%" id="points"></td>
+                    </tr>
+                    <tr>
+                        <td class="tc " >综合排名</td>
+                        <td class="info_area" colspan="3" id="rank"></td>
+                    </tr>
+                    <tr>
+                        <td class="tc "  width="20%">已发布项目数</td>
+                        <td class="info_area" data-infovalue="school" width="30%" id="publish_num"></td>
+                        <td class="tc " width="20%">已承包项目数</td>
+                        <td class="info_area" data-infovalue="education" width="30%" id="adopt_num"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="panel panel-default panel-information mt20" id="panel_skill" data-distype="bottom" style="display: none">
+                <div class="panel-heading">
+                    专业技能
+                    <!--<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                </div>
+                <table class="table table-condensed table-noborder">
+                    <tr>
+                        <td class="tc "  width="20%">专业技能</td>
+                        <td class="info_area" data-infovalue="skill" colspan="3"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="panel panel-default panel-information mt20" id="panel_spec" data-distype="top">
+                <div class="panel-heading">
+                    个人简介
+                    <!--<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                </div>
+                <table class="table table-condensed table-noborder">
+                    <tr>
+                        <td class="tc "  width="20%">自我描述</td>
+                        <td class="info_area" data-infovalue="spec" colspan="3" id="personal_des" style="height: 129px"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+    <div class="row" id="confirm_btn" style="display: none;height: 50px">
+        <button id="submit" class="btn btn-default rippler rippler-inverse col-md-3 commit_project_result" href="#" style="position: relative;left: 80%;width: 150px;background: #ffffff;border-color: #1b76d9">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;确认修改
+        </button>
+    </div>
+
+</div>
+
+<script>
+    var user;
+    var user_sex;
+    var current_age,current_sex,current_tel,current_des;
+    var new_div="<div class=\"row\" style=\"text-align: center\">\n" +
+        "                        <h3 id='tishi' class=\"demand_name_h3\" style='margin-right: auto;margin-left: auto'><span>...暂无自我描述...</span></h3>\n" +
+        "                    </div>";
+    $(document).ready(function(){
+        $.ajax({
+            type : 'POST',
+            url : '/user/Personal',
+            data :{username:JSON.parse(localStorage.getItem("current_user")).username},
+            //此处data为新建项目的pid
+            success : function (data) {
+                //2.1根据获得的数据初始化页面
+                user=data;
+                document.getElementById("name").innerText=data.username;
+                document.getElementById("experience").innerText=data.experience;
+                document.getElementById("points").innerText=data.credits;
+                document.getElementById("rank").innerText="超过"+data.rank+"%的用户";
+                current_des=data.description;
+                if(!data.description||data.description==""){
+                    $("#personal_des").append(new_div);
+                }else{
+                    document.getElementById("personal_des").innerText=data.description;
+                }
+                document.getElementById("email").innerText=data.email;
+                document.getElementById("adopt_num").innerText=data.numContract;
+                document.getElementById("publish_num").innerText=data.numRelease;
+                // if(data.comments.length==0){
+                //     $("#comment1").css({"display":"none"})
+                //     $("#comment2").css({"display":"none"})
+                //     $("#warn").css({"display":"block"})
+                // }
+                // else if(data.comments.length==1){
+                //     $("#comment1").css({"display":"block"})
+                //     $("#comment2").css({"display":"none"})
+                //     $("#warn").css({"display":"none"})
+                //     var com1=data.comments[0];
+                //     document.getElementById("comment_name1").innerHTML=com1.userFrom;
+                //     $("#comment_area1").val(com1.content);
+                // }
+                // else{
+                //     $("#comment1").css({"display":"block"})
+                //     $("#comment2").css({"display":"block"})
+                //     $("#warn").css({"display":"none"})
+                //     var com1=data.comments[0];
+                //     document.getElementById("comment_name1").innerHTML=com1.userFrom;
+                //     $("#comment_area1").val(com1.content);
+                //     var com2=data.comments[1];
+                //     document.getElementById("comment_name2").innerHTML=com2.userFrom;
+                //     $("#comment_area2").val(com2.content);
+                // }
+                //
+                // var page;
+                // if(data.comments.length<=2){
+                //     page=1;
+                // }
+                // else{
+                //     page=data.comments.length/2+1;
+                // }
+                // $.jqPaginator('#pagination2', {
+                //     totalPages: page,
+                //     visiblePages: 10,
+                //     currentPage: 1,
+                //     first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+                //     prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+                //     next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+                //     last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+                //     page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                //     onPageChange: function (num) {
+                //         //超过一页
+                //         if(data.comments.length>2){
+                //             //如果最后一页只有一项
+                //             if(num*2>data.comments.length){
+                //                 $("#comment1").css({"display":"block"})
+                //                 $("#comment2").css({"display":"none"})
+                //                 $("#warn").css({"display":"none"})
+                //                 var com1=data.comments[num*2-2];
+                //                 document.getElementById("comment_name1").innerHTML=com1.userFrom;
+                //                 $("#comment_area1").val(com1.content);
+                //             }
+                //             //如果最后一页有两项
+                //             else{
+                //                 $("#comment1").css({"display":"block"})
+                //                 $("#comment2").css({"display":"block"})
+                //                 $("#warn").css({"display":"none"})
+                //                 var com1=data.comments[num*2-2];
+                //                 document.getElementById("comment_name1").innerHTML=com1.userFrom;
+                //                 $("#comment_area1").val(com1.content);
+                //                 var com2=data.comments[num*2-1];
+                //                 document.getElementById("comment_name2").innerHTML=com2.userFrom;
+                //                 $("#comment_area2").val(com2.content);
+                //             }
+                //         }
+                //     }
+                // });
+
+
+            },
+            error: function (data) {
+                alert("获取用户信息出错")
+            }
+        })
+        $("#change_btn").click(function () {
+            var sex_choose="<input style=\"display: inline-block\" type=\"radio\" name=\"性别\" id='man' value=\"男\" >男\n" +
+                "                            <input type=\"radio\" name=\"性别\" id='woman' value=\"女\" >女";
+            var input_age="<input type=\"text\" class=\"form-control\" id=\"input_age\">";
+            var input_tel="<input type=\"text\" class=\"form-control\" id=\"input_tel\">";
+            current_age=document.getElementById("age").innerText;
+            current_tel=document.getElementById("tel").innerText;
+            current_sex=document.getElementById("sex").innerText;
+            $("#age").html("");
+            $("#tel").html("");
+            $("#sex").html("");
+            $("#sex").append(sex_choose);
+            $("#age").append(input_age);
+            $("#tel").append(input_tel);
+            $("#man").click(function(){
+                user_sex="男";
+            });
+            $("#woman").click(function(){
+                user_sex="女 ";
+            });
+            if(current_sex=="男")
+                $("#man").click();
+            else
+                $("#woman").click();
+            //document.getElementById("input_name").value=current_name;
+            document.getElementById("input_age").value=current_age;
+            document.getElementById("input_tel").value=current_tel;
+            if(document.getElementById("tishi"))
+                current_des="";
+            else
+                current_des=$("#personal_des").html();
+            $("#personal_des").empty();
+            var new_elem="<div style=\"width: 850px;height: 110px;position: absolute;\">\n" +
+                "        <textarea name=\"field2\" class='input-area' id=\"field2\" placeholder='在此添加自我描述...' style=\"margin-left: 0px;margin-right: auto;width: 850px;height: 60px;\"></textarea>\n" +
+                "        <div class=\"arrow\" id='top_right' style=\"position:absolute;right: 20px;top: 0px\"></div>\n" +
+                "    </div>";
+            $("#personal_des").append(new_elem);
+           document.getElementById("field2").value=current_des;
+            var width=document.getElementById("field2").style.width;
+            width=width.substring(0,width.length-2);
+            document.getElementById("field2").style.width=(width-20)+"px";
+            document.getElementById("confirm_btn").style.display="block";
+        })
+    });
+    $("#confirm_btn").click(function(){
+        $.confirm({
+            title: '确认保存此次个人信息修改吗？',
+            content: '是否确认保存本次对个人信息所作出的修改',
+            confirmButton: '保存',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fas fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm:function(){
+                $.alert({
+                    title: '保存成功!',
+                    content: '成功保存此次对个人信息的修改',
+                    confirmButton: '我知道了',
+                    confirmButtonClass: 'btn-primary',
+                    icon: 'fas fa-info',
+                    animation: 'zoom',
+                    confirm:function(){
+                        var new_age=document.getElementById("input_age").value;
+                        var new_tel=document.getElementById("input_tel").value;
+                        //$("#name").empty();
+                        $("#age").empty();
+                        $("#tel").empty();
+                        $("#sex").empty();
+                        //document.getElementById("name").innerHTML=new_name;
+                        document.getElementById("age").innerHTML=new_age;
+                        document.getElementById("tel").innerHTML=new_tel;
+                        document.getElementById("sex").innerHTML=user_sex;
+                        document.getElementById("confirm_btn").style.display="none";
+                        current_des=document.getElementById("field2").value
+                        if(current_des==""){
+                            $("#personal_des").empty();
+                            $("#personal_des").append(new_div);
+                        }else{
+                            $("#personal_des").empty();
+                            $("#personal_des").html(current_des);
+                        }
+                    }
+                });
+            },
+            cancel:function(){
+                document.getElementById("age").innerHTML=current_age;
+                document.getElementById("tel").innerHTML=current_tel;
+                document.getElementById("sex").innerHTML=current_sex;
+                document.getElementById("confirm_btn").style.display="none";
+                $("#personal_des").empty();
+                if(current_des==""){
+                    $("#personal_des").empty();
+                    $("#personal_des").append(new_div);
+                }else{
+                    $("#personal_des").empty();
+                    $("#personal_des").html(current_des);
+                }
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

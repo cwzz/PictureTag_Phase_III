@@ -1,0 +1,323 @@
+@charset "UTF-8";
+
+.right-select-box {
+    position: fixed;
+    top: 10px;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    width: 300px;
+    border-left: 1px solid #959595;
+    box-shadow: -5px 50px 50px 3px rgba(0,0,0,.1);
+    color: #333;
+    transition: all .4s;
+    transform: translate(100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.right-select-box * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.right-select-box .full {
+    width: 100%;
+    height: 100%;
+}
+
+.right-select-box .full-w {
+    width: 100%;
+}
+
+.right-select-box .full-h {
+    height: 100%;
+}
+
+.right-select-box .flex-box {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.right-select-box .flex1 {
+    overflow: hidden;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-flex: 1;
+}
+
+.right-select-box .cover {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.right-select-box .cover-body {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: rotate(0);
+}
+
+.right-select-box .cover-body .cover {
+    position: absolute;
+}
+
+.right-select-box .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.right-select-box .select-close {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    display: block;
+    padding: 5px;
+    border: 1px solid #959595;
+    border-right: none;
+    background: #fff;
+    cursor: pointer;
+}
+
+.right-select-box .select-close svg {
+    transition: all .3s;
+    transform: rotate(-90deg);
+}
+
+.right-select-box.select-active {
+    visibility: visible;
+    transform: translate(0);
+}
+
+.right-select-box.select-active .select-close svg {
+    transform: rotate(90deg);
+}
+
+.right-select-box .select-title {
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid #959595;
+}
+
+.right-select-box .select-title .btns {
+    position: relative;
+    margin-top: -3px;
+    margin-left: -1px;
+    padding: 5px 20px;
+    border: 1px solid #959595;
+    border-color: transparent;
+    border-radius: 5px 5px 0 0;
+    background-color: #fff;
+    color: #959595;
+    font-size: 14px;
+    opacity: .9;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.right-select-box .select-title .btns.active {
+    top: 1px;
+    z-index: 1;
+    border-color: #959595;
+    opacity: 1;
+    border-bottom-color: #fff;
+}
+
+.right-select-box .select-content {
+    position: relative;
+    z-index: 0;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.right-select-box .select-content .select-content-inner {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.right-select-box .select-content .select-content-inner .inner-lists {
+    padding-top: 10px;
+    width: 200%;
+    transition: margin .4s;
+}
+
+.right-select-box .select-content .select-content-inner .inner-lists .inner-list {
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.right-select-box .ajax-loading {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #959595;
+    text-align: center;
+    font-size: 12px;
+}
+
+.right-select-box .ajax-loading:after {
+    display: block;
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    content: "";
+    border-right-color: transparent;
+    animation: ajaxLoading .8s infinite linear;
+}
+
+.right-select-box .ajax-loading.over:after {
+    display: none;
+}
+
+.right-select-box .ajax-loading.over:before {
+    content: "已经全部加载完成~";
+}
+
+.right-select-box .ajax-loading.nothing:after {
+    display: none;
+}
+
+.right-select-box .ajax-loading.nothing:before {
+    content: "没有搜索到相关的产品~";
+}
+
+@keyframes ajaxLoading {
+    form {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.products-lists .list {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.products-lists .list .jiao {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    z-index: 1;
+    display: none;
+    width: 25px;
+    height: 25px;
+    background-color: tomato;
+    transform: rotate(135deg);
+}
+
+.products-lists .list.active .jiao {
+    display: block;
+}
+
+.products-lists .list:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+.products-lists .cover-body {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    border-radius: 4px;
+}
+
+.products-lists .fonts {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.products-lists .fonts p {
+    margin-top: 2px;
+    color: #959595;
+    font-size: 12px;
+}
+
+.products-list-body {
+    padding-top: 100px;
+}
+
+.products-list-body .form-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 10px;
+    width: 100%;
+    height: 90px;
+    background-color: #fff;
+    box-shadow: 0 8px 10px rgba(0,0,0,.1);
+}
+
+.products-list-body .form-body input {
+    margin-bottom: 10px;
+    padding: 0 10px;
+    width: 100%;
+    height: 30px;
+}
+
+.products-list-body .form-body select {
+    margin-right: 10px;
+    height: 30px;
+}
+
+.products-list-body .form-body button[type=submit] {
+    padding: 0 20px;
+    border-radius: 2px;
+    background-color: #4b5060;
+    color: #fff;
+    cursor: pointer;
+}
+
+.loading-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0,0%,100%,.4);
+    opacity: 0;
+    transition: all .3s;
+}
+
+.loading-top.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.loading-top:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    margin-top: -20px;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #000;
+    border-radius: 50%;
+    content: "";
+    border-right-color: transparent;
+    animation: ajaxLoading .8s infinite linear;
+}
