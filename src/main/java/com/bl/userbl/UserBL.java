@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -165,10 +166,11 @@ public class UserBL implements UserBLService {
         int rank=users.indexOf(user.getUsername())+1;
         result.setRank(rank);
         result.setRankRatio(1-(rank*1.0/users.size()));
+        DecimalFormat df=new DecimalFormat("##########0.00");
 
-        result.setExperience(user.getExperience());
+        result.setExperience(df.format(user.getExperience()));
         result.setDescription(user.getDescription());
-        result.setQuality(user.getGeneralQuality());
+        result.setQuality(df.format(user.getGeneralQuality()));
         result.setTags(user.getTag().split(","));
         result.setNumRelease(user.getNum_Release());
         result.setNumContract(user.getNum_Contract());
@@ -238,7 +240,7 @@ public class UserBL implements UserBLService {
     @Override
     public UserStatistics getUserStatistics(String username) {
         User user=userDao.getOne(username);
-        System.out.println(user.toString());
+//        System.out.println(user.toString());
         UserStatistics result=new UserStatistics();
         result.setUsername(username);
         result.setNum_Contract(user.getNum_Contract());
@@ -308,7 +310,11 @@ public class UserBL implements UserBLService {
         res.put(ProjectState.FINISHED.toString(),finishR);
         result.setReleasePerState(res);
 
-        result.setQuality(user.getQuality());
+        DecimalFormat df=new DecimalFormat("##########0.00");
+        Map<ProjectType,String> quality=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:user.getQuality().entrySet()){
+            quality.put(entry.getKey(),df.format(entry.getValue()));
+        }
         String[] gongxian= Constant.GongXian;
         Map<Integer,Integer> gongXianPhase=user.getGongXian();
         Map<String,Integer> return_gongxian=new HashMap<>();
@@ -320,19 +326,31 @@ public class UserBL implements UserBLService {
         result.setReleasePerType(user.getReleaseTypeNum());
 
         ProjectType[] types= Constant.Types;
-        Map<ProjectType,Double> avgTime=user.getAvgTimePerType();
-        Map<ProjectType,Double> avgCredits=user.getAvgCreditsPerType();
-        Map<ProjectType,Double> chanchubi=new HashMap<>();
+
+        Map<ProjectType,Double> user_avgTime=user.getAvgTimePerType();
+        Map<ProjectType,String> avgTime=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:user_avgTime.entrySet()){
+            avgTime.put(entry.getKey(),df.format(entry.getValue()));
+        }
+
+        Map<ProjectType,Double> user_avgCredits=user.getAvgCreditsPerType();
+        Map<ProjectType,String> avgCredits=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:user_avgCredits.entrySet()){
+            avgCredits.put(entry.getKey(),df.format(entry.getValue()));
+        }
+
+        Map<ProjectType,String> chanchubi=new HashMap<>();
         for (ProjectType type : types) {
-            if(avgTime.get(type)!=0){
-                chanchubi.put(type, avgCredits.get(type) / avgTime.get(type));
+            if(user.getAvgTimePerType().get(type)!=0){
+                chanchubi.put(type, df.format(user_avgCredits.get(type)/user_avgTime.get(type)));
             }else{
-                chanchubi.put(type,0.0);
+                chanchubi.put(type,"0.0");
             }
         }
-        result.setAvgTimePerType(avgTime);
-        result.setAvgCreditsPerType(avgCredits);
-        result.setChanchubi(chanchubi);
+
+//        result.setAvgTimePerType(avgTime);
+//        result.setAvgCreditsPerType(avgCredits);
+//        result.setChanchubi(chanchubi);
         return result;
     }
 
@@ -481,8 +499,10 @@ public class UserBL implements UserBLService {
         ArrayList<ActiveUser> activeUsers=new ArrayList<>();
         ArrayList<User> userArrayList=userDao.getActiveRequest();
         int count=0;
+        DecimalFormat df=new DecimalFormat("##########0.00");
         for(User u:userArrayList){
-            activeUsers.add(new ActiveUser(u.getUsername(),u.getDescription(),u.getGeneralQuality(),u.getActiveRelease()));
+
+            activeUsers.add(new ActiveUser(u.getUsername(),u.getDescription(),df.format(u.getGeneralQuality()),df.format(u.getActiveRelease())));
             count++;
             if(count>=8){
                 break;
@@ -495,9 +515,10 @@ public class UserBL implements UserBLService {
     public ArrayList<ActiveUser> getActiveWorker() {
         ArrayList<ActiveUser> activeUsers=new ArrayList<>();
         ArrayList<User> userArrayList=userDao.getActiveWorker();
+        DecimalFormat df=new DecimalFormat("##########0.00");
         int count=0;
         for(User u:userArrayList){
-            activeUsers.add(new ActiveUser(u.getUsername(),u.getDescription(),u.getGeneralQuality(),u.getActiveContract()));
+            activeUsers.add(new ActiveUser(u.getUsername(),u.getDescription(),df.format(u.getGeneralQuality()),df.format(u.getActiveContract())));
             count++;
             if(count>=8){
                 break;

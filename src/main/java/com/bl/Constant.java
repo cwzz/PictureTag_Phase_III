@@ -11,6 +11,9 @@ public class Constant {
     public static int PictureNumPerGroup=3;
     public static int MinimalNumToDivide=0;
 
+    public static double RectanglePerPicture=3.5;
+    public static double PricePerRectangle=0.17;
+
     public static ProjectType[] Types={
             ProjectType.ANIMALTAG,
             ProjectType.SCENETAG,

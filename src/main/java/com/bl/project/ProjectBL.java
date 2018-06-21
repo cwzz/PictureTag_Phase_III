@@ -95,11 +95,8 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
-    public double predictPrice(PicNum picNum,int day) {
-        return calculateCredits(picNum.getMax());
-    }
-    private double calculateCredits(int pictureNum){
-        return pictureNum*0.595;
+    public double predictPrice(int PictureNum) {
+        return PictureNum*Constant.RectanglePerPicture*Constant.PricePerRectangle;
     }
 
     @Override
@@ -1299,7 +1296,6 @@ public class ProjectBL implements ProjectBLService {
         }
         return res;
     }
-
 
     @Override
     public ResultMessage markCombineRes(String pid, int score) {

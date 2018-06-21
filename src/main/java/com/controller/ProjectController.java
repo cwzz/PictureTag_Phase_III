@@ -55,8 +55,8 @@ public class ProjectController {
     //给发起者推荐合适的积分范围
     @RequestMapping(value = "/predictPrice")
     public @ResponseBody
-    double recommendCredits(@RequestParam PicNum picNum, @RequestParam int day){
-        return projectBLService.predictPrice(picNum,day);
+    double recommendCredits(@RequestParam int pictureNum){
+        return projectBLService.predictPrice(pictureNum);
     }
 
     //发起者追加积分
