@@ -12,6 +12,7 @@ import com.enums.ProjectType;
 import com.enums.ResultMessage;
 import com.enums.UserIdentity;
 import com.model.BrowseRecord;
+import com.model.Project;
 import com.model.ProjectStatistics;
 import com.model.User;
 import com.vo.uservo.*;
@@ -272,10 +273,10 @@ public class UserBL implements UserBLService {
                     break;
             }
         }
-        cons.put(ProjectState.TAGING.toString(),on);
-        cons.put(ProjectState.EXAMINE.toString(),examine);
-        cons.put(ProjectState.GIVEUP.toString(),abort);
-        cons.put(ProjectState.FINISHED.toString(),finish);
+        cons.put(ProjectState.TAGING.getChinese(),on);
+        cons.put(ProjectState.EXAMINE.getChinese(),examine);
+        cons.put(ProjectState.GIVEUP.getChinese(),abort);
+        cons.put(ProjectState.FINISHED.getChinese(),finish);
         result.setContractPerState(cons);
 
         Map<String ,Integer> res=new HashMap<>();
@@ -302,12 +303,12 @@ public class UserBL implements UserBLService {
                     break;
             }
         }
-        res.put(ProjectState.RECYCLE.toString(),recycle);
-        res.put(ProjectState.DRAFT.toString(),draft);
-        res.put(ProjectState.TAGING.toString(),onR);
-        res.put(ProjectState.EXAMINE.toString(),examineR);
-        res.put(ProjectState.GIVEUP.toString(),abort);
-        res.put(ProjectState.FINISHED.toString(),finishR);
+        res.put(ProjectState.RECYCLE.getChinese(),recycle);
+        res.put(ProjectState.DRAFT.getChinese(),draft);
+        res.put(ProjectState.TAGING.getChinese(),onR);
+        res.put(ProjectState.EXAMINE.getChinese(),examineR);
+        res.put(ProjectState.GIVEUP.getChinese(),abort);
+        res.put(ProjectState.FINISHED.getChinese(),finishR);
         result.setReleasePerState(res);
 
         String[] gongxian= Constant.GongXian;
@@ -317,15 +318,26 @@ public class UserBL implements UserBLService {
             return_gongxian.put(gongxian[i],gongXianPhase.get(i));
         }
         result.setGongXian(return_gongxian);
-        result.setContractPerType(user.getContractPerType());
-        result.setReleasePerType(user.getReleasePerType());
+        Map<ProjectType,Integer> contractPerType=user.getContractPerType();
+        Map<String,Integer> user_contractPerType=new HashMap<>();
+        for(Map.Entry<ProjectType,Integer> entry:contractPerType.entrySet()){
+            user_contractPerType.put(entry.getKey().getChinese(),entry.getValue());
+        }
+        result.setContractPerType(user_contractPerType);
+
+        Map<ProjectType,Integer> releasePerType=user.getContractPerType();
+        Map<String,Integer> user_releasePerType=new HashMap<>();
+        for(Map.Entry<ProjectType,Integer> entry:releasePerType.entrySet()){
+            user_contractPerType.put(entry.getKey().getChinese(),entry.getValue());
+        }
+        result.setReleasePerType(user_releasePerType);
 
         DecimalFormat df=new DecimalFormat("##########0.00");
 
         //用户在不同类别的项目平均投入产出比,double类型保留两位小数
-        Map<ProjectType,String> chanchubiType=new HashMap<>();
+        Map<String,String> chanchubiType=new HashMap<>();
         for(Map.Entry<ProjectType,Double> entry:user.getChanchuType().entrySet()){
-            chanchubiType.put(entry.getKey(),df.format(entry.getValue()));
+            chanchubiType.put(entry.getKey().getChinese(),df.format(entry.getValue()));
         }
         result.setChanChuBiPerType(chanchubiType);
 
@@ -338,9 +350,9 @@ public class UserBL implements UserBLService {
         result.setChanChuBiByCredits(chanchubiByCredits);
 
         //用户在各个类别的贡献率(就是之前写的quality)
-        Map<ProjectType,String> quality=new HashMap<>();
+        Map<String,String> quality=new HashMap<>();
         for(Map.Entry<ProjectType,Double> entry:user.getQuality().entrySet()){
-            quality.put(entry.getKey(),df.format(entry.getValue()));
+            quality.put(entry.getKey().getChinese(),df.format(entry.getValue()));
         }
         result.setGongxianPerType(quality);
         //整个系统的用户在各个类别的贡献率
@@ -359,13 +371,13 @@ public class UserBL implements UserBLService {
                 }
             }
         }
-        Map<ProjectType,String> qualityAllUser=new HashMap<>();
+        Map<String,String> qualityAllUser=new HashMap<>();
         for(Map.Entry<ProjectType,Double> entry:allQuality.entrySet()){
             ProjectType type=entry.getKey();
             if(countNum.get(type)!=0){
-                qualityAllUser.put(type,df.format(entry.getValue()/countNum.get(type)));
+                qualityAllUser.put(type.getChinese(),df.format(entry.getValue()/countNum.get(type)));
             }else{
-                qualityAllUser.put(type,"0.0");
+                qualityAllUser.put(type.getChinese(),"0.0");
             }
         }
         result.setGongxianPerTypeAllUser(qualityAllUser);

@@ -21,17 +21,17 @@ public class UserStatistics {
     private double activeDegreeContract;//用户的承包活跃度，根据在线时长和发布项目数决定
 
     private Map<String,Integer> contractPerState;//用户承包的处在各个状态的项目数
-    private Map<ProjectType,Integer> contractPerType;//用户承包的处在各个类别的项目数
+    private Map<String,Integer> contractPerType;//用户承包的处在各个类别的项目数
     private Map<String,Integer> releasePerState;//用户发布的处在各个状态的项目数
-    private Map<ProjectType,Integer> releasePerType;//用户发布的处在各个类别的项目数
+    private Map<String,Integer> releasePerType;//用户发布的处在各个类别的项目数
 
 
     //对于承包者的统计数据
-    private Map<ProjectType,String> ChanChuBiPerType;//用户在不同类别的项目平均投入产出比
+    private Map<String,String> ChanChuBiPerType;//用户在不同类别的项目平均投入产出比
     private Map<String,String> ChanChuBiByCredits;//用户在给定项目的积分上的投入产出比
 
-    private Map<ProjectType,String> gongxianPerType;//用户在各个类别的贡献率(就是之前写的quality)
-    private Map<ProjectType,String> gongxianPerTypeAllUser;//整个系统的用户在各个类别的贡献率
+    private Map<String,String> gongxianPerType;//用户在各个类别的贡献率(就是之前写的quality)
+    private Map<String,String> gongxianPerTypeAllUser;//整个系统的用户在各个类别的贡献率
 
     //用户在一定时间内的完成的项目贡献率如何，比如<30分钟完成的项目平均贡献率是多少，30—60分钟完成的项目平均贡献率是多少
     private Map<String,String> gongxianAndTime;
