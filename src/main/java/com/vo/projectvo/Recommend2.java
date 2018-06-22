@@ -14,7 +14,7 @@ public class Recommend2 {
 
     public Recommend2(Project project){
         this.pid=project.getPro_ID();
-        this.name=name;
+        this.name=project.getPro_name();
         this.brief_intro=project.getBrief_intro();
         this.points=project.getPoints();
     }
