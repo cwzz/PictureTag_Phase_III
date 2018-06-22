@@ -123,7 +123,7 @@
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li class="eborder-top">
-                            <a href="#"><i class="fas fa-home"></i> 个人中心</a>
+                            <a href="/cwzz/personal_center"><i class="fas fa-home"></i> 个人中心</a>
                         </li>
                         <li>
                             <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
@@ -244,7 +244,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-hover personal-task" id="publish_table">
+                            <table class="table table-hover personal-task" id="already_commit_table">
                                 <thead>
                                 <tr>
                                     <th scope="col" style="text-align: center;">提交次序</th>
@@ -253,7 +253,7 @@
                                     <th scope="col" style="text-align: center;">花费时间</th>
                                 </tr>
                                 </thead>
-                                <tbody id="publish_table_body">
+                                <tbody id="already_commit_table_body">
                                 </tbody>
                             </table>
                         </section>
@@ -271,23 +271,23 @@
                             <h3 class="demand_name_h3" style='margin-right: auto;margin-left: auto;padding-bottom: 10px;padding-top: 10px'><span>...请耐心等待整合结果...</span></h3>
                         </div>
                         <div class="row">
-                            <div class="spec_requirement col-md-3" style="width: 25%;font-size: 10px">对本次整合结果打分（满分10分）：</div>
-                            <div class="box-body col-md-6" style="width: 75%;padding-top: 10px">
+                            <div class="spec_requirement col-md-5" style="width: 35%;font-size: 10px"><span id="feedback_points">对本次整合结果打分（满分10分）：555</span></div>
+                            <div class="box-body col-md-6" id="pingfen_area" style="width: 75%;padding-top: 10px;display: none;">
                                 <select id="example-1to10" name="rating">
-                                    <option value="1" selected="selected">1分</option>
-                                    <option value="2">2分</option>
-                                    <option value="3">3分</option>
-                                    <option value="4">4分</option>
-                                    <option value="5">5分</option>
-                                    <option value="6">6分</option>
-                                    <option value="7">7分</option>
-                                    <option value="8">8分</option>
-                                    <option value="9">9分</option>
-                                    <option value="10">10分</option>
+                                    <option value="1" selected="selected">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                             </div>
                         </div>
-                        <button class="btn btn-default rippler rippler-inverse commit_assesment_btn" href="#" style="left: 70% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px">
+                        <button id="pingfen_btn" class="btn btn-default rippler rippler-inverse commit_assesment_btn" href="#" style="display: none;left: 70% ;background: #ffffff;border-color: #1b76d9;margin-bottom: 10px" onclick="commit_reedback()">
                             <span class="glyphicon glyphicon-ok"></span>&nbsp;提交打分结果
                         </button>
                     </div>
@@ -311,10 +311,12 @@
                 </div>
 
             <!-- 右侧推荐金主信息，推荐需求 -->
-            <div class="demand_rec">
+            <div class="demand_rec" id="recommend_area">
                 <div class="immediate_tender_float">
                     <div class="immediate_tender_fixed">
                         <p class="immediate_tender" id="bid_btn" style="cursor: pointer" onclick="bid()">参与承包</p>
+                        <p class="immediate_tender" id="add_points_btn" style="display: none;cursor: pointer" onclick="addPoints()">追加积分</p>
+                        <p class="immediate_tender" id="quit_btn" style="display: none;cursor: pointer" onclick="quit()">放弃项目</p>
                         <p class="bid_attitude" id="show_state"></p>
                     </div>
                 </div>
@@ -337,73 +339,8 @@
                 </div>
                 <div class="title">
                     <p>推荐需求</p>
-                    <p style="margin-left: 150px"><a href="http://www.rdplat.com/leaderTask/">更多&gt;&gt;</a></p>
+                    <p style="margin-left: 150px"><a href="">更多&gt;&gt;</a></p>
                 </div>
-                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
-                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
-                        <div class="serviceBox" style="height: 100%">
-                            <div class="service-icon" style="top:0%">
-                                <i class="fa fa-tags" style="font-size: 50px"></i>
-                            </div>
-                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
-                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
-                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
-                                <p class="description">
-                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
-                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
-                        <div class="serviceBox" style="height: 100%">
-                            <div class="service-icon" style="top:0%">
-                                <i class="fa fa-tags" style="font-size: 50px"></i>
-                            </div>
-                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
-                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
-                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
-                                <p class="description">
-                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
-                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
-                        <div class="serviceBox" style="height: 100%">
-                            <div class="service-icon" style="top:0%">
-                                <i class="fa fa-tags" style="font-size: 50px"></i>
-                            </div>
-                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
-                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
-                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
-                                <p class="description">
-                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="height: 130px;width: 100%;margin-left: 0px;margin-right: 0px">
-                    <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;height: 100%">
-                        <div class="serviceBox" style="height: 100%">
-                            <div class="service-icon" style="top:0%">
-                                <i class="fa fa-tags" style="font-size: 50px"></i>
-                            </div>
-                            <div class="service-Content" style="margin-top:0px;margin-bottom: 0px">
-                                <h3 class="title" style="margin-top: 0px;margin-bottom: 0px">Web Design</h3>
-                                <h4 class="subtitle" style="margin-top: 0px">￥2200</h4>
-                                <p class="description">
-                                    行业解决方案 ，是的hi安慰哈迪欧好 为皇帝和 我瓦胡岛。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -424,6 +361,7 @@
             success : function (data) {
                 //alert("chengle")
                 localStorage.setItem("result_pid",document.getElementById("project_id").innerHTML);
+                localStorage.setItem("view_result_type","integrity_result");
                 window.location.href="/cwzz/integrity_result";
             },
             error: function (data) {
@@ -525,6 +463,8 @@
     var pro_name;
     var messages;
     var finished_list;
+    var recommand_pros;
+    var commit_users;
     $(document).ready(function(){
         document.getElementById("username").innerText=JSON.parse(localStorage.getItem("current_user")).username;
         project_state=localStorage.getItem("projectdetail_state");
@@ -591,17 +531,23 @@
                 var isWorker=isInArray(JSON.parse(localStorage.getItem("current_user")).username,biduser_names);
                 var isFinishedWorker=isInArray(JSON.parse(localStorage.getItem("current_user")).username,finished_list);
                 var temp="";
-                if(isRequester) temp="这是您的项目\n";
-                else if(isWorker) temp="您已承包该项目\n";
+                if(isRequester) temp="这是您的项目  ";
+                else if(isWorker) temp="您已承包该项目  ";
 
                 if(isRequester){
                     document.getElementById("project_result").style.display="";
                     document.getElementById("view_download").style.display="";
-                }else{
-                    document.getElementById("points_result").style.display="";
+                    if(data.satisfy==0){
+                        document.getElementById("feedback_points").innerText="对本次整合结果打分（满分10分）：";
+                        document.getElementById("pingfen_area").style.display="";
+                        document.getElementById("pingfen_btn").style.display="";
+                    }else{
+                        document.getElementById("feedback_points").innerText="您对本次整合结果的打分为（满分10分）："+data.satisfy;
+                    }
                 }
 
                 if(data.pro_state=="REALEASED"){
+                    document.getElementById("points_result").style.display="none";
                     //state_id="bid_state";
                     $("#underway_state").css("background","linear-gradient(to right, #55267f 35%, #664187 68%)");
                     $("#underway_state").siblings().css("background","transparent");
@@ -615,15 +561,15 @@
                     if(isWorker){
                         document.getElementById("worker_wait").style.display="";
                         document.getElementById("bid_btn").style.display = "none";
-                        document.getElementById("show_state").style.marginTop = "30px";
-                        document.getElementById("show_state").style.marginLeft = "auto";
-                        document.getElementById("show_state").style.marginRight = "auto";
                         document.getElementById("zhongbiao_area").style.display="";
+                        document.getElementById("quit_btn").style.display="";
                         if(isFinishedWorker){
+                            document.getElementById("quit_btn").style.display="none";
+                            document.getElementById("show_state").style.marginTop = "30px";
+                            document.getElementById("show_state").style.marginLeft = "auto";
+                            document.getElementById("show_state").style.marginRight = "auto";
                             document.getElementById("show_state").innerText="您已提交该项目执行结果   请耐心等待评估结果...";
                             document.getElementById("continue_work").innerText="您已提交该项目，无法继续修改标注结果，请耐心等待审核结果...";
-                            //$("#continue_work").unbind();
-                            //$("#continue_work").attr("disabled","disabled");
                             $("#continue_work").removeAttr("onclick");
                             document.getElementById("submit").style.display="none";
                         }else{
@@ -633,11 +579,10 @@
                         document.getElementById("view").style.display="";
                         document.getElementById("download").style.display="";
                         document.getElementById("bid_btn").style.display = "none";
-                        document.getElementById("show_state").style.marginTop = "30px";
-                        document.getElementById("show_state").style.marginLeft = "auto";
-                        document.getElementById("show_state").style.marginRight = "auto";
+                        document.getElementById("add_points_btn").style.display="";
                     }
                 }else if(data.pro_state=="EXAMINE"){
+                    document.getElementById("points_result").style.display="none";
                     if(isWorker){
                         document.getElementById("worker_wait").style.display="";
                     }else{
@@ -662,6 +607,7 @@
                     document.getElementById("show_state").innerText=temp+"项目已经结束...";
 
                     if(isWorker){
+                        document.getElementById("points_result").style.display="";
                         document.getElementById("points").style.display="";
                         document.getElementById("experience").style.display="";
                         document.getElementById("chaoguo").style.display="";
@@ -675,7 +621,7 @@
                             data :JSON.stringify(temp_data),
                             success:function(result){
                                 temp_points=result.points;
-                                temp_experience=temp_points*0.1;
+                                temp_experience=temp_points;
                                 document.getElementById("points_txt").innerText="...您本次共获得积分："+temp_points+"...";
                                 document.getElementById("experiences_txt").innerText="...您本次经验值上升："+temp_experience+"...";
                             }
@@ -738,7 +684,64 @@
             error: function (data) {
                 alert("搜索传输数据失败");
             }
-        })
+        });
+        $.ajax({
+            type : 'POST',
+            url : '/project/recSimiPro',
+            data :{pid:project_id,uid:JSON.parse(localStorage.getItem("current_user")).username},
+            success:function(data){
+                recommand_pros=data;
+                for(var i=0;i<data.length&&i<6;i++){
+                    var new_col="<div class=\"row\" id='recommend_item"+i+"' style=\"height: 130px;width: 100%;margin-left: 0px;margin-right: 0px\">\n" +
+                        "                    <div class=\"col-md-12\" style=\"padding-left: 0px;padding-right: 0px;height: 100%\">\n" +
+                        "                        <div class=\"serviceBox\" style=\"height: 100%\">\n" +
+                        "                            <div class=\"service-icon\" style=\"top:0%\">\n" +
+                        "                                <i class=\"fa fa-tags\" style=\"font-size: 50px\"></i>\n" +
+                        "                            </div>\n" +
+                        "                            <div class=\"service-Content\" style=\"margin-top:0px;margin-bottom: 0px\">\n" +
+                        "                                <h3 class=\"title\" style=\"margin-top: 0px;margin-bottom: 0px\">"+data[i].name+"</h3>\n" +
+                        "                                <h4 class=\"subtitle\" style=\"margin-top: 0px\">￥"+data[i].points+"</h4>\n" +
+                        "                                <p class=\"description\">"+data[i].brief_intro+"</p>\n" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                    </div>\n" +
+                        "                </div>";
+                    $("#recommend_area").append(new_col);
+                    $("#recommend_area").find("#recommend_item"+i).click(function(){
+                        var position=parseInt(this.id.substring(14));
+                        localStorage.setItem("projectdetail_id",recommand_pros[position].pid);
+                        window.location.href="/cwzz/project_detail";
+                    });
+                }
+            },
+            error:function(){
+                alert("错了");
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/project/showFinishCondition',
+            data:{pid:project_id},
+            success:function(result){
+                commit_users=result;
+                for(var i=0;i<result.length;i++) {
+                    var new_element = "<tr id='commit_pro" + i + "' style='cursor:pointer;'>\n" +
+                        "                        <td style='text-align: center'>" + result[i].cixu + "</td>\n" +
+                        "                        <td style='text-align: center'>" + result[i].uid + "</td>\n" +
+                        "                        <td style='text-align: center'>" + result[i].submitTime + "</td>\n" +
+                        "                        <td style='text-align: center'>" + result[i].spendTime + "</td>\n" +
+                        "                    </tr>";
+                    $("#already_commit_table_body").append(new_element);
+                    $("#commit_pro"+i).click(function(){
+                        var position=parseInt(this.id.substring(10));
+                        localStorage.setItem("result_pid",document.getElementById("project_id").innerHTML);
+                        localStorage.setItem("result_uid",commit_users[position].uid);
+                        localStorage.setItem("view_result_type","worker_result");
+                        window.location.href="/cwzz/integrity_result";
+                    });
+                }
+            }
+        });
     });
 
     function search_keyword(){
@@ -807,6 +810,104 @@
             }
         });
     }
+
+    function quit(){
+        $.confirm({
+            title: '确认放弃项目',
+            content: '确认放弃项目将删除您所有已经标注的结果，且无法获得积分<br>是否确定要放弃该项目',
+            confirmButton: '确认放弃',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                var temp_para={username:JSON.parse(localStorage.getItem("current_user")).username,pid:project_id};
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/quit',
+                    contentType:"application/json",
+                    dataType:"json",
+                    data :JSON.stringify(temp_para),
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '放弃项目成功!',
+                                content: '您已成功放弃该项目',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="project_detail";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '放弃项目失败!',
+                                content: '由于某些原因，您放弃该项目失败了，您可以刷新页面或重新登录来重新放弃该项目',
+                                confirmButton: '重新尝试放弃',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom'
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("承包数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function addPoints(){
+        $.confirm({
+            title: '确认对项目进行追加积分',
+            content: 'url:/html-usage/AddPointsConfirm.html',
+            confirmButton: '确认追加积分',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            confirm: function () {
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/addToCredits',
+                    data :{username:JSON.parse(localStorage.getItem("current_user")).username,projectID:project_id,credits:parseFloat(document.getElementById("input-name").value)},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '项目追加积分成功!',
+                                content: '成功向该项目追加积分，请耐心等待新的工人承包该项目',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="project_detail";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '项目追加积分失败!',
+                                content: '由于某些原因，您对该项目的追加积分请求失败了，您可以刷新页面或重新登录来重新向该项目追加积分',
+                                confirmButton: '重新追加',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom'
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
     function isInArray(para,array){
         for(var i=0;i<array.length;i++){
             if(para==array[i])
@@ -878,6 +979,55 @@
                                 title: '登出失败!',
                                 content: '由于某些原因，登出当前用户失败了',
                                 confirmButton: '重新登出',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        alert("数据调用失败");
+                    }
+                })
+            }
+        });
+    }
+
+    function commit_reedback(){
+        $.confirm({
+            title: '确认提交整合结果反馈',
+            content: '确认提交后将无法更改您对整合结果的满意度 <br> 您的满意度将促使我们不断进步<br> 是否确认要提交该评价结果',
+            confirmButton: '确认',
+            cancelButton: '取消',
+            confirmButtonClass: 'btn-info',
+            icon: 'fa fa-question-circle',
+            animation: 'rotate',
+            closeAnimation: 'right',
+            opacity: 0.5,
+            confirm: function () {
+                var temp_points=document.getElementById("example-1to10").value;
+                $.ajax({
+                    type : 'POST',
+                    url : '/project/mark',
+                    data :{pid:project_id,score:temp_points},
+                    success : function (result) {
+                        if(result=="SUCCESS"){
+                            $.alert({
+                                title: '提交评估结果成功!',
+                                content: '感谢您提交对于整合结果的反馈，我们将不断改进整合方法',
+                                confirmButton: '我知道了',
+                                confirmButtonClass: 'btn-primary',
+                                icon: 'fa fa-info',
+                                animation: 'zoom',
+                                confirm:function(){
+                                    window.location.href="project_detail";
+                                }
+                            });
+                        }else{
+                            $.alert({
+                                title: '提交评估结果失败!',
+                                content: '由于某些原因，您提交项目评估结果失败了，您可以刷新页面或重新登录来重新提交项目评估结果',
+                                confirmButton: '重新提交',
                                 confirmButtonClass: 'btn-primary',
                                 icon: 'fa fa-info',
                                 animation: 'zoom',
