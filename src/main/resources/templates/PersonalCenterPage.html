@@ -54,6 +54,10 @@
     <!--分页-->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
+    <!--下拉框-->
+
+
+
     <style>
         .scrollbot-outer-parent{
             width: 100%;
@@ -401,17 +405,47 @@
             <iframe src="/cwzz/info" style="width: 100%;height: 93%;border: none"></iframe>
         </div>
         <div id="third" style="height: 100%">
-            <div id="graphics">
-                <div style="float: left" id="left-graphic">
-                    <div id="gra1"></div>
-                    <div id="text1"></div>
+            <div id="graphics" style="text-align: center">
+                <div style="width: 300px;margin-left: 50px">
+                    <select id="statistics" class="form-control form-control-chosen-required" onchange="changeStatistic()" data-placeholder="请选择您想要查看的统计信息">
+                        <option></option>
+                        <option>我承包的处在各个状态的项目</option>
+                        <option>我承包的处在各个类别的项目</option>
+                        <option>我发布的处在各个状态的项目</option>
+                        <option>我发布的处在各个类别的项目</option>
+                        <option>我在每类标注平均花费的时间</option>
+                        <option>我在每类标注平均获得的积分</option>
+                        <option>我在每类任务花费时间和得到积分的投入产出比</option>
+                    </select>
                 </div>
-                <div style="float: left" id="right_graphic">
-                    <div id="gra2"></div>
-                    <div id="text2"></div>
+                <div id="inner">
+                    <div id="graph">
+                        <div id="graph1" style="background-color: aquamarine"></div>
+                        <div id="graph2" style="background-color: #35a541"></div>
+                    </div>
+                    <div id="chart" style="overflow-y: auto">
+                        <div id="chart1">
+                            <table class="table table-hover personal-task">
+                                <thead id="table_title1">
+                                </thead>
+                                <tbody id="table_data1">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="chart2">
+                            <table class="table table-hover personal-task">
+                                <thead id="table_title2">
+                                </thead>
+                                <tbody id="table_data2">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <ul class="pagination" id="pagination2"></ul>
+            <div id="page">
+                <ul class="pagination" id="pagination2"></ul>
+            </div>
         </div>
         <div id="fourth" style="height: 100%">
             <div class="col-xs-12 col-md-4 mb-5" style="margin-left: 45px;margin-top: 6px;width: 300px;">
@@ -2623,7 +2657,7 @@
 <script type="text/javascript">
 
     $.jqPaginator('#pagination2', {
-        totalPages: 2,
+        totalPages: 3,
         visiblePages: 10,
         currentPage: 1,
         first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
@@ -2632,17 +2666,29 @@
         last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
         page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
         onPageChange: function (num) {
-            // //$('#p2').text(text+num);
-            // document.getElementById("graphics").innerHTML=num;
-            if(num==1){
-                page1();
-            }
-            else if(num==2){
-                page2();
-            }
+            changePage(num);
         }
     });
+
+    function initialPage() {
+        $.jqPaginator('#pagination2', {
+            totalPages: 3,
+            visiblePages: 10,
+            currentPage: 1,
+            first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+            next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+            last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            onPageChange: function (num) {
+                // //$('#p2').text(text+num);
+                // document.getElementById("graphics").innerHTML=num;
+                changePage(num);
+            }
+        });
+    }
 </script>
+
 
 </body>
 </html>
