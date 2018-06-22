@@ -47,6 +47,6 @@ public class Statistics {
     private Map<String,Integer> finishedOthersNum;
 
     //一年来每类项目的平均发布数
-    private Map<String,Double> avgReleasedNum;
+        private Map<String,String> avgReleasedNum;
 
 }

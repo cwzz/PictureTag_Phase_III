@@ -224,4 +224,9 @@ public class PersonalTagBL implements PersonalTagBLService {
             return null;
         }
     }
+
+    @Override
+    public int getWorkGroup(String pid, String uid) {
+        return personalTagDao.searchByPidAndUid(pid,uid).getWorkGroup().split(" ").length;
+    }
 }
