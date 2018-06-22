@@ -158,7 +158,6 @@ function initial() {
         }
     })
 
-    alert(JSON.stringify(data))
     document.getElementById("totalnum").innerHTML=data.totalNum;
     document.getElementById("onlinnum").innerHTML=data.onlineNum;
     document.getElementById("register_thisweek").innerHTML=data.registerThisWeek;
