@@ -70,13 +70,13 @@ public class User {
     //用户在给定项目的积分上的投入产出比，比如，积分<10的项目产出比A，10-20的产出比B……，可以判断该用户适合大项目还是小项目
     @ElementCollection
     @MapKeyColumn(length = 10)
-    private Map<Integer,String> chanchuByCredits;
+    private Map<Integer,String> ccC;
     //存储时 groupi :num_Release + 投入产出率
 
     //用户在一定时间内的完成的项目贡献率如何，比如<30分钟完成的项目平均贡献率是多少，30—60分钟完成的项目平均贡献率是多少
     @ElementCollection
     @MapKeyColumn(length = 10)
-    private Map<Integer,String> qualityAndtime;
+    private Map<Integer,String> quatime;
      //存储时 groupi :num_Release+平均贡献率
 
 
@@ -101,16 +101,16 @@ public class User {
         this.contractPerType =new HashMap<>();
         this.releasePerType =new HashMap<>();
         this.chanchuType =new HashMap<>();
-        this.chanchuByCredits =new HashMap<>();
-        this.qualityAndtime =new HashMap<>();
+        this.ccC =new HashMap<>();
+        this.quatime =new HashMap<>();
         ProjectType[] types= Constant.Types;
         int creditsGroup=Constant.CreditsPhase.length;
         int timeGroup=Constant.TimeGroup.length;
         for(int i=0;i<creditsGroup;i++){
-            chanchuByCredits.put(i,0+" " +0.0);
+            ccC.put(i,0+" " +0.0);
         }
         for(int j=0;j<timeGroup;j++){
-            qualityAndtime.put(j,0+" "+0.0);
+            quatime.put(j,0+" "+0.0);
         }
         for(int i=0;i<types.length;i++){
             quality.put(types[i],0.0);

@@ -332,7 +332,7 @@ public class UserBL implements UserBLService {
         //用户在给定项目的积分上的投入产出比
         Map<String,String> chanchubiByCredits=new HashMap<>();
         String[] creditsPhase=Constant.CreditsPhase;
-        for(Map.Entry<Integer,String> entry:user.getChanchuByCredits().entrySet()){
+        for(Map.Entry<Integer,String> entry:user.getCcC().entrySet()){
             chanchubiByCredits.put(creditsPhase[entry.getKey()],entry.getValue().split(" ")[1]);
         }
         result.setChanChuBiByCredits(chanchubiByCredits);
@@ -373,26 +373,39 @@ public class UserBL implements UserBLService {
         //用户在一定时间内的完成的项目贡献率如何，比如<30分钟完成的项目平均贡献率是多少，30—60分钟完成的项目平均贡献率是多少
         String[] timePhase=Constant.TimeGroup;
         Map<String,String> gongxianAndTime=new HashMap<>();
-        for(Map.Entry<Integer,String> entry:user.getQualityAndtime().entrySet()){
+        for(Map.Entry<Integer,String> entry:user.getQuatime().entrySet()){
             gongxianAndTime.put(timePhase[entry.getKey()],entry.getValue().split(" ")[1]);
         }
         result.setGongxianAndTime(gongxianAndTime);
         //整个系统关于这个指标的统计
         Map<String,String> gongxianAndTimeAllUser=new HashMap<>();
         Map<Integer,Double> tempAllUser=new HashMap<>();
+        Map<Integer,Integer> countNum2=new HashMap<>();
         for(int i=0;i<timePhase.length;i++){
             tempAllUser.put(i,0.0);
+            countNum2.put(i,0);
         }
+        double temp=0;
         for(User u:users){
-            for(Map.Entry<Integer,String> en:u.getQualityAndtime().entrySet()){
-                tempAllUser.put(en.getKey(),Double.valueOf(en.getValue().split(" ")[1])+tempAllUser.get(en.getKey()));
+            for(Map.Entry<Integer,String> en:u.getQuatime().entrySet()){
+                temp=Double.valueOf(en.getValue().split(" ")[1]);
+                if(temp!=0){
+                    countNum2.put(en.getKey(),countNum2.get(en.getKey())+1);
+                    tempAllUser.put(en.getKey(),temp+tempAllUser.get(en.getKey()));
+                }
             }
 
         }
         for(Map.Entry<Integer,Double> e:tempAllUser.entrySet()){
-            gongxianAndTimeAllUser.put(timePhase[e.getKey()],df.format(e.getValue()/users.size()));
+            if(countNum2.get(e.getKey())!=0){
+                gongxianAndTimeAllUser.put(timePhase[e.getKey()],df.format(e.getValue()/countNum2.get(e.getKey())));
+            }else{
+                gongxianAndTimeAllUser.put(timePhase[e.getKey()],"0.0");
+            }
         }
         result.setGongxianAndTimeAllUser(gongxianAndTimeAllUser);
+
+        result.setCreditsAndContractNum(projectBLService.getCreditsAndContractNum(username));
         return result;
     }
 
@@ -467,12 +480,12 @@ public class UserBL implements UserBLService {
                 }else {
                     index=4;
                 }
-                Map<Integer,String> chanchuByCredits=user.getChanchuByCredits();
+                Map<Integer,String> chanchuByCredits=user.getCcC();
                 double oldChanchu=Double.valueOf(chanchuByCredits.get(index).split(" ")[1]);
                 int num=Integer.valueOf(chanchuByCredits.get(index).split(" ")[0]);
                 double newChanchu=(num*oldChanchu+diff)/(num+1);
                 chanchuByCredits.put(index,(num+1)+" "+newChanchu);
-                user.setChanchuByCredits(chanchuByCredits);
+                user.setCcC(chanchuByCredits);
             }
             userDao.saveAndFlush(user);
             return ResultMessage.SUCCESS;
@@ -523,12 +536,12 @@ public class UserBL implements UserBLService {
             }
         }
 
-        Map<Integer,String> gongxianAndTime=user.getQualityAndtime();
+        Map<Integer,String> gongxianAndTime=user.getQuatime();
         double oldQuality=Double.valueOf(gongxianAndTime.get(index).split(" ")[1]);
         int num=Integer.valueOf(gongxianAndTime.get(index).split(" ")[0]);
         double newQuality=(num*oldQuality+gongXian)/(num+1);
         gongxianAndTime.put(index,(num+1)+" "+newQuality);
-        user.setChanchuByCredits(gongxianAndTime);
+        user.setCcC(gongxianAndTime);
         userDao.saveAndFlush(user);
         return ResultMessage.SUCCESS;
     }

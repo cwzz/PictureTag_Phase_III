@@ -4,6 +4,7 @@ import com.enums.ProjectType;
 import com.model.Project;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Data
@@ -37,6 +38,6 @@ public class UserStatistics {
     private Map<String,String> gongxianAndTimeAllUser;
 
     //对于发布项目的统计数据
-    private Map<Double,Integer> creditsAndContractNum;//用户发布多少积分对应会有多少人来承包，可以画散点图
+    private ArrayList<SanDianTuUser> creditsAndContractNum;//用户发布多少积分对应会有多少人来承包，可以画散点图
 
 }

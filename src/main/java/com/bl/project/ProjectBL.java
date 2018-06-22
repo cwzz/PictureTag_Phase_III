@@ -20,6 +20,7 @@ import com.vo.personaltagvo.UidAndPoints;
 import com.vo.projectvo.*;
 import com.vo.tag.PersonalTagVO;
 import com.vo.uservo.ProBriefInfo;
+import com.vo.uservo.SanDianTuUser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -769,12 +770,18 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
-    public Map<Double, Integer> getCreditsAndContractNum(String username) {
+    public ArrayList<SanDianTuUser> getCreditsAndContractNum(String username) {
         List<Project> projects=projectDao.findByUser(username);
-        Map<Double,Integer> creditsAndContractNum=new HashMap<>();
+        //System.out.println(projects.get(0).toString());
+        ArrayList<SanDianTuUser> creditsAndContractNum=new ArrayList<>();
         for(Project project:projects){
             if(project.getPro_state().equals(ProjectState.EXAMINE)||project.getPro_state().equals(ProjectState.FINISHED)){
-                //creditsAndContractNum.put()
+                //积分，天数，人数
+                long diff=project.getDeadLine().getTime()-project.getReleaseTime().getTime();
+                double day=diff/(1000*60*60);
+                SanDianTuUser sanDianTuUser=new SanDianTuUser(project.getPoints(),day/24,project.getWorkerList().size());
+                System.err.println(sanDianTuUser.toString());
+                creditsAndContractNum.add(sanDianTuUser);
             }
         }
         return creditsAndContractNum;
