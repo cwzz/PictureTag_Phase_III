@@ -1190,19 +1190,19 @@ public class ProjectBL implements ProjectBLService {
             if(p.getUrls().size()<=500){
                 tag1++;
 //                System.err.println("--------"+predictPrice(PicNum.UNDER_500,calDays(p.getDeadLine(),p.getReleaseTime())));
-                sum1=sum1+p.getPoints()-predictPrice(PicNum.UNDER_500,calDays(p.getDeadLine(),p.getReleaseTime()));
+                sum1=sum1+p.getPoints()-predictPrice(p.getUrls().size());
             }else if(p.getUrls().size()>=500&&p.getUrls().size()<=1000){
                 tag2++;
-                sum2=sum2+p.getPoints()-predictPrice(PicNum.FiveToTen,calDays(p.getDeadLine(),p.getReleaseTime()));
+                sum2=sum2+p.getPoints()-predictPrice(p.getUrls().size());
             }else if(p.getUrls().size()>=1000&&p.getUrls().size()<=2000){
                 tag3++;
-                sum3=sum3+p.getPoints()-predictPrice(PicNum.TenToTwenty,calDays(p.getDeadLine(),p.getReleaseTime()));
+                sum3=sum3+p.getPoints()-predictPrice(p.getUrls().size());
             }else if(p.getUrls().size()>=2000&&p.getUrls().size()<=3000){
                 tag4++;
-                sum4=sum4+p.getPoints()-predictPrice(PicNum.TwentyToThirty,calDays(p.getDeadLine(),p.getReleaseTime()));
+                sum4=sum4+p.getPoints()-predictPrice(p.getUrls().size());
             }else if(p.getUrls().size()>=3000){
                 tag5++;
-                sum5=sum5+p.getPoints()-predictPrice(PicNum.AboveThirty,calDays(p.getDeadLine(),p.getReleaseTime()));
+                sum5=sum5+p.getPoints()-predictPrice(p.getUrls().size());
             }
         }
         String[] a=Constant.picRange;
