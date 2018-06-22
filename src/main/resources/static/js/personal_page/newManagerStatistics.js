@@ -14,6 +14,13 @@ var array2;
 var array3;
 var array4;
 var default_Data_title;
+
+var newData1;
+var newData2;
+var newData3;
+var newData4;
+var newData5;
+var newData6;
 function initial() {
     width=document.getElementById("second").offsetWidth;
     height=window.innerHeight;
@@ -73,11 +80,94 @@ function initial() {
     array4.push(data2.finishedGoodsNum);
     array4.push(data2.finishedOthersNum);
 
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumAndFinishTimeToSatisfy',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData1=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumAndContractNumToSatisfy',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData2=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumAndFinishTimeToGiveUp',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData3=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumAndFinishTimeToComplete',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData4=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumToPoints',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData5=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    $.ajax({
+        type : 'POST',
+        url : '/project/picNumToAvgPoints',
+        async:false,
+        data :{},
+        success : function (Data) {
+            newData6=Data;
+        },
+        error: function (data) {
+            alert("获取统计数据出错")
+        }
+    })
+
+    alert(JSON.stringify(data))
+    document.getElementById("totalnum").innerHTML=data.totalNum;
+    document.getElementById("onlinnum").innerHTML=data.onlineNum;
+    document.getElementById("register_thisweek").innerHTML=data.registerThisWeek;
+    document.getElementById("register_thismonth").innerHTML=data.registerThisMonth
+
     initialGUI();
     default_Data_title=["动物类标注","风景类标注","人物类标注","物品类标注","其他类标注"];
     writeLine(data.registerPerMonth,"graph" ,"每月新注册的用户数");
-    // var test1={"01":12,"02":15,"03":20,"04":10};
-    // writeBar(test1,"graph","XXXXXX");
+    //writeNewLine(data2.avgReleasedNum,"graph","XXX");
     
 }
 
@@ -102,6 +192,11 @@ function writeBar(data, divg, title) {
     var keysAndvalues=getKeysAndValues(data,true);
     var keys=keysAndvalues.keys;
     var value=keysAndvalues.values;
+    if(title=="不同图片数量 用户追加积分的平均值"){
+        keys=["合计","<500","500-1000","1000-2000","2000-3000",">3000"];
+        value=[value[0],data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+    }
+
     var value2=[];
     value2.push(0);
     var temp_value=0;
@@ -109,7 +204,6 @@ function writeBar(data, divg, title) {
         temp_value+=value[i];
         value2.push(value[0]-temp_value);
     }
-
 
     var myChart = echarts.init(document.getElementById(divg));
     option = {
@@ -195,14 +289,87 @@ function writeBar(data, divg, title) {
     // document.getElementById(divt).innerHTML=string;
 
     var table_title=["标注分类","数量统计"];
-    writeChartFor1(keys,getKeysAndValues(data,false).values,table_title,"table_title","table_data");
+    if(title=="不同图片数量 用户追加积分的平均值"){
+        var tkeys=["<500","500-1000","1000-2000","2000-3000",">3000"];
+        var tvalue=[data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+        writeChartFor1(tkeys,tvalue,table_title,"table_title","table_data")
+    }
+    else{
+        writeChartFor1(getKeysAndValues(data,false).keys,getKeysAndValues(data,false).values,table_title,"table_title","table_data");
+    }
+}
+
+function writeBarForNew1(data, divg, title) {
+    var myChart = echarts.init(document.getElementById(divg));
+    var labelRight = {
+        normal: {
+            position: 'right'
+        }
+    };
+    option = {
+        title: {
+            text: title,
+            left: 'center',
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            top: 80,
+            bottom: 30
+        },
+        xAxis: {
+            type : 'value',
+            position: 'top',
+            splitLine: {lineStyle:{type:'dashed'}},
+        },
+        yAxis: {
+            type : 'category',
+            axisLine: {show: false},
+            axisLabel: {show: false},
+            axisTick: {show: false},
+            splitLine: {show: false},
+            data : ['<500', '500-1000', '1000-2000', '2000-3000', '>3000']
+        },
+        series : [
+            {
+                name:'生活费',
+                type:'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}'
+                    }
+                },
+                data:[
+                    {value: data['<500'], label: labelRight},
+                    {value: data['500-1000'], label: labelRight},
+                    {value: data['1000-2000'], label: labelRight},
+                    {value: data['2000-3000'], label: labelRight},
+                    {value: data['>3000'], label: labelRight},
+                ]
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+    var tkeys=["<500","500-1000","1000-2000","2000-3000",">3000"];
+    var tvalue=[data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+    writeChartFor1(tkeys,tvalue,table_title,"table_title","table_data")
 }
 
 function writePie(data, divg, title) {
     var keysAndvalues=getKeysAndValues(data, false);
     var keys=keysAndvalues.keys;
     var values=keysAndvalues.values;
-
+    if(title=="不同图片数量 用户追加积分的平均值"){
+        keys=["<500","500-1000","1000-2000","2000-3000",">3000"];
+        values=[data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+    }
     var need_data=[];
     for(var i=0;i<keys.length;i++){
         var temp={};
@@ -249,6 +416,10 @@ function writeRadar(data, divg, title) {
     var keysAndvalues=getKeysAndValues(data, false);
     var keys=keysAndvalues.keys;
     var values=keysAndvalues.values;
+    if(title=="不同图片数量 用户追加积分的平均值"){
+        keys=["<500","500-1000","1000-2000","2000-3000",">3000"];
+        values=[data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+    }
     var biggest_value=getBiggestValue(values);
     var need_indicator=[];
     for(var i=0;i<keys.length;i++){
@@ -328,6 +499,39 @@ function writeLine(data, divg, title) {
     var need_title=[];
     need_title.push("日期","数量")
     writeChartFor1(need_key,need_value,need_title,"table_title", "table_data");
+}
+
+function writeNewLine(data, divg, title) {
+    var keysandvalues=getKeysAndValues(data,false);
+    var keys=keysandvalues.keys;
+    var values=keysandvalues.values;
+    if(title=="不同图片数量 用户追加积分的平均值"){
+        keys=["<500","500-1000","1000-2000","2000-3000",">3000"];
+        values=[data['<500'],data['500-1000'],data['1000-2000'],data['2000-3000'],data['>3000']]
+    }
+    var myChart = echarts.init(document.getElementById(divg));
+    option = {
+        title: {
+            text: title,
+            left: 'center',
+        },
+        xAxis: {
+            type: 'category',
+            data: keys
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: values,
+            type: 'line'
+        }]
+    };
+    myChart.setOption(option);
+
+    var need_title=[];
+    need_title.push("项目","数量")
+    writeChartFor1(keys,values,need_title,"table_title", "table_data");
 }
 
 function writeChartFor1(keys,values,title,title_part, data_part) {
@@ -565,18 +769,90 @@ function writeChart(keys,data_title,title_part, data_part, array) {
 }
 
 //三维
-function writeScatter() {
-    
+//data是个包含对象的数组
+function writeScatter(data,divg,title) {
+    var need_data=[["X","Y","Z"]];
+    for(var i=0;i<data.length;i++){
+        var temp=[];
+        temp.push(data[i].zhibiao1);
+        temp.push(data[i].zhibiao2);
+        temp.push(data[i].zhibiao3);
+        need_data.push(temp);
+    }
+
+    var symbolSize = 2.5;
+    var myChart = echarts.init(document.getElementById(divg));
+    option = {
+        title: {
+            text: title,
+            left: 'center',
+        },
+        grid3D: {},
+        xAxis3D: {
+            type: 'category'
+        },
+        yAxis3D: {},
+        zAxis3D: {},
+        dataset: {
+            dimensions: [
+                'X',
+                'Y',
+                'Z',
+
+            ],
+            source: need_data
+        },
+        series: [
+            {
+                type: 'scatter3D',
+                symbolSize: symbolSize,
+                encode: {
+                    x: 'X',
+                    y: 'Y',
+                    z: 'Z',
+
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+    var charttitle=["X","Y","Z"];
+    writeChartFor3D(charttitle,need_data,"table_title","table_data");
+}
+
+//title是数组，data是返回的数据结构
+function writeChartFor3D(title,data,title_part,data_part) {
+    var table_title="<tr><th scope=\"col\" style=\"text-align: center;\">编号</th>";
+    for(var i=0;i<title.length;i++){
+        table_title+='<th scope="col" style="text-align: center;">'+title[i]+'</th>'
+    }
+    table_title+='</tr>';
+    document.getElementById(title_part).innerHTML=table_title;
+
+    var table_data="";
+    for(var i=1;i<data.length;i++){
+        var temp='<tr><td style=\"text-align: center\">'+i+'</td>';
+        for(var j=0;j<3;j++){
+            temp+='<td style="text-align: center">'+data[i][j]+'</td>'
+        }
+        temp+='</tr>';
+        table_data+=temp;
+        //table_data+='<tr><td style="text-align: center">'+data_title[i]+'</td><td style="text-align: center">'+values[i]+'</td></tr>'
+    }
+    document.getElementById(data_part).innerHTML=table_data;
 }
 
 function getKeysAndValues(data, need_all) {
     var keys=[];
     var value=[];
-    var total_value=0;
+    var total_value=0.00;
     for(var key in data){
         keys.push(key);
         value.push(data[key])
-        total_value+=data[key];
+        var t=data[key];
+        t=parseFloat(data[key]);
+        total_value+=t;
     }
     if(need_all){
         var result_keys=[];
@@ -677,6 +953,28 @@ function changePageM(num) {
         else if(statistic_graph=="每月已完成项目类型数据统计"){
             writeMulLine(array4,default_Data_title,"graph","每月已完成项目类型数据统计");
         }
+        else if(statistic_graph=="一年来每类项目的平均发布数"){
+            writeNewLine(data2.avgReleasedNum,"graph","一年来每类项目的平均发布数")
+        }
+
+        else if(statistic_graph=="不同图片数量 推荐积分与用户给出的积分的平均差值"){
+            writeBarForNew1(newData5,"graph","不同图片数量 推荐积分与用户给出的积分的平均差值");
+        }
+        else if(statistic_graph=="不同图片数量 用户追加积分的平均值"){
+            writeNewLine(newData6,"graph","不同图片数量 用户追加积分的平均值");
+        }
+        else if(statistic_graph=="不同图片数量,不同完成时间的用户平均满意度"){
+            writeScatter(newData1,"graph","不同图片数量,不同完成时间的用户平均满意度");
+        }
+        else if(statistic_graph=="不同图片数量,不同承包人数的用户平均满意度"){
+            writeScatter(newData2,"graph","不同图片数量,不同承包人数的用户平均满意度");
+        }
+        else if(statistic_graph=="不同图片数量 不同完成时间 项目放弃率"){
+            writeScatter(newData3,"graph","不同图片数量 不同完成时间 项目放弃率");
+        }
+        else if(statistic_graph=="不同图片数量 不同完成时间的项目完成率"){
+            writeScatter(newData4,"graph","不同图片数量 不同完成时间的项目完成率");
+        }
         else{
             writeLine(data.registerPerMonth,"graph" ,"每月新注册的用户数");
         }
@@ -697,6 +995,12 @@ function changePageM(num) {
         }
         else if(statistic_graph=="每月已完成项目类型数据统计"){
             writeMulBar(array4,default_Data_title,"graph","每月已完成项目类型数据统计");
+        }
+        else if(statistic_graph=="一年来每类项目的平均发布数"){
+            writeBar(data2.avgReleasedNum,"graph","一年来每类项目的平均发布数")
+        }
+        else if(statistic_graph=="不同图片数量 用户追加积分的平均值"){
+            writeBar(newData6,"graph","不同图片数量 用户追加积分的平均值");
         }
         else{
             writeBar(data.registerPerMonth,"graph" ,"每月新注册的用户数");
@@ -719,6 +1023,12 @@ function changePageM(num) {
         else if(statistic_graph=="每月已完成项目类型数据统计"){
             writeMulPie(array4,default_Data_title,"graph","每月已完成项目类型数据统计");
         }
+        else if(statistic_graph=="一年来每类项目的平均发布数"){
+            writePie(data2.avgReleasedNum,"graph","一年来每类项目的平均发布数")
+        }
+        else if(statistic_graph=="不同图片数量 用户追加积分的平均值"){
+            writePie(newData6,"graph","不同图片数量 用户追加积分的平均值");
+        }
         else{
             writePie(data.registerPerMonth,"graph" ,"每月新注册的用户数");
         }
@@ -739,6 +1049,12 @@ function changePageM(num) {
         }
         else if(statistic_graph=="每月已完成项目类型数据统计"){
             writeMulRadar(array4,default_Data_title,"graph","每月已完成项目类型数据统计");
+        }
+        else if(statistic_graph=="一年来每类项目的平均发布数"){
+            writeRadar(data2.avgReleasedNum,"graph","一年来每类项目的平均发布数")
+        }
+        else if(statistic_graph=="不同图片数量 用户追加积分的平均值"){
+            writeRadar(newData6,"graph","不同图片数量 用户追加积分的平均值");
         }
         else{
             writeRadar(data.registerPerMonth,"graph" ,"每月新注册的用户数");
