@@ -6,6 +6,7 @@ import com.model.picture.Picture;
 import com.vo.personaltagvo.CombineResVO;
 import com.vo.projectvo.*;
 import com.vo.uservo.ProBriefInfo;
+import com.vo.uservo.SanDianTuUser;
 import net.sf.json.JSONArray;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -82,8 +83,7 @@ public interface ProjectBLService{
 
     ArrayList<Recommend1> newestPro();
 
-//    ArrayList<>
-
+    ArrayList<SanDianTuUser> getCreditsAndContractNum(String username);
 
 
 

@@ -49,6 +49,7 @@
 
     <!--统计信息所需的引用-->
     <script src="/js/statistic/echarts.js"></script>
+    <script src="http://echarts.baidu.com/dist/echarts-gl.min.js"></script>
     <script src="/js/personal_page/newManagerStatistics.js"></script>
 
     <!--分页-->
@@ -333,22 +334,6 @@
                 <i class="far fa-id-card myicon" style="margin-left: 0px;background: transparent"></i>
                 统计图表
             </li>
-            <li class="personal_data">
-                <i class="fas fa-chart-line myicon" style="margin-left: 0px;background: transparent"></i>
-                XXX1
-            </li>
-            <li class="publish_pro" onclick="set_type('publish')">
-                <i class="fas fa-project-diagram myicon" style="margin-left: 0px;background: transparent"></i>
-                XXX2
-            </li>
-            <li class="adopt_pro" onclick="set_type('adopt')">
-                <i class="fas fa-project-diagram myicon" style="margin-left: 0px;background: transparent"></i>
-                XXX3
-            </li>
-            <li class="personal_message">
-                <i class="fas fa-comment myicon" style="margin-left: 0px;background: transparent"></i>
-                XXX4
-            </li>
         </ul>
     </div>
 
@@ -358,7 +343,21 @@
 
     <div id="right-side" style="height: 100%">
         <div id="first" class="active" style="height: 100%">
-
+            <table class="table table-hover personal-task" id="message_table">
+                <thead>
+                <tr>
+                    <th scope="col" style="text-align: center;">数据编号</th>
+                    <th scope="col" style="text-align: center;">统计名称</th>
+                    <th scope="col" style="text-align: center;">统计数据</th>
+                </tr>
+                </thead>
+                <tbody id="message_table_body">
+                <tr><td style="text-align: center">1</td><td style="text-align: center">当前用户总数</td><td id="totalnum" style="text-align: center"></td></tr>
+                <tr><td style="text-align: center">2</td><td style="text-align: center">当前在线人数</td><td id="onlinnum" style="text-align: center"></td></tr>
+                <tr><td style="text-align: center">3</td><td style="text-align: center">最近一周内注册人数</td><td id="register_thisweek" style="text-align: center"></td></tr>
+                <tr><td style="text-align: center">4</td><td style="text-align: center">最近一个月内注册人数</td><td id="register_thismonth" style="text-align: center"></td></tr>
+                </tbody>
+            </table>
         </div>
         <div id="second" style="height: 100%">
             <div id="graphics" style="text-align: center">
@@ -370,6 +369,14 @@
                         <option>每月新发布项目类型数据统计</option>
                         <option>每月项目进行中数据统计</option>
                         <option>每月已完成项目类型数据统计</option>
+                        <option>一年来每类项目的平均发布数</option>
+                        <option>不同图片数量 用户追加积分的平均值</option>
+                        <option>不同图片数量 推荐积分与用户给出的积分的平均差值</option>
+                        <option>不同图片数量,不同完成时间的用户平均满意度</option>
+                        <option>不同图片数量,不同承包人数的用户平均满意度</option>
+                        <option>不同图片数量 不同完成时间 项目放弃率</option>
+                        <option>不同图片数量 不同完成时间的项目完成率</option>
+
                     </select>
                 </div>
                 <div id="inner">
@@ -387,18 +394,6 @@
             <div id="page">
                 <ul class="pagination" id="pagination2"></ul>
             </div>
-        </div>
-        <div id="third" style="height: 100%">
-
-        </div>
-        <div id="fourth" style="height: 100%">
-
-        </div>
-        <div id="fifth" style="height: 100%">
-
-        </div>
-        <div id="sixth" style="height: 100%">
-
         </div>
     </div>
 </div>
@@ -686,8 +681,13 @@
     });
 
     function initialPage() {
+        var page=4;
+        var statistic=$("#statistics").val();
+        if((statistic=="不同图片数量 推荐积分与用户给出的积分的平均差值")||(statistic=="不同图片数量,不同完成时间的用户平均满意度")||(statistic=="不同图片数量 不同完成时间 项目放弃率")||(statistic=="不同图片数量 不同完成时间的项目完成率")||(statistic=="不同图片数量,不同承包人数的用户平均满意度")){
+            page=1;
+        }
         $.jqPaginator('#pagination2', {
-            totalPages: 4,
+            totalPages: page,
             visiblePages: 10,
             currentPage: 1,
             first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
