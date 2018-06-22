@@ -25,7 +25,7 @@ public class Project {
     private String brief_intro;//项目简介
 
     @Column(name="worker_list")
-    @ElementCollection(targetClass = String.class,fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = String.class,fetch = FetchType.EAGER)
     private Set<String> workerList;//工作人列表
     @Column(name="releaseTime")
     private Date releaseTime;//发布时间
