@@ -26,7 +26,7 @@ public class ProjectTransVOPO {
                 transSetToArray.transSetToStringArray(project.getWorkerList()),project.getReleaseTime(), project.getDeadLine(),
                 project.getRemainTime(),project.getPro_type(),project.getPro_state(), project.getPro_requester(),
                 project.getDetailRequire(),project.getNote(),transSetToArray.transListTOArray(project.getUrls()),
-                transSetToArray.transSetToStringArray(project.getFinished_list()));
+                transSetToArray.transSetToStringArray(project.getFinished_list()),project.getSatisfy());
     }
 
     ProjectBasic transProjectToProjectBasic(Project project){
@@ -50,7 +50,7 @@ public class ProjectTransVOPO {
         List<String> combineRes_urls=new ArrayList<>();
         return new Project(uploadProVO.getPro_ID(),uploadProVO.getPro_name(),uploadProVO.getPoints(),uploadProVO.getBrief_intro(),workersSet,
                 null,uploadProVO.getDeadLine(),uploadProVO.getRemainTime(),uploadProVO.getPro_type(), ProjectState.DRAFT,
-                uploadProVO.getPro_requester(),uploadProVO.getDetailRequire(),uploadProVO.getNote(),urls,finishedSet,0,0,combineRes_urls);
+                uploadProVO.getPro_requester(),uploadProVO.getDetailRequire(),uploadProVO.getNote(),urls,finishedSet,0,0,combineRes_urls,0,0,0);
     }
 
 }

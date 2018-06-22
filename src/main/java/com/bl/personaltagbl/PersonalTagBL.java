@@ -37,9 +37,9 @@ public class PersonalTagBL implements PersonalTagBLService {
 
     @Override
     public ResultMessage updatePersonalTag(String pid,String uid, ArrayList<PictureVO> pictures) {
-        for(PictureVO pictureVO:pictures){
-            System.err.println(pictureVO);
-        }
+//        for(PictureVO pictureVO:pictures){
+//            System.err.println(pictureVO);
+//        }
         PersonalTag personalTag=personalTagDao.searchByPidAndUid(pid,uid);
         if(personalTag==null){
             return ResultMessage.NOTEXIST;
@@ -49,25 +49,23 @@ public class PersonalTagBL implements PersonalTagBLService {
         ArrayList<Picture> updatePictures=personalTagTrans.transPictureToPo2(pictures,begin);
         Set<Picture> pictureSet=personalTag.getPictures();
         Set<Picture> tempSet=new HashSet<>();
-        System.err.println("begin--------------:"+begin);
-        System.err.println("picturesetsize:------------"+pictureSet.size());
-        System.out.println("picturessize :----------------"+pictures.size());
+//        System.err.println("begin--------------:"+begin);
+//        System.err.println("picturesetsize:------------"+pictureSet.size());
+//        System.out.println("picturessize :----------------"+pictures.size());
         int i=0;
         for(Picture picture:pictureSet){
             if(picture.getShunxu()>=begin){//本次修改的这一组
-                //if(i<pictures.size()){
+                if(i<pictures.size()){
                     tempSet.add(updatePictures.get(i));
                     i++;
-//                }else{
-//                    break;
-//                }
+                }
             }else{//之前的组别
                 tempSet.add(picture);
             }
         }
         pictureSet.clear();
         pictureSet.addAll(tempSet);
-        System.out.println(personalTag.toString());
+//        System.out.println(personalTag.toString());
         personalTagDao.save(personalTag);
         return ResultMessage.SUCCESS;
     }
@@ -224,5 +222,10 @@ public class PersonalTagBL implements PersonalTagBLService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public int getWorkGroup(String pid, String uid) {
+        return personalTagDao.searchByPidAndUid(pid,uid).getWorkGroup().split(" ").length;
     }
 }
