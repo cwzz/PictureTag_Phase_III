@@ -20,12 +20,14 @@ import com.vo.personaltagvo.UidAndPoints;
 import com.vo.projectvo.*;
 import com.vo.tag.PersonalTagVO;
 import com.vo.uservo.ProBriefInfo;
+import com.vo.uservo.SanDianTuUser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -94,14 +96,8 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
-    public Map<String, Double> predictPrice(PicNum picNum,int day) {
-        Map<String,Double> ranges=new HashMap<>();
-        ranges.put("MAX",calculateCredits(picNum.getMax()));
-        ranges.put("MIN",calculateCredits(picNum.getMin()));
-        return ranges;
-    }
-    private double calculateCredits(int pictureNum){
-        return pictureNum*0.595;
+    public double predictPrice(int PictureNum) {
+        return PictureNum*Constant.RectanglePerPicture*Constant.PricePerRectangle;
     }
 
     @Override
@@ -168,8 +164,9 @@ public class ProjectBL implements ProjectBLService {
             //更新用户的剩余积分
             //更新项目的积分
             Project project=projectDao.getOne(projectID);
-            userBLService.updateCredits(username,project.getPro_type(),credits*(-1));
+            userBLService.updateCredits(username,project.getPro_type(),project.getPoints(),credits*(-1),project.getReleaseTime());
             project.setPoints(project.getPoints()+credits);
+            project.setZhuijiaPoints(credits);
             projectDao.saveAndFlush(project);
             //发消息给发起者和承包者
             messageBLService.generateMessage(username,"您已成功为项目"+projectID+"追加积分"+credits,projectID);
@@ -365,6 +362,7 @@ public class ProjectBL implements ProjectBLService {
         Set<String> workerList=project.getWorkerList();
         workerList.remove(workerID);
         project.setWorkerList(workerList);
+        project.setQuitNum(project.getQuitNum()+1);
         projectDao.saveAndFlush(project);
         modiSimi(pid);
         personalTagBLService.delPersonalTag(pid,workerID);
@@ -771,6 +769,24 @@ public class ProjectBL implements ProjectBLService {
         return res;
     }
 
+    @Override
+    public ArrayList<SanDianTuUser> getCreditsAndContractNum(String username) {
+        List<Project> projects=projectDao.findByUser(username);
+        //System.out.println(projects.get(0).toString());
+        ArrayList<SanDianTuUser> creditsAndContractNum=new ArrayList<>();
+        for(Project project:projects){
+            if(project.getPro_state().equals(ProjectState.EXAMINE)||project.getPro_state().equals(ProjectState.FINISHED)){
+                //积分，天数，人数
+                long diff=project.getDeadLine().getTime()-project.getReleaseTime().getTime();
+                double day=diff/(1000*60*60);
+                SanDianTuUser sanDianTuUser=new SanDianTuUser(project.getPoints(),day/24,project.getWorkerList().size());
+                System.err.println(sanDianTuUser.toString());
+                creditsAndContractNum.add(sanDianTuUser);
+            }
+        }
+        return creditsAndContractNum;
+    }
+
 
     //为用户推荐项目
     @Override
@@ -817,16 +833,18 @@ public class ProjectBL implements ProjectBLService {
         Set<String> workersSet=projectDao.getOne(pid).getWorkerList();
         List<String> workers1=new ArrayList<>(workersSet);
         for(String u:underwayTeam){
-            Set<String> temp=projectDao.getOne(u).getWorkerList();
-            List<String> workers2=new ArrayList<>(temp);
-            double simi=calWij(workers1,workers2);
-            Similarity similarity=similarityDao.showSimi(pid,u);
-            if(similarity==null){
-                Similarity newSimilarity=new Similarity(u,pid,simi);
-                similarityDao.saveAndFlush(newSimilarity);
-            }else{
-                similarity.setSimilarity(simi);
-                similarityDao.saveAndFlush(similarity);
+            if(!u.equals(pid)){
+                Set<String> temp=projectDao.getOne(u).getWorkerList();
+                List<String> workers2=new ArrayList<>(temp);
+                double simi=calWij(workers1,workers2);
+                Similarity similarity=similarityDao.showSimi(pid,u);
+                if(similarity==null){
+                    Similarity newSimilarity=new Similarity(u,pid,simi);
+                    similarityDao.saveAndFlush(newSimilarity);
+                }else{
+                    similarity.setSimilarity(simi);
+                    similarityDao.saveAndFlush(similarity);
+                }
             }
         }
     }
@@ -867,188 +885,6 @@ public class ProjectBL implements ProjectBLService {
     public int totalReleasedNum() {
         return projectDao.sum();
     }
-
-//    private Map<String,Integer> completeInt(Map<String,Integer> res){
-//        boolean tag1=false;
-//        boolean tag2=false;
-//        boolean tag3=false;
-//        boolean tag4=false;
-//        boolean tag5=false;
-//        boolean tag6=false;
-//        boolean tag7=false;
-//        boolean tag8=false;
-//        boolean tag9=false;
-//        boolean tag10=false;
-//        boolean tag11=false;
-//        boolean tag12=false;
-//        for(Map.Entry<String,Integer> entry:res.entrySet()){
-//            if(entry.getKey().contains("01")){
-//                tag1=true;
-//                break;
-//            }else if(entry.getKey().contains("02")){
-//                tag2=true;
-//                break;
-//            }else if(entry.getKey().contains("03")){
-//                tag3=true;
-//                break;
-//            }else if(entry.getKey().contains("04")){
-//                tag4=true;
-//                break;
-//            }else if(entry.getKey().contains("05")){
-//                tag5=true;
-//                break;
-//            }else if(entry.getKey().contains("06")){
-//                tag6=true;
-//                break;
-//            }else if(entry.getKey().contains("07")){
-//                tag7=true;
-//                break;
-//            }else if(entry.getKey().contains("08")){
-//                tag8=true;
-//                break;
-//            }else if(entry.getKey().contains("09")){
-//                tag9=true;
-//                break;
-//            }else if(entry.getKey().contains("10")){
-//                tag10=true;
-//                break;
-//            }else if(entry.getKey().contains("11")){
-//                tag11=true;
-//                break;
-//            }else if(entry.getKey().contains("12")){
-//                tag12=true;
-//                break;
-//            }
-//        }
-//        if(!tag1){
-//            res.put("01",0);
-//        }
-//        if(!tag2){
-//            res.put("02",0);
-//        }
-//        if(!tag3){
-//            res.put("03",0);
-//        }
-//        if(!tag4){
-//            res.put("04",0);
-//        }
-//        if(!tag5){
-//            res.put("05",0);
-//        }
-//        if(!tag6){
-//            res.put("06",0);
-//        }
-//        if(!tag7){
-//            res.put("07",0);
-//        }
-//        if(!tag8){
-//            res.put("08",0);
-//        }
-//        if(!tag9){
-//            res.put("09",0);
-//        }
-//        if(!tag10){
-//            res.put("10",0);
-//        }
-//        if(!tag11){
-//            res.put("11",0);
-//        }
-//        if(!tag12){
-//            res.put("12",0);
-//        }
-//        return res;
-//    }
-//
-//    private Map<String,Double> completeDouble(Map<String,Double> res){
-//        boolean tag1=false;
-//        boolean tag2=false;
-//        boolean tag3=false;
-//        boolean tag4=false;
-//        boolean tag5=false;
-//        boolean tag6=false;
-//        boolean tag7=false;
-//        boolean tag8=false;
-//        boolean tag9=false;
-//        boolean tag10=false;
-//        boolean tag11=false;
-//        boolean tag12=false;
-//        for(Map.Entry<String,Double> entry:res.entrySet()){
-//            if(entry.getKey().contains("01")){
-//                tag1=true;
-//                break;
-//            }else if(entry.getKey().contains("02")){
-//                tag2=true;
-//                break;
-//            }else if(entry.getKey().contains("03")){
-//                tag3=true;
-//                break;
-//            }else if(entry.getKey().contains("04")){
-//                tag4=true;
-//                break;
-//            }else if(entry.getKey().contains("05")){
-//                tag5=true;
-//                break;
-//            }else if(entry.getKey().contains("06")){
-//                tag6=true;
-//                break;
-//            }else if(entry.getKey().contains("07")){
-//                tag7=true;
-//                break;
-//            }else if(entry.getKey().contains("08")){
-//                tag8=true;
-//                break;
-//            }else if(entry.getKey().contains("09")){
-//                tag9=true;
-//                break;
-//            }else if(entry.getKey().contains("10")){
-//                tag10=true;
-//                break;
-//            }else if(entry.getKey().contains("11")){
-//                tag11=true;
-//                break;
-//            }else if(entry.getKey().contains("12")){
-//                tag12=true;
-//                break;
-//            }
-//        }
-//        if(!tag1){
-//            res.put("01",0.0);
-//        }
-//        if(!tag2){
-//            res.put("02",0.0);
-//        }
-//        if(!tag3){
-//            res.put("03",0.0);
-//        }
-//        if(!tag4){
-//            res.put("04",0.0);
-//        }
-//        if(!tag5){
-//            res.put("05",0.0);
-//        }
-//        if(!tag6){
-//            res.put("06",0.0);
-//        }
-//        if(!tag7){
-//            res.put("07",0.0);
-//        }
-//        if(!tag8){
-//            res.put("08",0.0);
-//        }
-//        if(!tag9){
-//            res.put("09",0.0);
-//        }
-//        if(!tag10){
-//            res.put("10",0.0);
-//        }
-//        if(!tag11){
-//            res.put("11",0.0);
-//        }
-//        if(!tag12){
-//            res.put("12",0.0);
-//        }
-//        return res;
-//    }
 
     @Override
     public Map<String, Integer> releasedPerMonth(String year) {
@@ -1285,24 +1121,212 @@ public class ProjectBL implements ProjectBLService {
     }
 
     @Override
-    public Map<String,Double> avgReleasedNum(String year){
-        Map<String,Double> res=new HashMap<>();
+    public Map<String,String> avgReleasedNum(String year){
+        Map<String,String> res=new HashMap<>();
+        DecimalFormat df = new DecimalFormat("##0.00");
 
         double animal=projectStatisticsDao.calAvgReleasedAnimalNum(year);
-        res.put(ProjectType.ANIMALTAG.getChinese(),animal);
+        res.put(ProjectType.ANIMALTAG.getChinese(),df.format(animal));
 
         double good=projectStatisticsDao.calAvgReleasedGoodsNum(year);
-        res.put(ProjectType.GOODSTAG.getChinese(),good);
+        res.put(ProjectType.GOODSTAG.getChinese(),df.format(good));
 
         double other=projectStatisticsDao.calAvgReleasedOthersNum(year);
-        res.put(ProjectType.OTHERSTAG.getChinese(),other);
+        res.put(ProjectType.OTHERSTAG.getChinese(),df.format(other));
 
         double personal=projectStatisticsDao.calAvgReleasedPersonNum(year);
-        res.put(ProjectType.PERSONTAG.getChinese(),personal);
+        res.put(ProjectType.PERSONTAG.getChinese(),df.format(personal));
 
         double scene=projectStatisticsDao.calAvgReleasedSceneNum(year);
-        res.put(ProjectType.SCENETAG.getChinese(),scene);
+        res.put(ProjectType.SCENETAG.getChinese(),df.format(scene));
 
+        return res;
+    }
+
+    private int calDays(Date day1,Date day2){
+        return Math.abs((int)(day1.getTime()-day2.getTime())/(1000*3600*24));
+    }
+
+    @Override
+    public ArrayList<SanDianTuVO> picNumAndFinishTimeToSatisfy() {
+        ArrayList<SanDianTuVO> res=new ArrayList<>();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.FINISHED);
+        for(Project p:projects){
+            SanDianTuVO sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),p.getSatisfy());
+            res.add(sanDianTuVO);
+        }
+        return res;
+    }
+
+    @Override
+    public ArrayList<SanDianTuVO> picNumAndContractNumToSatisfy() {
+        ArrayList<SanDianTuVO> res=new ArrayList<>();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.FINISHED);
+        for(Project p:projects){
+            SanDianTuVO sanDianTuVO=new SanDianTuVO(p.getUrls().size(),p.getWorkerList().size(),p.getSatisfy());
+            res.add(sanDianTuVO);
+        }
+        return res;
+    }
+
+    @Override
+    public ArrayList<SanDianTuVO> picNumAndFinishTimeToGiveUp() {
+        ArrayList<SanDianTuVO> res=new ArrayList<>();
+        List<Project> projects=projectDao.findAll();
+        for(Project p:projects){
+            SanDianTuVO sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),p.getQuitNum());
+            res.add(sanDianTuVO);
+        }
+        return res;
+    }
+
+    @Override
+    public ArrayList<SanDianTuVO> picNumAndFinishTimeToComplete() {
+        ArrayList<SanDianTuVO> res=new ArrayList<>();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.FINISHED);
+        for(Project p:projects){
+            ArrayList<String> workers=new ArrayList<>(projectDao.getOne(p.getPro_ID()).getWorkerList());
+            double sum=0;
+            for(String w:workers){
+                System.err.println("num---"+(double)personalTagBLService.getWorkGroup(p.getPro_ID(),w));
+                System.err.println("group---"+(p.getUrls().size()/Constant.PictureNumPerGroup));
+                if(p.getUrls().size()/Constant.PictureNumPerGroup==0&&personalTagBLService.getWorkGroup(p.getPro_ID(),w)==1){
+                    sum=sum+1;
+                }else if(p.getUrls().size()/Constant.PictureNumPerGroup==0&&personalTagBLService.getWorkGroup(p.getPro_ID(),w)==0){
+                    sum=sum+0;
+                }else{
+                    sum=sum+(double) personalTagBLService.getWorkGroup(p.getPro_ID(),w)/(p.getUrls().size()/Constant.PictureNumPerGroup);
+                }
+            }
+            SanDianTuVO sanDianTuVO;
+            if(workers.size()==0){
+                sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),0.0);
+            }else{
+                System.err.println("sum---"+sum);
+                System.err.println(workers.size());
+                sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),sum/workers.size());
+            }
+            res.add(sanDianTuVO);
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, Double> picNumToPoints() {
+        Map<String,Double> res=new HashMap<>();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.FINISHED);
+        int tag1=0,tag2=0,tag3=0,tag4=0,tag5=0;
+        double sum1=0,sum2=0,sum3=0,sum4=0,sum5=0;
+        for(Project p:projects){
+            if(p.getUrls().size()<=500){
+                tag1++;
+//                System.err.println("--------"+predictPrice(PicNum.UNDER_500,calDays(p.getDeadLine(),p.getReleaseTime())));
+                sum1=sum1+p.getPoints()-predictPrice(p.getUrls().size());
+            }else if(p.getUrls().size()>=500&&p.getUrls().size()<=1000){
+                tag2++;
+                sum2=sum2+p.getPoints()-predictPrice(p.getUrls().size());
+            }else if(p.getUrls().size()>=1000&&p.getUrls().size()<=2000){
+                tag3++;
+                sum3=sum3+p.getPoints()-predictPrice(p.getUrls().size());
+            }else if(p.getUrls().size()>=2000&&p.getUrls().size()<=3000){
+                tag4++;
+                sum4=sum4+p.getPoints()-predictPrice(p.getUrls().size());
+            }else if(p.getUrls().size()>=3000){
+                tag5++;
+                sum5=sum5+p.getPoints()-predictPrice(p.getUrls().size());
+            }
+        }
+//        System.err.println("tag---"+tag1);
+//        System.err.println("sum---"+sum1);
+        String[] a=Constant.picRange;
+        if(tag1==0){
+            res.put(a[0],0.0);
+        }else{
+            res.put(a[0],sum1/tag1);
+        }
+        if(tag2==0){
+            res.put(a[1],0.0);
+        }else{
+            res.put(a[1],sum2/tag2);
+        }
+        if(tag3==0){
+            res.put(a[2],0.0);
+        }else{
+            res.put(a[2],sum3/tag3);
+        }
+        if(tag4==0){
+            res.put(a[3],0.0);
+        }else{
+            res.put(a[3],sum4/tag4);
+        }
+        if(tag5==0){
+            res.put(a[4],0.0);
+        }else{
+            res.put(a[4],sum5/tag5);
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, Double> picNumToAvgPoints() {
+        Map<String,Double> res=new HashMap<>();
+        ArrayList<Project> projects=projectDao.searchProjectByState(ProjectState.FINISHED);
+        int tag1=0,tag2=0,tag3=0,tag4=0,tag5=0;
+        double sum1=0,sum2=0,sum3=0,sum4=0,sum5=0;
+        for(Project p:projects){
+            if(p.getUrls().size()<=500){
+                if(p.getZhuijiaPoints()!=0){
+                    tag1++;
+                    sum1=sum1+p.getZhuijiaPoints();
+                }
+            }else if(p.getUrls().size()>=500&&p.getUrls().size()<=1000){
+                if(p.getZhuijiaPoints()!=0){
+                    tag2++;
+                    sum2=sum2+p.getZhuijiaPoints();
+                }
+            }else if(p.getUrls().size()>=1000&&p.getUrls().size()<=2000){
+                if(p.getZhuijiaPoints()!=0){
+                    tag3++;
+                    sum3=sum3+p.getZhuijiaPoints();
+                }
+            }else if(p.getUrls().size()>=2000&&p.getUrls().size()<=3000){
+                if(p.getZhuijiaPoints()!=0){
+                    tag4++;
+                    sum4=sum4+p.getZhuijiaPoints();
+                }
+            }else if(p.getUrls().size()>=3000){
+                if(p.getZhuijiaPoints()!=0){
+                    tag5++;
+                    sum5=sum5+p.getZhuijiaPoints();
+                }
+            }
+        }
+        String[] a=Constant.picRange;
+        if(tag1==0){
+            res.put(a[0],0.0);
+        }else{
+            res.put(a[0],sum1/tag1);
+        }
+        if(tag2==0){
+            res.put(a[1],0.0);
+        }else{
+            res.put(a[1],sum2/tag2);
+        }
+        if(tag3==0){
+            res.put(a[2],0.0);
+        }else{
+            res.put(a[2],sum3/tag3);
+        }
+        if(tag4==0){
+            res.put(a[3],0.0);
+        }else{
+            res.put(a[3],sum4/tag4);
+        }
+        if(tag5==0){
+            res.put(a[4],0.0);
+        }else{
+            res.put(a[4],sum5/tag5);
+        }
         return res;
     }
 

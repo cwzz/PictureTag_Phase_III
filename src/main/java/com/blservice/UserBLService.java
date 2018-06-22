@@ -49,14 +49,12 @@ public interface UserBLService {
 
     //查询用户的积分值
     double getCredits(String username);
-    //更新用户的积分值
-    ResultMessage updateCredits(String username, ProjectType type, double dValue);
+    //更新用户的积分值,参数为用户名，项目类型，积分改变值，项目开始工作时间
+    ResultMessage updateCredits(String username, ProjectType type,double totalCredit, double dValue,Date startTime);
     //更新用户的经验值
     ResultMessage updateExperience(String username, double dValue);
     //更新用户的质量指标
-    ResultMessage updateQuality(String username, ProjectType type, double gongXian);
-    //更新用户每类项目平均花费时间的接口
-    void updateAvgTimePerTime(String username, ProjectType type, Date startTime);
+    ResultMessage updateQuality(String username, ProjectType type, double gongXian,Date startTime);
 
     //用户发布新的项目
     ResultMessage NewRelease(String username, ProjectType type);

@@ -20,10 +20,10 @@ public class PersonalCenter {
     private int age;
     private String[] tags;//用户的标签，对什么类型的项目感兴趣
     private double credits;//用户的积分值
-    private double experience;//用户的经验值
+    private String experience;//用户的经验值
     private int rank;//用户的排名
     private double rankRatio;//用户当前排名超过多少用户
-    private double quality;//质量衡量
+    private String quality;//质量衡量
 
     private int numRelease;//用户发包数
     private int numContract;//用户承包数

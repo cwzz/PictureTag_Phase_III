@@ -6,6 +6,7 @@ import com.model.picture.Picture;
 import com.vo.personaltagvo.CombineResVO;
 import com.vo.projectvo.*;
 import com.vo.uservo.ProBriefInfo;
+import com.vo.uservo.SanDianTuUser;
 import net.sf.json.JSONArray;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -70,7 +71,7 @@ public interface ProjectBLService{
     //提供给用户查询到的用户承包过的项目
     ProBriefInfo getBriefInfo(String pid);
 
-    Map<String,Double> predictPrice(PicNum picNum, int day);
+    double predictPrice(int pictureNum);
 
     ResultMessage changeToFinish(String pid);
 
@@ -82,8 +83,7 @@ public interface ProjectBLService{
 
     ArrayList<Recommend1> newestPro();
 
-//    ArrayList<>
-
+    ArrayList<SanDianTuUser> getCreditsAndContractNum(String username);
 
 
 
@@ -119,7 +119,25 @@ public interface ProjectBLService{
     Map<String,Integer> finishedOthersNum(String year);
 
     //一年来每类项目的平均发布数
-    Map<String,Double> avgReleasedNum(String year);
+    Map<String,String> avgReleasedNum(String year);
+
+    //不同图片数量 不同完成时间的用户平均满意度
+    ArrayList<SanDianTuVO> picNumAndFinishTimeToSatisfy();
+
+    //不同图片数量 不同承包人数的用户平均满意度
+    ArrayList<SanDianTuVO> picNumAndContractNumToSatisfy();
+
+    //不同图片数量 不同完成时间 项目放弃率
+    ArrayList<SanDianTuVO> picNumAndFinishTimeToGiveUp();
+
+    //不同图片数量 不同完成时间的项目完成率
+    ArrayList<SanDianTuVO> picNumAndFinishTimeToComplete();
+
+    //不同图片数量 推荐积分与用户给出的积分的平均差值
+    Map<String,Double> picNumToPoints();
+
+    //不同图片数量 用户追加积分的平均值
+    Map<String,Double> picNumToAvgPoints();
 
     ResultMessage markCombineRes(String pid,int score);
 
