@@ -37,16 +37,20 @@ public class PersonalTagBL implements PersonalTagBLService {
 
     @Override
     public ResultMessage updatePersonalTag(String pid,String uid, ArrayList<PictureVO> pictures) {
-//        for(PictureVO pictureVO:pictures){
-//            System.err.println(pictureVO);
-//        }
+        ArrayList<PictureVO> guolv=new ArrayList<>();
+        for(PictureVO pictureVO:pictures){
+            if(!pictureVO.getUrl().contains("test")){
+                guolv.add(pictureVO);
+            }
+            System.err.println(pictureVO);
+        }
         PersonalTag personalTag=personalTagDao.searchByPidAndUid(pid,uid);
         if(personalTag==null){
             return ResultMessage.NOTEXIST;
         }
         int workGroup=personalTag.getWorkGroup().split(" ").length;
         int begin=(workGroup-1)*Constant.PictureNumPerGroup;
-        ArrayList<Picture> updatePictures=personalTagTrans.transPictureToPo2(pictures,begin);
+        ArrayList<Picture> updatePictures=personalTagTrans.transPictureToPo2(guolv,begin);
         Set<Picture> pictureSet=personalTag.getPictures();
         Set<Picture> tempSet=new HashSet<>();
 //        System.err.println("begin--------------:"+begin);
@@ -55,7 +59,7 @@ public class PersonalTagBL implements PersonalTagBLService {
         int i=0;
         for(Picture picture:pictureSet){
             if(picture.getShunxu()>=begin){//本次修改的这一组
-                if(i<pictures.size()){
+                if(i<guolv.size()){
                     tempSet.add(updatePictures.get(i));
                     i++;
                 }
@@ -183,7 +187,15 @@ public class PersonalTagBL implements PersonalTagBLService {
         if(personalTag==null){
             return null;
         }else{
-            return personalTagTrans.transPoToVoPart(personalTag);
+            PersonalTagVO personalTagVO=personalTagTrans.transPoToVoPart(personalTag);
+            ArrayList<PictureVO> pictureVOS=personalTagVO.getPictures();
+            int random=(int)(Math.random()*(15));
+            String testUrl=Constant.testUrls[random];
+            PictureVO pictureVO=new PictureVO();
+            pictureVO.setUrl(testUrl);
+            pictureVOS.add(pictureVO);
+            personalTagVO.setPictures(pictureVOS);
+            return personalTagVO;
         }
     }
 

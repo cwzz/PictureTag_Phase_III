@@ -1,0 +1,27 @@
+{
+  "animal": [
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/animal1.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/animal2.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/animal3.jpg"
+  ],
+  "scene": [
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/scene1.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/scene2.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/scene3.jpg"
+  ],
+  "person": [
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/person1.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/person2.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/person3.jpg"
+  ],
+  "good": [
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/good1.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/good2.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/good3.jpg"
+  ],
+  "other": [
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/other1.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/other2.jpg",
+    "https://cwzz.oss-cn-beijing.aliyuncs.com/test/other3.jpg"
+  ]
+}
