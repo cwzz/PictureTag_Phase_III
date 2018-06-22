@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.persistence.Table;
@@ -21,6 +22,7 @@ public interface PersonalTagDao extends JpaRepository<PersonalTag, Long> {
     PersonalTag searchByPidAndUid(@Param("pid")String pid, @Param("uid") String uid);
 
     @Modifying
+    @Transactional
     @Query("delete from PersonalTag where pid=:pid and uid=:uid")
     void dropByPidAndUid(@Param("pid") String pid,@Param("uid") String uid);
 
