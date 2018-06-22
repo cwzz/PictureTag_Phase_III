@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * @CreateData: 2018/6/17 21:09
  */
 public class Constant {
-    public static int PictureNumPerGroup=3;
-    public static int MinimalNumToDivide=0;
+    public static int PictureNumPerGroup=5;
+    public static int MinimalNumToDivide=7;
 
     public static double RectanglePerPicture=3.5;
     public static double PricePerRectangle=0.17;
