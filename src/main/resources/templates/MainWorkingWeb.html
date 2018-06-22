@@ -671,11 +671,14 @@
                                 $.alert({
                                     title: '已全部完成',
                                     content: '当前项目的图片已全部完成，您可以返回项目详细信息页面提交该项目',
-                                    confirmButton: '确认',
+                                    confirmButton: '我知道了',
                                     confirmButtonClass: 'btn-info',
                                     icon: 'fa fa-question-circle',
                                     animation: 'rotate',
-                                    closeAnimation: 'right'
+                                    closeAnimation: 'right',
+                                    confirm:function(){
+                                        window.location.href="project_detail";
+                                    }
                                 })
                             }
                         },

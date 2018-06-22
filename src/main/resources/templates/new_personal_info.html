@@ -202,7 +202,7 @@
                 document.getElementById("name").innerText=data.username;
                 document.getElementById("experience").innerText=data.experience;
                 document.getElementById("points").innerText=data.credits;
-                document.getElementById("rank").innerText="超过"+data.rank+"%的用户";
+                document.getElementById("rank").innerText=data.rank;
                 current_des=data.description;
                 if(!data.description||data.description==""){
                     $("#personal_des").append(new_div);
