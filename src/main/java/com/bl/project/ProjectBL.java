@@ -20,6 +20,7 @@ import com.vo.personaltagvo.UidAndPoints;
 import com.vo.projectvo.*;
 import com.vo.tag.PersonalTagVO;
 import com.vo.uservo.ProBriefInfo;
+import com.vo.uservo.SanDianTuUser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,7 +164,7 @@ public class ProjectBL implements ProjectBLService {
             //更新用户的剩余积分
             //更新项目的积分
             Project project=projectDao.getOne(projectID);
-            userBLService.updateCredits(username,project.getPro_type(),credits*(-1));
+            userBLService.updateCredits(username,project.getPro_type(),project.getPoints(),credits*(-1),project.getReleaseTime());
             project.setPoints(project.getPoints()+credits);
             project.setZhuijiaPoints(credits);
             projectDao.saveAndFlush(project);
@@ -768,6 +769,24 @@ public class ProjectBL implements ProjectBLService {
         return res;
     }
 
+    @Override
+    public ArrayList<SanDianTuUser> getCreditsAndContractNum(String username) {
+        List<Project> projects=projectDao.findByUser(username);
+        //System.out.println(projects.get(0).toString());
+        ArrayList<SanDianTuUser> creditsAndContractNum=new ArrayList<>();
+        for(Project project:projects){
+            if(project.getPro_state().equals(ProjectState.EXAMINE)||project.getPro_state().equals(ProjectState.FINISHED)){
+                //积分，天数，人数
+                long diff=project.getDeadLine().getTime()-project.getReleaseTime().getTime();
+                double day=diff/(1000*60*60);
+                SanDianTuUser sanDianTuUser=new SanDianTuUser(project.getPoints(),day/24,project.getWorkerList().size());
+                System.err.println(sanDianTuUser.toString());
+                creditsAndContractNum.add(sanDianTuUser);
+            }
+        }
+        return creditsAndContractNum;
+    }
+
 
     //为用户推荐项目
     @Override
@@ -814,16 +833,18 @@ public class ProjectBL implements ProjectBLService {
         Set<String> workersSet=projectDao.getOne(pid).getWorkerList();
         List<String> workers1=new ArrayList<>(workersSet);
         for(String u:underwayTeam){
-            Set<String> temp=projectDao.getOne(u).getWorkerList();
-            List<String> workers2=new ArrayList<>(temp);
-            double simi=calWij(workers1,workers2);
-            Similarity similarity=similarityDao.showSimi(pid,u);
-            if(similarity==null){
-                Similarity newSimilarity=new Similarity(u,pid,simi);
-                similarityDao.saveAndFlush(newSimilarity);
-            }else{
-                similarity.setSimilarity(simi);
-                similarityDao.saveAndFlush(similarity);
+            if(!u.equals(pid)){
+                Set<String> temp=projectDao.getOne(u).getWorkerList();
+                List<String> workers2=new ArrayList<>(temp);
+                double simi=calWij(workers1,workers2);
+                Similarity similarity=similarityDao.showSimi(pid,u);
+                if(similarity==null){
+                    Similarity newSimilarity=new Similarity(u,pid,simi);
+                    similarityDao.saveAndFlush(newSimilarity);
+                }else{
+                    similarity.setSimilarity(simi);
+                    similarityDao.saveAndFlush(similarity);
+                }
             }
         }
     }

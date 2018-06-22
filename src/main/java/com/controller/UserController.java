@@ -2,6 +2,8 @@ package com.controller;
 
 
 import com.blservice.UserBLService;
+import com.dao.UserDao;
+import com.enums.ProjectType;
 import com.enums.ResultMessage;
 import com.model.BrowseRecord;
 import com.vo.uservo.*;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -16,11 +19,20 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private UserDao userDao;
+
     private final UserBLService userBLService;
     @Autowired
     public UserController(UserBLService userBLService) {
         this.userBLService = userBLService;
     }
+
+//    @RequestMapping(value = "/test")
+//    public @ResponseBody
+//    ArrayList<Map<ProjectType,Double>> testdao(){
+//        return userDao.getAllUserGongXian();
+//    }
 
     @RequestMapping(value = "/register")
     public @ResponseBody
