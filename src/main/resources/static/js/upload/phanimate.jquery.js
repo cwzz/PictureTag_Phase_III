@@ -424,7 +424,7 @@ function getRecommend() {
     if(worktime==""){
         warn_array.push("请先填写工作截止时间");
     }
-    if(project_size=="请选择项目预估大小..."){
+    if(project_size==""){
         warn_array.push("请先选择项目预估大小");
     }
 
@@ -436,31 +436,16 @@ function getRecommend() {
         alert(warn_str);
     }
     else{
-        var size="";
-        if(project_size=="100以下"){
-            size="UNDER_100";
-        }
-        else if(project_size=="100-500"){
-            size="OneToFive";
-        }
-        else if(project_size=="500-1000"){
-            size="FiveToTen";
-        }
-        else if(project_size=="1000-5000"){
-            size="TenToFifty";
-        }
-        else{
-            size="AboveFifty";
-        }
+        var size=project_size;
         var time=calculate_time(worktime);
         $.ajax({
             type : 'POST',
             url : '/project/predictPrice',
             async:false,
-            data :{picNum:size,day:time},
+            data :{pictureNum:size},
             //此处data为新建项目的pid
             success : function (data) {
-                $("#credits_available").val(data.MIN+"-"+data.MAX);
+                $("#credits_available").val(data);
             },
             error: function (data) {
                 alert("获取预估积分失败")
