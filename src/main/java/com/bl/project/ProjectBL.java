@@ -806,7 +806,10 @@ public class ProjectBL implements ProjectBLService {
             double score=0.0;
             for(ProBriefInfo p:proBriefInfos){
                 if(!pr.getPro_ID().equals(p.getPid())){
-                    score=score+similarityDao.showSimi(pr.getPro_ID(),p.getPid()).getSimilarity();
+                    System.err.println(pr.getPro_ID()+"---"+p.getPid());
+                    if(similarityDao.showSimi(pr.getPro_ID(),p.getPid())!=null){
+                        score=score+similarityDao.showSimi(pr.getPro_ID(),p.getPid()).getSimilarity();
+                    }
                 }
             }
             if(!pids.contains(pr.getPro_ID())){
