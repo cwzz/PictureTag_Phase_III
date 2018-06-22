@@ -361,24 +361,32 @@
 
         </div>
         <div id="second" style="height: 100%">
-            <div id="graphics">
-                <div style="float: left" id="left-graphic">
-                    <div id="gra1"></div>
-                    <div id="text1">
-                        <table>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
+            <div id="graphics" style="text-align: center">
+                <div style="width: 300px;margin-left: 50px">
+                    <select id="statistics" class="form-control form-control-chosen-required" onchange="changeStatisticM()" data-placeholder="请选择您想要查看的统计信息">
+                        <option></option>
+                        <option>每月新注册的用户数</option>
+                        <option>每月用户发布，工作，完成的项目数据统计</option>
+                        <option>每月新发布项目类型数据统计</option>
+                        <option>每月项目进行中数据统计</option>
+                        <option>每月已完成项目类型数据统计</option>
+                    </select>
+                </div>
+                <div id="inner">
+                    <div id="graph"></div>
+                    <div id="chart" style="overflow-y: auto">
+                        <table class="table table-hover personal-task">
+                            <thead id="table_title">
+                            </thead>
+                            <tbody id="table_data">
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                <div style="float: left" id="right_graphic">
-                    <div id="gra2"></div>
-                    <div id="text2"></div>
-                </div>
             </div>
-            <ul class="pagination" id="pagination2"></ul>
+            <div id="page">
+                <ul class="pagination" id="pagination2"></ul>
+            </div>
         </div>
         <div id="third" style="height: 100%">
 
@@ -664,7 +672,7 @@
 <script type="text/javascript">
 
     $.jqPaginator('#pagination2', {
-        totalPages: 3,
+        totalPages: 4,
         visiblePages: 10,
         currentPage: 1,
         first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
@@ -673,19 +681,25 @@
         last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
         page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
         onPageChange: function (num) {
-            // //$('#p2').text(text+num);
-            // document.getElementById("graphics").innerHTML=num;
-            if(num==1){
-                page1();
-            }
-            else if(num==2){
-                page2();
-            }
-            else if(num==3){
-                page3();
-            }
+            changePageM(num);
         }
     });
+
+    function initialPage() {
+        $.jqPaginator('#pagination2', {
+            totalPages: 4,
+            visiblePages: 10,
+            currentPage: 1,
+            first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+            next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+            last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            onPageChange: function (num) {
+                changePageM(num)
+            }
+        });
+    }
 </script>
 
 </body>
