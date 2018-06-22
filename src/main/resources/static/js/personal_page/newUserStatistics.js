@@ -87,7 +87,8 @@ function writeBar(data, divg, title) {
     value2.push(0);
     var temp_value=0;
     for(var i=1;i<value.length;i++){
-        temp_value+=value[i];
+        var t=parseFloat(value[i]);
+        temp_value+=t;
         value2.push(value[0]-temp_value);
     }
 
@@ -163,11 +164,20 @@ function writeBar2(data, divg, title, table_ti, table_data) {
     var keysAndvalues=getKeysAndValues(data,true);
     var keys=keysAndvalues.keys;
     var value=keysAndvalues.values;
+    if(title=="我在给定项目的积分上的投入产出比"){
+        keys=["合计","0-10","10-25","25-50","50-100",">100"];
+        value=[value[0],data["0-10"],data["10-25"],data["25-50"],data["50-100"],data[">100"]]
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        keys=["合计","0-0.5","0.5-1","1-2","2-4","4-6","6-8",">8"];
+        value=[value[0],data["0-0.5"],data["0.5-1"],data["1-2"],data["2-4"],data["4-6"],data["6-8"],data[">8"]]
+    }
     var value2=[];
     value2.push(0);
     var temp_value=0;
     for(var i=1;i<value.length;i++){
-        temp_value+=value[i];
+        var t=parseFloat(value[i]);
+        temp_value+=t;
         value2.push(value[0]-temp_value);
     }
 
@@ -234,9 +244,25 @@ function writeBar2(data, divg, title, table_ti, table_data) {
     };
     myChart.setOption(option);
 
-    var table_title=["标注分类","数量统计"];
-    var tempkeyvalue=getKeysAndValues(data,false);
-    writeChart(tempkeyvalue.keys,tempkeyvalue.values,table_title,table_ti,table_data);
+    if(title=="我在给定项目的积分上的投入产出比"){
+        var table_title=["积分区间","投入产出比"];
+        keys=["0-10","10-25","25-50","50-100",">100"];
+        value=[data["0-10"],data["10-25"],data["25-50"],data["50-100"],data[">100"]]
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        var table_title=["工作时间","贡献率"];
+        keys=["0-0.5","0.5-1","1-2","2-4","4-6","6-8",">8"];
+        value=[data["0-0.5"],data["0.5-1"],data["1-2"],data["2-4"],data["4-6"],data["6-8"],data[">8"]]
+        $("#chart2").css({"width":width/2-40+"px"});
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else{
+        var table_title=["标注分类","数量统计"];
+        var tempkeyvalue=getKeysAndValues(data,false);
+        writeChart(tempkeyvalue.keys,tempkeyvalue.values,table_title,table_ti,table_data);
+    }
+
 }
 
 function writePie(data, divg, title) {
@@ -293,7 +319,14 @@ function writePie2(data, divg, title, table_ti, table_data) {
     var keysAndvalues=getKeysAndValues(data, false);
     var keys=keysAndvalues.keys;
     var values=keysAndvalues.values;
-
+    if(title=="我在给定项目的积分上的投入产出比"){
+        keys=["0-10","10-25","25-50","50-100",">100"];
+        value=[data["0-10"],data["10-25"],data["25-50"],data["50-100"],data[">100"]]
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        keys=["0-0.5","0.5-1","1-2","2-4","4-6","6-8",">8"];
+        value=[data["0-0.5"],data["0.5-1"],data["1-2"],data["2-4"],data["4-6"],data["6-8"],data[">8"]]
+    }
     var need_data=[];
     for(var i=0;i<keys.length;i++){
         var temp={};
@@ -335,8 +368,20 @@ function writePie2(data, divg, title, table_ti, table_data) {
 
     myChart.setOption(option);
 
-    var table_title=["标注分类","数量统计"];
-    writeChart(keys,values,table_title,table_ti,table_data);
+
+    if(title=="我在给定项目的积分上的投入产出比"){
+        var table_title=["积分区间","投入产出比"];
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        var table_title=["工作时间","贡献率"];
+        $("#chart2").css({"width":width/2-40+"px"});
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else{
+        var table_title=["标注分类","数量统计"];
+        writeChart(keys,values,table_title,table_ti,table_data);
+    }
 }
 
 function writeRadar(data, divg, title) {
@@ -399,6 +444,14 @@ function writeRadar2(data, divg, title, table_ti, table_data) {
     var keysAndvalues=getKeysAndValues(data, false);
     var keys=keysAndvalues.keys;
     var values=keysAndvalues.values;
+    if(title=="我在给定项目的积分上的投入产出比"){
+        keys=["0-10","10-25","25-50","50-100",">100"];
+        value=[data["0-10"],data["10-25"],data["25-50"],data["50-100"],data[">100"]]
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        keys=["0-0.5","0.5-1","1-2","2-4","4-6","6-8",">8"];
+        value=[data["0-0.5"],data["0.5-1"],data["1-2"],data["2-4"],data["4-6"],data["6-8"],data[">8"]]
+    }
     var biggest_value=getBiggestValue(values);
     var need_indicator=[];
     for(var i=0;i<keys.length;i++){
@@ -447,9 +500,96 @@ function writeRadar2(data, divg, title, table_ti, table_data) {
     };
     myChart.setOption(option);
 
-    var table_title=["标注分类","数量统计"];
-    writeChart(keys,values,table_title,table_ti,table_data);
+    if(title=="我在给定项目的积分上的投入产出比"){
+        var table_title=["积分区间","投入产出比"];
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else if((title=="我在一定时间内的完成的项目贡献率")||(title=="系统在一定时间内的完成的项目贡献率")){
+        var table_title=["工作时间","贡献率"];
+        $("#chart2").css({"width":width/2-40+"px"});
+        writeChart(keys,value,table_title,table_ti,table_data);
+    }
+    else{
+        var table_title=["标注分类","数量统计"];
+        writeChart(keys,values,table_title,table_ti,table_data);
+    }
 }
+
+//三维
+//data是个包含对象的数组
+function writeScatter(data,divg,title) {
+    var need_data=[["X","Y","Z"]];
+    for(var i=0;i<data.length;i++){
+        var temp=[];
+        temp.push(data[i].zhibiao1);
+        temp.push(data[i].zhibiao2);
+        temp.push(data[i].zhibiao3);
+        need_data.push(temp);
+    }
+
+    var symbolSize = 2.5;
+    var myChart = echarts.init(document.getElementById(divg));
+    option = {
+        title: {
+            text: title,
+            left: 'center',
+        },
+        grid3D: {},
+        xAxis3D: {
+            type: 'category'
+        },
+        yAxis3D: {},
+        zAxis3D: {},
+        dataset: {
+            dimensions: [
+                'X',
+                'Y',
+                'Z',
+
+            ],
+            source: need_data
+        },
+        series: [
+            {
+                type: 'scatter3D',
+                symbolSize: symbolSize,
+                encode: {
+                    x: 'X',
+                    y: 'Y',
+                    z: 'Z',
+
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+    var charttitle=["X","Y","Z"];
+    writeChartFor3D(charttitle,need_data,"table_title","table_data");
+}
+
+//title是数组，data是返回的数据结构
+function writeChartFor3D(title,data,title_part,data_part) {
+    var table_title="<tr><th scope=\"col\" style=\"text-align: center;\">编号</th>";
+    for(var i=0;i<title.length;i++){
+        table_title+='<th scope="col" style="text-align: center;">'+title[i]+'</th>'
+    }
+    table_title+='</tr>';
+    document.getElementById(title_part).innerHTML=table_title;
+
+    var table_data="";
+    for(var i=1;i<data.length;i++){
+        var temp='<tr><td style=\"text-align: center\">'+i+'</td>';
+        for(var j=0;j<3;j++){
+            temp+='<td style="text-align: center">'+data[i][j]+'</td>'
+        }
+        temp+='</tr>';
+        table_data+=temp;
+        //table_data+='<tr><td style="text-align: center">'+data_title[i]+'</td><td style="text-align: center">'+values[i]+'</td></tr>'
+    }
+    document.getElementById(data_part).innerHTML=table_data;
+}
+
 
 //title是标题栏
 function writeChart(keys,values,title,title_part, data_part) {
@@ -476,8 +616,13 @@ function getKeysAndValues(data, need_all) {
     for(var key in data){
         keys.push(key);
         value.push(data[key])
-        total_value+=data[key];
+        var t=parseFloat(data[key]);
+        //total_value+=data[key];
+        total_value+=t;
     }
+    //alert(JSON.stringify(keys)+"inkey");
+    //alert(JSON.stringify(value)+"inkey");
+    //alert(total_value)
     if(need_all){
         var result_keys=[];
         var result_values=[];
@@ -525,7 +670,7 @@ function changeStatistic() {
 
 function changePage(num) {
     var statistic_graph=$("#statistics").val();
-    if((statistic_graph=="我在每类标注平均花费的时间")||(statistic_graph=="我在每类标注平均获得的积分")||(statistic_graph=="我在每类任务花费时间和得到积分的投入产出比")){
+    if((statistic_graph=="我在不同类别项目平均投入产出比/在给定项目的积分上的投入产出比")||(statistic_graph=="我（系统）在各个类别的贡献率")||(statistic_graph=="我（系统）在一定时间内的完成的项目贡献率")){
         initialGUI2();
     }
     else {
@@ -544,17 +689,20 @@ function changePage(num) {
         else if(statistic_graph=="我发布的处在各个类别的项目"){
             writeBar(data.releasePerType, "graph" ,"我发布的处在各个类别的项目");
         }
-        else if (statistic_graph=="我在每类标注平均花费的时间") {
-            writeBar2(data.avgTimePerType, "graph1" ,"我在每类标注平均花费的时间","table_title1","table_data1");
-            writeBar2(data.avgTimePerType, "graph2" ,"我在每类标注平均花费的时间","table_title2","table_data2");
+        else if (statistic_graph=="我在不同类别项目平均投入产出比/在给定项目的积分上的投入产出比") {
+            writeBar2(data.chanChuBiPerType, "graph1" ,"我在不同类别项目平均投入产出比","table_title1","table_data1");
+            writeBar2(data.chanChuBiByCredits, "graph2" ,"我在给定项目的积分上的投入产出比","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类标注平均获得的积分"){
-            writeBar2(data.avgCreditsPerType, "graph1" ,"我在每类标注平均获得的积分","table_title1","table_data1");
-            writeBar2(data.avgCreditsPerType, "graph2" ,"我在每类标注平均获得的积分","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在各个类别的贡献率"){
+            writeBar2(data.gongxianPerType, "graph1" ,"我在各个类别的贡献率","table_title1","table_data1");
+            writeBar2(data.gongxianPerTypeAllUser, "graph2" ,"系统在各个类别的贡献率","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类任务花费时间和得到积分的投入产出比"){
-            writeBar2(data.chanchubi, "graph1" ,"我在每类任务花费时间和得到积分的投入产出比","table_title1","table_data1");
-            writeBar2(data.chanchubi, "graph2" ,"我在每类任务花费时间和得到积分的投入产出比","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在一定时间内的完成的项目贡献率"){
+            writeBar2(data.gongxianAndTime, "graph1" ,"我在一定时间内的完成的项目贡献率","table_title1","table_data1");
+            writeBar2(data.gongxianAndTimeAllUser, "graph2" ,"系统在一定时间内的完成的项目贡献率","table_title2","table_data2");
+        }
+        else if(statistic_graph=="发布项目的积分和承包人数的关系图"){
+            writeScatter(data.creditsAndContractNum,"graph","发布项目的积分和承包人数的关系图");
         }
     }
     else if(num==2){
@@ -570,17 +718,20 @@ function changePage(num) {
         else if(statistic_graph=="我发布的处在各个类别的项目"){
             writePie(data.releasePerType, "graph" ,"我发布的处在各个类别的项目");
         }
-        else if (statistic_graph=="我在每类标注平均花费的时间") {
-            writePie2(data.avgTimePerType, "graph1" ,"我在每类标注平均花费的时间","table_title1","table_data1");
-            writePie2(data.avgTimePerType, "graph2" ,"我在每类标注平均花费的时间","table_title2","table_data2");
+        else if (statistic_graph=="我在不同类别项目平均投入产出比/在给定项目的积分上的投入产出比") {
+            writePie2(data.chanChuBiPerType, "graph1" ,"我在不同类别项目平均投入产出比","table_title1","table_data1");
+            writePie2(data.chanChuBiByCredits, "graph2" ,"我在给定项目的积分上的投入产出比","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类标注平均获得的积分"){
-            writePie2(data.avgCreditsPerType, "graph1" ,"我在每类标注平均获得的积分","table_title1","table_data1");
-            writePie2(data.avgCreditsPerType, "graph2" ,"我在每类标注平均获得的积分","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在各个类别的贡献率"){
+            writePie2(data.gongxianPerType, "graph1" ,"我在各个类别的贡献率","table_title1","table_data1");
+            writePie2(data.gongxianPerTypeAllUser, "graph2" ,"系统在各个类别的贡献率","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类任务花费时间和得到积分的投入产出比"){
-            writePie2(data.chanchubi, "graph1" ,"我在每类任务花费时间和得到积分的投入产出比","table_title1","table_data1");
-            writePie2(data.chanchubi, "graph2" ,"我在每类任务花费时间和得到积分的投入产出比","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在一定时间内的完成的项目贡献率"){
+            writePie2(data.gongxianAndTime, "graph1" ,"我在一定时间内的完成的项目贡献率","table_title1","table_data1");
+            writePie2(data.gongxianAndTimeAllUser, "graph2" ,"系统在一定时间内的完成的项目贡献率","table_title2","table_data2");
+        }
+        else if(statistic_graph=="发布项目的积分和承包人数的关系图"){
+
         }
     }
     else if(num==3){
@@ -596,17 +747,20 @@ function changePage(num) {
         else if(statistic_graph=="我发布的处在各个类别的项目"){
             writeRadar(data.releasePerType, "graph" ,"我发布的处在各个类别的项目");
         }
-        else if (statistic_graph=="我在每类标注平均花费的时间") {
-            writeRadar2(data.avgTimePerType, "graph1" ,"我在每类标注平均花费的时间","table_title1","table_data1");
-            writeRadar2(data.avgTimePerType, "graph2" ,"我在每类标注平均花费的时间","table_title2","table_data2");
+        else if (statistic_graph=="我在不同类别项目平均投入产出比/在给定项目的积分上的投入产出比") {
+            writeRadar2(data.chanChuBiPerType, "graph1" ,"我在不同类别项目平均投入产出比","table_title1","table_data1");
+            writeRadar2(data.chanChuBiByCredits, "graph2" ,"我在给定项目的积分上的投入产出比","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类标注平均获得的积分"){
-            writeRadar2(data.avgCreditsPerType, "graph1" ,"我在每类标注平均获得的积分","table_title1","table_data1");
-            writeRadar2(data.avgCreditsPerType, "graph2" ,"我在每类标注平均获得的积分","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在各个类别的贡献率"){
+            writeRadar2(data.gongxianPerType, "graph1" ,"我在各个类别的贡献率","table_title1","table_data1");
+            writeRadar2(data.gongxianPerTypeAllUser, "graph2" ,"系统在各个类别的贡献率","table_title2","table_data2");
         }
-        else if(statistic_graph=="我在每类任务花费时间和得到积分的投入产出比"){
-            writeRadar2(data.chanchubi, "graph1" ,"我在每类任务花费时间和得到积分的投入产出比","table_title1","table_data1");
-            writeRadar2(data.chanchubi, "graph2" ,"我在每类任务花费时间和得到积分的投入产出比","table_title2","table_data2");
+        else if(statistic_graph=="我（系统）在一定时间内的完成的项目贡献率"){
+            writeRadar2(data.gongxianAndTime, "graph1" ,"我在一定时间内的完成的项目贡献率","table_title1","table_data1");
+            writeRadar2(data.gongxianAndTimeAllUser, "graph2" ,"系统在一定时间内的完成的项目贡献率","table_title2","table_data2");
+        }
+        else if(statistic_graph=="发布项目的积分和承包人数的关系图"){
+
         }
     }
 }

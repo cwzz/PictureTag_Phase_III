@@ -49,6 +49,7 @@
 
     <!--统计信息所需的引用-->
     <script src="/js/statistic/echarts.js"></script>
+    <script src="http://echarts.baidu.com/dist/echarts-gl.min.js"></script>
     <script src="/js/personal_page/newUserStatistics.js"></script>
 
     <!--分页-->
@@ -413,9 +414,10 @@
                         <option>我承包的处在各个类别的项目</option>
                         <option>我发布的处在各个状态的项目</option>
                         <option>我发布的处在各个类别的项目</option>
-                        <option>我在每类标注平均花费的时间</option>
-                        <option>我在每类标注平均获得的积分</option>
-                        <option>我在每类任务花费时间和得到积分的投入产出比</option>
+                        <option>我在不同类别项目平均投入产出比/在给定项目的积分上的投入产出比</option>
+                        <option>我（系统）在各个类别的贡献率</option>
+                        <option>我（系统）在一定时间内的完成的项目贡献率</option>
+                        <option>发布项目的积分和承包人数的关系图</option>
                     </select>
                 </div>
                 <div id="inner">
@@ -2671,8 +2673,13 @@
     });
 
     function initialPage() {
+        var page=3;
+        var statistic=$("#statistics").val();
+        if(statistic=="发布项目的积分和承包人数的关系图"){
+            page=1;
+        }
         $.jqPaginator('#pagination2', {
-            totalPages: 3,
+            totalPages: page,
             visiblePages: 10,
             currentPage: 1,
             first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
