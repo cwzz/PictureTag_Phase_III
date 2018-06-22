@@ -814,16 +814,18 @@ public class ProjectBL implements ProjectBLService {
         Set<String> workersSet=projectDao.getOne(pid).getWorkerList();
         List<String> workers1=new ArrayList<>(workersSet);
         for(String u:underwayTeam){
-            Set<String> temp=projectDao.getOne(u).getWorkerList();
-            List<String> workers2=new ArrayList<>(temp);
-            double simi=calWij(workers1,workers2);
-            Similarity similarity=similarityDao.showSimi(pid,u);
-            if(similarity==null){
-                Similarity newSimilarity=new Similarity(u,pid,simi);
-                similarityDao.saveAndFlush(newSimilarity);
-            }else{
-                similarity.setSimilarity(simi);
-                similarityDao.saveAndFlush(similarity);
+            if(!u.equals(pid)){
+                Set<String> temp=projectDao.getOne(u).getWorkerList();
+                List<String> workers2=new ArrayList<>(temp);
+                double simi=calWij(workers1,workers2);
+                Similarity similarity=similarityDao.showSimi(pid,u);
+                if(similarity==null){
+                    Similarity newSimilarity=new Similarity(u,pid,simi);
+                    similarityDao.saveAndFlush(newSimilarity);
+                }else{
+                    similarity.setSimilarity(simi);
+                    similarityDao.saveAndFlush(similarity);
+                }
             }
         }
     }
