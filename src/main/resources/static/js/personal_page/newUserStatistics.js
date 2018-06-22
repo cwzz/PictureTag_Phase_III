@@ -59,7 +59,7 @@ function initialGUI2() {
         '                                </tbody>\n' +
         '                            </table>\n' +
         '                        </div>\n' +
-        '                        <div id="chart2" style="float: left">\n' +
+        '                        <div id="chart2" style="float: left;">\n' +
         '                            <table class="table table-hover personal-task">\n' +
         '                                <thead id="table_title2">\n' +
         '                                </thead>\n' +
@@ -71,11 +71,11 @@ function initialGUI2() {
     $("#graphics").css({"width":width+"px","height":gheight+"px"});
     $("#pagination2").css({"margin-left":(width-page_width)/2+"px"});
     $("#graph").css({"width":width+"px","height":gheight*0.6+"px"});
-    $("#chart").css({"width":width+"px","height":gheight*0.38+"px"});
+    $("#chart").css({"width":width+"px","height":gheight*0.38+"px","text-align":"center"});
     $("#graph1").css({"width":width/2-10+"px","height":gheight*0.6+"px","margin-left":"5px","margin-right":"5px"});
     $("#graph2").css({"width":width/2-10+"px","height":gheight*0.6+"px","margin-left":"5px","margin-right":"5px"});
     $("#chart1").css({"width":width/2-10+"px","height":gheight*0.38+"px","margin-left":"5px","margin-right":"5px"});
-    $("#chart2").css({"width":width/2-10+"px","height":gheight*0.38+"px","margin-left":"5px","margin-right":"5px"});
+    $("#chart2").css({"width":width/2-40+"px","height":gheight*0.38+"px","margin-left":"5px","margin-right":"5px"});
 
 }
 
