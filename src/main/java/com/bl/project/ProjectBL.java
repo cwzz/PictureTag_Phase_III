@@ -1167,12 +1167,22 @@ public class ProjectBL implements ProjectBLService {
             ArrayList<String> workers=new ArrayList<>(projectDao.getOne(p.getPro_ID()).getWorkerList());
             double sum=0;
             for(String w:workers){
-                sum=sum+(double) personalTagBLService.getWorkGroup(p.getPro_ID(),w)/(double)(p.getUrls().size()/Constant.PictureNumPerGroup);
+                System.err.println("num---"+(double)personalTagBLService.getWorkGroup(p.getPro_ID(),w));
+                System.err.println("group---"+(p.getUrls().size()/Constant.PictureNumPerGroup));
+                if(p.getUrls().size()/Constant.PictureNumPerGroup==0&&personalTagBLService.getWorkGroup(p.getPro_ID(),w)==1){
+                    sum=sum+1;
+                }else if(p.getUrls().size()/Constant.PictureNumPerGroup==0&&personalTagBLService.getWorkGroup(p.getPro_ID(),w)==0){
+                    sum=sum+0;
+                }else{
+                    sum=sum+(double) personalTagBLService.getWorkGroup(p.getPro_ID(),w)/(p.getUrls().size()/Constant.PictureNumPerGroup);
+                }
             }
             SanDianTuVO sanDianTuVO;
             if(workers.size()==0){
                 sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),0.0);
             }else{
+                System.err.println("sum---"+sum);
+                System.err.println(workers.size());
                 sanDianTuVO=new SanDianTuVO(p.getUrls().size(),calDays(p.getDeadLine(),p.getReleaseTime()),sum/workers.size());
             }
             res.add(sanDianTuVO);
@@ -1205,6 +1215,8 @@ public class ProjectBL implements ProjectBLService {
                 sum5=sum5+p.getPoints()-predictPrice(p.getUrls().size());
             }
         }
+//        System.err.println("tag---"+tag1);
+//        System.err.println("sum---"+sum1);
         String[] a=Constant.picRange;
         if(tag1==0){
             res.put(a[0],0.0);
