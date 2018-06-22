@@ -26,8 +26,8 @@ public class UserStatistics {
 
 
     //对于承包者的统计数据
-    private Map<ProjectType,String> ChanChuBiPerType;//用户在不同类别的项目投入产出比
-    private Map<ProjectType,String> ChanChuBiByCredits;//用户在给定项目的积分上的投入产出比
+    private Map<ProjectType,String> ChanChuBiPerType;//用户在不同类别的项目平均投入产出比
+    private Map<String,String> ChanChuBiByCredits;//用户在给定项目的积分上的投入产出比
 
     private Map<ProjectType,String> gongxianPerType;//用户在各个类别的贡献率(就是之前写的quality)
     private Map<ProjectType,String> gongxianPerTypeAllUser;//整个系统的用户在各个类别的贡献率
@@ -37,6 +37,6 @@ public class UserStatistics {
     private Map<String,String> gongxianAndTimeAllUser;
 
     //对于发布项目的统计数据
-    private Map<Double,Integer> creditsAndNumAnimal;//用户发布多少积分对应会有多少人来承包，可以画散点图
+    private Map<Double,Integer> creditsAndContractNum;//用户发布多少积分对应会有多少人来承包，可以画散点图
 
 }

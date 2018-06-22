@@ -310,11 +310,6 @@ public class UserBL implements UserBLService {
         res.put(ProjectState.FINISHED.toString(),finishR);
         result.setReleasePerState(res);
 
-        DecimalFormat df=new DecimalFormat("##########0.00");
-        Map<ProjectType,String> quality=new HashMap<>();
-        for(Map.Entry<ProjectType,Double> entry:user.getQuality().entrySet()){
-            quality.put(entry.getKey(),df.format(entry.getValue()));
-        }
         String[] gongxian= Constant.GongXian;
         Map<Integer,Integer> gongXianPhase=user.getGongXian();
         Map<String,Integer> return_gongxian=new HashMap<>();
@@ -322,37 +317,85 @@ public class UserBL implements UserBLService {
             return_gongxian.put(gongxian[i],gongXianPhase.get(i));
         }
         result.setGongXian(return_gongxian);
-        result.setContractPerType(user.getContractTypeNum());
-        result.setReleasePerType(user.getReleaseTypeNum());
+        result.setContractPerType(user.getContractPerType());
+        result.setReleasePerType(user.getReleasePerType());
 
-        ProjectType[] types= Constant.Types;
+        DecimalFormat df=new DecimalFormat("##########0.00");
 
-        Map<ProjectType,Double> user_avgTime=user.getAvgTimePerType();
-        Map<ProjectType,String> avgTime=new HashMap<>();
-        for(Map.Entry<ProjectType,Double> entry:user_avgTime.entrySet()){
-            avgTime.put(entry.getKey(),df.format(entry.getValue()));
+        //用户在不同类别的项目平均投入产出比,double类型保留两位小数
+        Map<ProjectType,String> chanchubiType=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:user.getChanchuType().entrySet()){
+            chanchubiType.put(entry.getKey(),df.format(entry.getValue()));
         }
+        result.setChanChuBiPerType(chanchubiType);
 
-        Map<ProjectType,Double> user_avgCredits=user.getAvgCreditsPerType();
-        Map<ProjectType,String> avgCredits=new HashMap<>();
-        for(Map.Entry<ProjectType,Double> entry:user_avgCredits.entrySet()){
-            avgCredits.put(entry.getKey(),df.format(entry.getValue()));
+        //用户在给定项目的积分上的投入产出比
+        Map<String,String> chanchubiByCredits=new HashMap<>();
+        String[] creditsPhase=Constant.CreditsPhase;
+        for(Map.Entry<Integer,String> entry:user.getChanchuByCredits().entrySet()){
+            chanchubiByCredits.put(creditsPhase[entry.getKey()],entry.getValue().split(" ")[1]);
         }
+        result.setChanChuBiByCredits(chanchubiByCredits);
 
-        Map<ProjectType,String> chanchubi=new HashMap<>();
-        for (ProjectType type : types) {
-            if(user.getAvgTimePerType().get(type)!=0){
-                chanchubi.put(type, df.format(user_avgCredits.get(type)/user_avgTime.get(type)));
-            }else{
-                chanchubi.put(type,"0.0");
+        //用户在各个类别的贡献率(就是之前写的quality)
+        Map<ProjectType,String> quality=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:user.getQuality().entrySet()){
+            quality.put(entry.getKey(),df.format(entry.getValue()));
+        }
+        result.setGongxianPerType(quality);
+        //整个系统的用户在各个类别的贡献率
+        List<User> users=userDao.findAll();
+        Map<ProjectType,Double> allQuality=new HashMap<>();
+        Map<ProjectType,Integer> countNum=new HashMap<>();
+        for(ProjectType t:Constant.Types){
+            allQuality.put(t,0.0);
+            countNum.put(t,0);
+        }
+        for(User u:users){
+            for(Map.Entry<ProjectType,Double> entry:u.getQuality().entrySet()){
+                if(entry.getValue()!=0){
+                    countNum.put(entry.getKey(),countNum.get(entry.getKey())+1);
+                    allQuality.put(entry.getKey(),allQuality.get(entry.getKey())+entry.getValue());
+                }
             }
         }
+        Map<ProjectType,String> qualityAllUser=new HashMap<>();
+        for(Map.Entry<ProjectType,Double> entry:allQuality.entrySet()){
+            ProjectType type=entry.getKey();
+            if(countNum.get(type)!=0){
+                qualityAllUser.put(type,df.format(entry.getValue()/countNum.get(type)));
+            }else{
+                qualityAllUser.put(type,"0.0");
+            }
+        }
+        result.setGongxianPerTypeAllUser(qualityAllUser);
 
-//        result.setAvgTimePerType(avgTime);
-//        result.setAvgCreditsPerType(avgCredits);
-//        result.setChanchubi(chanchubi);
+        //用户在一定时间内的完成的项目贡献率如何，比如<30分钟完成的项目平均贡献率是多少，30—60分钟完成的项目平均贡献率是多少
+        String[] timePhase=Constant.TimeGroup;
+        Map<String,String> gongxianAndTime=new HashMap<>();
+        for(Map.Entry<Integer,String> entry:user.getQualityAndtime().entrySet()){
+            gongxianAndTime.put(timePhase[entry.getKey()],entry.getValue().split(" ")[1]);
+        }
+        result.setGongxianAndTime(gongxianAndTime);
+        //整个系统关于这个指标的统计
+        Map<String,String> gongxianAndTimeAllUser=new HashMap<>();
+        Map<Integer,Double> tempAllUser=new HashMap<>();
+        for(int i=0;i<timePhase.length;i++){
+            tempAllUser.put(i,0.0);
+        }
+        for(User u:users){
+            for(Map.Entry<Integer,String> en:u.getQualityAndtime().entrySet()){
+                tempAllUser.put(en.getKey(),Double.valueOf(en.getValue().split(" ")[1])+tempAllUser.get(en.getKey()));
+            }
+
+        }
+        for(Map.Entry<Integer,Double> e:tempAllUser.entrySet()){
+            gongxianAndTimeAllUser.put(timePhase[e.getKey()],df.format(e.getValue()/users.size()));
+        }
+        result.setGongxianAndTimeAllUser(gongxianAndTimeAllUser);
         return result;
     }
+
 
     //计算排名，根据经验值
     private int calculateRank(String username){
@@ -395,34 +438,51 @@ public class UserBL implements UserBLService {
     }
 
     @Override
-    public ResultMessage updateCredits(String username, ProjectType type, double dValue) {
+    public ResultMessage updateCredits(String username, ProjectType type,double totalCredits,double dValue,Date startTime) {
             User user=userDao.getOne(username);
             user.setCredits(user.getCredits()+dValue);
-            if(dValue>0){//如果承包者获得积分，更新他该类别的平均积分
-                Map<ProjectType,Double> avgCredits=user.getAvgCreditsPerType();
-                double oldAvgCredit=avgCredits.get(type);
-                int contractNumThisType=user.getContractTypeNum().get(type);
-                avgCredits.put(type,(oldAvgCredit*(contractNumThisType-1)+dValue)/contractNumThisType);
-                user.setAvgCreditsPerType(avgCredits);
+            if(dValue>0){//如果承包者获得积分，更新他该类别的数据
+
+                //更新该用户本类别的投入产出率
+                Map<ProjectType,Double> chanchuPerType=user.getChanchuType();
+                double old=chanchuPerType.get(type);
+                int contractNumThisType=user.getContractPerType().get(type);
+                Date now=new Date();
+                long time=(now.getTime()-startTime.getTime())/(1000*60);
+                double diff=dValue/time;
+                chanchuPerType.put(type,(old*(contractNumThisType-1)+diff)/contractNumThisType);
+                user.setChanchuType(chanchuPerType);
+
+                //更新用户用户在给定项目的积分上的投入产出比
+                int[] CreditSplit=Constant.CreditsSplit;
+                int index;
+                if(totalCredits<=CreditSplit[0]){
+                    index=0;
+                }else if(totalCredits<=CreditSplit[1]){
+                    index=1;
+                }else if(totalCredits<=CreditSplit[2]){
+                    index=2;
+                }else if(totalCredits<CreditSplit[3]){
+                    index=3;
+                }else {
+                    index=4;
+                }
+                Map<Integer,String> chanchuByCredits=user.getChanchuByCredits();
+                double oldChanchu=Double.valueOf(chanchuByCredits.get(index).split(" ")[1]);
+                int num=Integer.valueOf(chanchuByCredits.get(index).split(" ")[0]);
+                double newChanchu=(num*oldChanchu+diff)/(num+1);
+                chanchuByCredits.put(index,(num+1)+" "+newChanchu);
+                user.setChanchuByCredits(chanchuByCredits);
             }
             userDao.saveAndFlush(user);
             return ResultMessage.SUCCESS;
     }
 
-    //更新用户的经验值，并同时更新排名
     @Override
-    public ResultMessage updateExperience(String username, double dValue) {
-            User user=userDao.getOne(username);
-            user.setExperience(user.getExperience()+dValue);
-            userDao.saveAndFlush(user);
-            return ResultMessage.SUCCESS;
-    }
-
-    @Override
-    public ResultMessage updateQuality(String username, ProjectType type, double gongXian) {
+    public ResultMessage updateQuality(String username, ProjectType type, double gongXian,Date startTime) {
         User user=userDao.searchUserById(username);
 
-        Map<ProjectType,Integer> contractPerType=user.getContractTypeNum();
+        Map<ProjectType,Integer> contractPerType=user.getContractPerType();
         //用户的各类别标注质量的统计信息改变
         Map<ProjectType,Double> quality=user.getQuality();
         double oldTypeQuality=quality.get(type);
@@ -449,33 +509,48 @@ public class UserBL implements UserBLService {
             gongXianPhase.put(4,gongXianPhase.get(4)+1);
         }
         user.setGongXian(gongXianPhase);
+
+        //用户在一定时间内的完成的项目贡献率改变
+        double[] timeSplit=Constant.TimeSplit;
+        int index=0;
+        double hours=(new Date().getTime()-startTime.getTime())/(1000*60*60);
+        for(;index<=timeSplit.length;index++){
+            if(index==timeSplit.length){
+                break;
+            }
+            if(hours<=timeSplit[index]){
+                break;
+            }
+        }
+
+        Map<Integer,String> gongxianAndTime=user.getQualityAndtime();
+        double oldQuality=Double.valueOf(gongxianAndTime.get(index).split(" ")[1]);
+        int num=Integer.valueOf(gongxianAndTime.get(index).split(" ")[0]);
+        double newQuality=(num*oldQuality+gongXian)/(num+1);
+        gongxianAndTime.put(index,(num+1)+" "+newQuality);
+        user.setChanchuByCredits(gongxianAndTime);
         userDao.saveAndFlush(user);
         return ResultMessage.SUCCESS;
     }
 
+    //更新用户的经验值，并同时更新排名
     @Override
-    public void updateAvgTimePerTime(String username, ProjectType type, Date startTime) {
-        User user=userDao.searchUserById(username);
-        Map<ProjectType,Double> avgTime=user.getAvgTimePerType();
-        double timeThisType=avgTime.get(type);
-        int contractThisType=user.getContractTypeNum().get(type);
-        Date now=new Date();
-        long time=(now.getTime()-startTime.getTime())/(1000*60);
-        avgTime.put(type,(timeThisType*(contractThisType-1)+time)/contractThisType);
-        user.setAvgTimePerType(avgTime);
+    public ResultMessage updateExperience(String username, double dValue) {
+        User user=userDao.getOne(username);
+        user.setExperience(user.getExperience()+dValue);
         userDao.saveAndFlush(user);
+        return ResultMessage.SUCCESS;
     }
-
     @Override
     public ResultMessage NewRelease(String username, ProjectType type) {
         User user=userDao.getOne(username);
         user.setNum_Release(user.getNum_Release()+1);
         user.setActiveRelease(user.getActiveRelease()+ 10);
 
-        Map<ProjectType,Integer> releaseTypeNum=user.getReleaseTypeNum();
+        Map<ProjectType,Integer> releaseTypeNum=user.getReleasePerType();
         int old=releaseTypeNum.get(type);
         releaseTypeNum.put(type,old+1);
-        user.setReleaseTypeNum(releaseTypeNum);
+        user.setReleasePerType(releaseTypeNum);
         userDao.saveAndFlush(user);
         return ResultMessage.SUCCESS;
     }
@@ -486,10 +561,10 @@ public class UserBL implements UserBLService {
         user.setNum_Contract(user.getNum_Contract()+1);
         user.setActiveContract(user.getActiveContract()+1);
 
-        Map<ProjectType,Integer> contractTypeNum=user.getContractTypeNum();
+        Map<ProjectType,Integer> contractTypeNum=user.getContractPerType();
         int old=contractTypeNum.get(type);
         contractTypeNum.put(type,old+1);
-        user.setContractTypeNum(contractTypeNum);
+        user.setContractPerType(contractTypeNum);
         userDao.saveAndFlush(user);
         return ResultMessage.SUCCESS;
     }

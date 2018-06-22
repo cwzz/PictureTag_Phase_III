@@ -157,7 +157,8 @@ public class PersonalTagBL implements PersonalTagBLService {
                 personalTag.setPoints(points);
                 //这里有问题，ptid不能设定
                 personalTagDao.saveAndFlush(personalTag);
-                userBLService.updateCredits(uid,projectBLService.viewPro(pid).getPro_type(),points);
+                userBLService.updateCredits(uid,projectBLService.viewPro(pid).getPro_type(),projectBLService.viewPro(pid).getPoints(),points,personalTag.getStartTime());
+                userBLService.updateQuality(uid,projectBLService.viewPro(pid).getPro_type(),personalTag.getQuality(),personalTag.getStartTime());
                 return ResultMessage.SUCCESS;
             }
         }catch (Exception e){

@@ -82,8 +82,7 @@ public interface ProjectBLService{
 
     ArrayList<Recommend1> newestPro();
 
-//    ArrayList<>
-
+    Map<Double,Integer> getCreditsAndContractNum(String username);
 
 
 

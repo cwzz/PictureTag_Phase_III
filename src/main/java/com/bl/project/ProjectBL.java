@@ -162,7 +162,7 @@ public class ProjectBL implements ProjectBLService {
             //更新用户的剩余积分
             //更新项目的积分
             Project project=projectDao.getOne(projectID);
-            userBLService.updateCredits(username,project.getPro_type(),credits*(-1));
+            userBLService.updateCredits(username,project.getPro_type(),project.getPoints(),credits*(-1),project.getReleaseTime());
             project.setPoints(project.getPoints()+credits);
             projectDao.saveAndFlush(project);
             //发消息给发起者和承包者
@@ -763,6 +763,18 @@ public class ProjectBL implements ProjectBLService {
             res.add(new Recommend1(a));
         }
         return res;
+    }
+
+    @Override
+    public Map<Double, Integer> getCreditsAndContractNum(String username) {
+        List<Project> projects=projectDao.findByUser(username);
+        Map<Double,Integer> creditsAndContractNum=new HashMap<>();
+        for(Project project:projects){
+            if(project.getPro_state().equals(ProjectState.EXAMINE)||project.getPro_state().equals(ProjectState.FINISHED)){
+                //creditsAndContractNum.put()
+            }
+        }
+        return creditsAndContractNum;
     }
 
 
