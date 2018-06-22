@@ -2,6 +2,8 @@ package com.bl;
 
 import com.enums.ProjectType;
 
+import java.util.ArrayList;
+
 /**
  * @Author:zhangping
  * @Description:
@@ -78,5 +80,23 @@ public class Constant {
             "50-100人",
             "100-200人",
             ">200人"
+    };
+
+    public static String[] testUrls={
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/animal1.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/animal2.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/animal3.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/scene1.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/scene2.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/scene3.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/person1.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/person2.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/person3.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/good1.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/good2.jpg",
+            "cwzz.oss-cn-beijing.aliyuncs.com/test/good3.jpg",
+          "cwzz.oss-cn-beijing.aliyuncs.com/test/other1.jpg",
+          "cwzz.oss-cn-beijing.aliyuncs.com/test/other2.jpg",
+          "cwzz.oss-cn-beijing.aliyuncs.com/test/other3.jpg"
     };
 }

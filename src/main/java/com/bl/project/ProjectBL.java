@@ -736,9 +736,11 @@ public class ProjectBL implements ProjectBLService {
         Set<String> workers=projectDao.getOne(pid).getWorkerList();
         for(String w:workers){
             PersonalTagVO personalTagVO=personalTagBLService.showPersonalTagBySomeOne(pid,w);
-            long spendTime=(personalTagVO.getSubmitTime().getTime()-personalTagVO.getStartTime().getTime())/1000/60;
-            FinishCondition finishCondition=new FinishCondition(0,w,personalTagVO.getSubmitTime(),spendTime);
-            res.add(finishCondition);
+            if(personalTagVO.getSubmitTime()!=null){
+                long spendTime=(personalTagVO.getSubmitTime().getTime()-personalTagVO.getStartTime().getTime())/1000/60;
+                FinishCondition finishCondition=new FinishCondition(0,w,personalTagVO.getSubmitTime(),spendTime);
+                res.add(finishCondition);
+            }
         }
 
         Collections.sort(res, new Comparator<FinishCondition>() {

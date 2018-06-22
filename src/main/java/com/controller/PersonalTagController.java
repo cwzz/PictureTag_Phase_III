@@ -50,7 +50,9 @@ public class PersonalTagController {
     @RequestMapping(value = "/showPersonalTag")
     public @ResponseBody
     PersonalTagVO showPersonalTagBySomeOne(@RequestBody ShowReq showReq){
-        return personalTagBLService.showPersonalTagBySomeOne(showReq.getPid(),showReq.getUid());
+        PersonalTagVO personalTagVO= personalTagBLService.showPersonalTagBySomeOne(showReq.getPid(),showReq.getUid());
+        System.out.println(personalTagVO.toString());
+        return personalTagVO;
     }
 
     @RequestMapping(value="/show")

@@ -24,5 +24,7 @@ public class UserStatisticsToAdmin {
     private int registerThisMonth;
     private Map<String,Integer> registerPerMonth;
 
+    private Map<String,Integer> userNumPerTimePhase;
+
     public UserStatisticsToAdmin(){}
 }
